@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View, ScrollView} from 'react-native'
 import Header from '../components/main/Header'
+import Footer from '../components/main/Footer'
 
 export default class App extends Component {
   render() {
@@ -8,7 +9,12 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Header onPress={() => navigation.openDrawer()} />
-        <Text style={styles.welcome}>Hello SaudaApp</Text>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.bodyView}>
+            <Text style={styles.welcome}>Hello SaudaApp</Text>
+          </View>
+        </ScrollView>  
+        <Footer onPress={() => navigation.openDrawer()} />
       </View>
     )
   }
@@ -16,6 +22,12 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1    
+  },
+  scrollView: {
+    flex: 1
+  },
+  bodyView: {
     flex: 1,
     justifyContent: 'flex-start'
   }

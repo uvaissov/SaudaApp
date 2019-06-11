@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { TextInput } from 'react-native-gesture-handler'
 
-export default class Header extends Component {
+export default class Footer extends Component {
   render() {
     const { onPress } = this.props
     return (
