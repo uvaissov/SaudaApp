@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { TextInput } from 'react-native-gesture-handler'
+import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
+import { FastImage } from 'react-native-fast-image'
 
 export default class Header extends Component {
   render() {
@@ -10,13 +9,25 @@ export default class Header extends Component {
       <View style={[styles.container, styles.shadow]}>
         <View style={styles.headerView}>
           <TouchableOpacity onPress={onPress}>          
-            <Ionicons name="md-menu" size={40} color="#67cf70" />
+            <FastImage
+              style={styles.image}
+              source={require('../../../resources/images/icons/header/menu.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </TouchableOpacity>
           <View style={styles.textView}>
             <TextInput style={[styles.textInput]} placeholder="Введите название продукта" />
-            <Ionicons name="ios-search" size={20} color="#67cf70" />
+            <FastImage
+              style={styles.image}
+              source={require('../../../resources/images/icons/header/search.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </View>
-          <Ionicons name="ios-home" size={40} color="#67cf70" />
+          <FastImage
+            style={styles.image}
+            source={require('../../../resources/images/icons/header/location.png')}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </View>
       </View>
     )
@@ -24,6 +35,10 @@ export default class Header extends Component {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    height: 50,
+    width: 50
+  },
   container: {
     height: 60,
     justifyContent: 'flex-end',
