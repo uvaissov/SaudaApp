@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import FastImage from 'react-native-fast-image'
 import Login from '../../components/modals/Login'
 
 export default class Footer extends Component {
@@ -15,22 +15,38 @@ export default class Footer extends Component {
         <View style={styles.view}>
           <TouchableOpacity onPress={() => this.setState({loginShow: true})}>
             <View style={styles.buttton}>
-              <Ionicons name="ios-home" size={40} color="#67cf70" />              
+              <FastImage
+                style={styles.image}
+                source={require('../../../resources/images/icons/footer/profile.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />              
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={styles.buttton}>
-              <Ionicons name="ios-home" size={40} color="#67cf70" />
+              <FastImage
+                style={styles.image}
+                source={require('../../../resources/images/icons/footer/favorite.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              /> 
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={styles.buttton}>
-              <Ionicons name="ios-home" size={40} color="#67cf70" />
+              <FastImage
+                style={styles.image}
+                source={require('../../../resources/images/icons/footer/callme.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              /> 
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={styles.buttton}>
-              <Ionicons name="ios-home" size={40} color="#67cf70" />
+              <FastImage
+                style={styles.image}
+                source={require('../../../resources/images/icons/footer/basket.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
             </View>
           </TouchableOpacity>
         </View>
@@ -40,6 +56,10 @@ export default class Footer extends Component {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    height: 40,
+    width: 40
+  },
   buttton: {
     height: 50,
     width: 50,

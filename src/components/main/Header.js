@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
-import { FastImage } from 'react-native-fast-image'
+import FastImage from 'react-native-fast-image'
 
 export default class Header extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class Header extends Component {
           <View style={styles.textView}>
             <TextInput style={[styles.textInput]} placeholder="Введите название продукта" />
             <FastImage
-              style={styles.image}
+              style={{height: 15, width: 15}}
               source={require('../../../resources/images/icons/header/search.png')}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -36,8 +36,8 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   image: {
-    height: 50,
-    width: 50
+    height: 30,
+    width: 30
   },
   container: {
     height: 60,

@@ -16,7 +16,8 @@ export default class App extends Component {
         <Header onPress={() => navigation.openDrawer()} />
         <ScrollView style={styles.scrollView}>
           <View style={styles.bodyView}>
-            <Text style={styles.welcome}>Hello SaudaApp</Text>            
+            <Text style={styles.welcome}>Hello SaudaApp РегисТРАЦИЯ</Text> 
+            <Text>Hello SaudaApp</Text>              
           </View>
         </ScrollView>        
         <Footer />
@@ -26,6 +27,9 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  welcome: {
+    fontFamily: 'gothic'
+  },
   container: {
     flex: 1    
   },

@@ -1,8 +1,8 @@
 import React from 'react'
-import { ScrollView, View, Text, Platform, Animated, Easing } from 'react-native'
+import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet } from 'react-native'
 import { createDrawerNavigator, createAppContainer, DrawerItems, createStackNavigator } from 'react-navigation'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import FastImage from 'react-native-fast-image'
 import Catalog from './Catalog'
 import HowOrder from './drawer/HowOrder'
 import DeliveryAndPay from './drawer/DeliveryAndPay'
@@ -94,13 +94,24 @@ const CatalogStack = createStackNavigator(
   }
 )
 
+const styles = StyleSheet.create({
+  image: {
+    height: 30,
+    width: 30
+  }
+})
+
 const Screens = createDrawerNavigator({
   Catalog: {
     screen: CatalogStack,
     navigationOptions: {
       drawerLabel: 'Каталог',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="home" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/basket2.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   },
@@ -108,8 +119,12 @@ const Screens = createDrawerNavigator({
     screen: HowOrder,
     navigationOptions: {
       drawerLabel: 'Как сделать заказ?',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="favorite" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/basket1.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   },
@@ -117,8 +132,12 @@ const Screens = createDrawerNavigator({
     screen: DeliveryAndPay,
     navigationOptions: {
       drawerLabel: 'Доставка и оплата',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="room" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/delivery.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   },
@@ -126,8 +145,12 @@ const Screens = createDrawerNavigator({
     screen: AboutApp,
     navigationOptions: {
       drawerLabel: 'О приложении',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="room" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/info.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   },
@@ -135,8 +158,12 @@ const Screens = createDrawerNavigator({
     screen: Vacancy,
     navigationOptions: {
       drawerLabel: 'Вакансии',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="work" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/info2.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   },
@@ -144,8 +171,12 @@ const Screens = createDrawerNavigator({
     screen: Contact,
     navigationOptions: {
       drawerLabel: 'Контакты',
-      drawerIcon: ({ tintColor }) => (
-        <MaterialIcons name="message" size={24} style={{ color: tintColor }} />
+      drawerIcon: () => (
+        <FastImage
+          style={styles.image}
+          source={require('../../resources/images/icons/sidemenu/callme.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
       )
     }
   }
