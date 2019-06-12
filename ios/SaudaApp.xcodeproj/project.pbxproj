@@ -58,6 +58,8 @@
 		09415DA09D1142BDAA8C30F2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD08A0812C144FBD9463D940 /* Octicons.ttf */; };
 		6E68DB51D4014019B17F965B /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34AA23421DD641ACBA9C747C /* SimpleLineIcons.ttf */; };
 		71D36F73C3834B62937F748A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55B90B2E6C90405BA9EF215D /* Zocial.ttf */; };
+		AA45F0F663F140DEB79811C0 /* GOTHIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 4D5DD1AE7135402E9E3FBFA2 /* GOTHIC.TTF */; };
+		395698234EB74127B4F3C6A4 /* gothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F1AE07E2E9A4070B65F8CD6 /* gothic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -386,6 +388,8 @@
 		FD08A0812C144FBD9463D940 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		34AA23421DD641ACBA9C747C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		55B90B2E6C90405BA9EF215D /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4D5DD1AE7135402E9E3FBFA2 /* GOTHIC.TTF */ = {isa = PBXFileReference; name = "GOTHIC.TTF"; path = "../assets/fonts/GOTHIC.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F1AE07E2E9A4070B65F8CD6 /* gothic.ttf */ = {isa = PBXFileReference; name = "gothic.ttf"; path = "../assets/fonts/gothic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -675,6 +679,8 @@
 				FD08A0812C144FBD9463D940 /* Octicons.ttf */,
 				34AA23421DD641ACBA9C747C /* SimpleLineIcons.ttf */,
 				55B90B2E6C90405BA9EF215D /* Zocial.ttf */,
+				4D5DD1AE7135402E9E3FBFA2 /* GOTHIC.TTF */,
+				8F1AE07E2E9A4070B65F8CD6 /* gothic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1141,6 +1147,8 @@
 				09415DA09D1142BDAA8C30F2 /* Octicons.ttf in Resources */,
 				6E68DB51D4014019B17F965B /* SimpleLineIcons.ttf in Resources */,
 				71D36F73C3834B62937F748A /* Zocial.ttf in Resources */,
+				AA45F0F663F140DEB79811C0 /* GOTHIC.TTF in Resources */,
+				395698234EB74127B4F3C6A4 /* gothic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
