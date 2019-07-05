@@ -2,7 +2,7 @@ import { Dimensions, Platform, PixelRatio, StatusBar } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
 
 export const hostName = 'http://nauqan.ibeacon.kz'
-export const FAVORITE_STORE = '@MyLocalStore:favoriteList'
+export const STORE_KEY_NAME = '@MyLocalStore:reduxStoreName'
 
 export const WHITE = '#fff'
 export const BLACK = '#000'

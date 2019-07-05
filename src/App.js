@@ -1,28 +1,41 @@
 import React, {Component} from 'react'
-//import { Provider } from 'react-redux'
-//import { composeWithDevTools } from 'redux-devtools-extension'
-//import { createStore, applyMiddleware } from 'redux'
-//import ReduxThunk from 'redux-thunk'
-//import reducers from './reducers'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import configureStore from './store'
 import AppContainer from './pages/ScreeenManager'
+import Loader from './components/Loader'
 
-//const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThunk))) //MacOs
-//const store = createStore(reducers, applyMiddleware(ReduxThunk)) //Windows
-/**
- * export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <AppContainer />
-      </Provider>
-    )
-  }
-}
- */
+const { store, persistor } = configureStore()
+
 export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isReduxLoaded: false
+    }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+    const self = this
+    setTimeout(() => {
+      self.setState({isReduxLoaded: true})
+    }, 500)
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
+
   render() {
-    return (
-      <AppContainer />
+    const { isReduxLoaded } = this.state
+    return isReduxLoaded ? (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
+      </Provider>
+    ) : (
+      <Loader animating={!isReduxLoaded} color={'black'} />
     )
   }
 }

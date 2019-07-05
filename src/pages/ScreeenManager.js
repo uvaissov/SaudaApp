@@ -3,7 +3,8 @@ import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet } from '
 import { createDrawerNavigator, createAppContainer, DrawerItems, createStackNavigator } from 'react-navigation'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
-import Catalog from './Catalog'
+import Main from './Main/Main'
+import Catalog from './Catalog/Catalog'
 import HowOrder from './drawer/HowOrder'
 import DeliveryAndPay from './drawer/DeliveryAndPay'
 import AboutApp from './drawer/AboutApp'
@@ -84,10 +85,11 @@ const TransitionConfiguration = () => {
 
 const CatalogStack = createStackNavigator(
   {
+    Main,
     Catalog
   },
   {
-    initialRouteName: 'Catalog',
+    initialRouteName: 'Main',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
     transitionConfig: TransitionConfiguration
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
 })
 
 const Screens = createDrawerNavigator({
-  Catalog: {
+  Main: {
     screen: CatalogStack,
     navigationOptions: {
       drawerLabel: 'Каталог',
@@ -182,7 +184,7 @@ const Screens = createDrawerNavigator({
   }
 },
 {
-  initialRouteName: 'Catalog',
+  initialRouteName: 'Main',
   drawerWidth: w * 0.8,
   contentOptions: {
     activeTintColor: '#FF6E36',

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, ScrollView} from 'react-native'
-import Header from '../components/main/Header'
-import Footer from '../components/main/Footer'
-import CustomStatusBar from '../components/CustomStatusBar'
+import Header from '../../components/main/Header'
+import Footer from '../../components/main/Footer'
+import CustomStatusBar from '../../components/CustomStatusBar'
 
 export default class App extends Component {
   state={
@@ -28,7 +28,8 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   welcome: {
-    fontFamily: 'gothic'
+    fontFamily: 'gothic',
+    fontWeight: 'bold'
   },
   container: {
     flex: 1    
