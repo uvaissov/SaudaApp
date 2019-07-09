@@ -194,7 +194,7 @@ const Screens = createDrawerNavigator({
     itemsContainerStyle: {
       backgroundColor: '#FAFAFA'
     },
-    labelStyle: { fontSize: 14, fontFamily: 'Roboto-Regular', fontWeight: 'normal', fontStyle: 'normal', color: 'rgba(23, 7, 1, 0.87)' }
+    labelStyle: { fontSize: 14, fontFamily: 'CenturyGothic', color: 'rgba(23, 7, 1, 0.87)' }
   },
   contentComponent: CustomDrawerComponent
  

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: 'gothic',
+    fontFamily: 'CenturyGothic',
     color: '#3e4152'
   },
   shadow: {

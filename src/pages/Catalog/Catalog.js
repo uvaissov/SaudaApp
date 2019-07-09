@@ -28,7 +28,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   welcome: {
-    fontFamily: 'gothic',
+    fontFamily: 'CenturyGothic',
     fontWeight: 'bold'
   },
   container: {

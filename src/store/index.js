@@ -8,7 +8,8 @@ import rootReducer from '../reducers'
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  whitelist: ['navigation']
 }
 
 const logger = createLogger({

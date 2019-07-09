@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import mainReducer from '../pages/Main/reducers'
 
 const reducers = combineReducers({
-  mainReducer
+  main: mainReducer
 })
   
 export default reducers
