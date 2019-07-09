@@ -19,7 +19,7 @@ const SliderApp = ({
         {
           data.map((item) => {
             return (
-              <TouchableWithoutFeedback key={item.id} onPress={() => navigation.navigate('Item', {id: item.id })}>
+              <TouchableWithoutFeedback key={item.id} onPress={() => {} }>
                 <View key={item.id} style={[child, { width: w }]}>      
                   <FastImage  
                     style={{ flex: 1, height: undefined, width: undefined }} 

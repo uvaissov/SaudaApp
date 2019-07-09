@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    fontFamily: 'CenturyGothic',
     paddingVertical: 0,
     fontSize: 14,
     height: 30    

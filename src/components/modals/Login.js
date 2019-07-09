@@ -8,7 +8,7 @@ export default class Login extends Component {
   render() {
     const { visibility, hide } = this.props
     return (
-      <Modal style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.5} backdropColor="#fff" >
+      <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.5} backdropColor="#fff" >
         <Window style={styles.view} title="РЕГИСТРАЦИЯ">
           <Text> Login </Text>
         </Window>

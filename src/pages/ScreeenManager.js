@@ -92,7 +92,7 @@ const CatalogStack = createStackNavigator(
     initialRouteName: 'Main',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-    transitionConfig: TransitionConfiguration
+    //transitionConfig: TransitionConfiguration
   }
 )
 

@@ -36,7 +36,7 @@ const CategorySlider = ({
 
 const styles = StyleSheet.create({
   child: {
-    height: 120,
+    height: 100,
     width: 80,
     alignItems: 'center',
     marginHorizontal: 5
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   container: {
-    flex: 1,
+    //flex: 1,
     marginVertical: 15
   }
 })
