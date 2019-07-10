@@ -13,13 +13,28 @@ const initialState = {
   brands: [
     {id: 0, name: 'test1'},
     {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd '},
-    {id: 3, name: 'test1'},
-    {id: 4, name: 'test1asd asd asd asd as'},
-    {id: 5, name: 'test1'},
-    {id: 6, name: 'test1'},
-    {id: 7, name: 'test1'},
-   
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'},
+    {id: 0, name: 'test1'},
+    {id: 1, name: 'test1 asd asd'},
+    {id: 2, name: 'test1a sdas dasd'}
   ]
 }
   

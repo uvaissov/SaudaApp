@@ -16,23 +16,19 @@ class FilterModal extends Component {
     _scroll = (event) => {
       const { y } = event.nativeEvent.contentOffset
       const { height } = this.state
-      const count = this.props.brands.length
-      const elHeight = 23.75
-      const indicatorHeight = this._indicatorHeight()
-      this.setState({ topScroll: ((height - indicatorHeight) * (y / (count * elHeight))) })
+      this.setState({ topScroll: ((height) * (y / (event.nativeEvent.contentSize.height))) })
     }
 
     _indicatorHeight = () => {
       const { height } = this.state
       const count = this.props.brands.length
-      const indicatorHeight = ((height * 7) / count)
-      return indicatorHeight
+      const indicatorHeight = ((height * 6.94) / count)      
+      return height > indicatorHeight ? indicatorHeight : 0
     }
 
     render() {
       const { visibility, hide, brands } = this.props
       const { topScroll, height } = this.state
-      console.log('topScroll', topScroll)
       return (
         <Modal 
           style={styles.view} 
@@ -56,14 +52,15 @@ class FilterModal extends Component {
               <ScrollView 
                 style={{flex: 1 }}
                 onScroll={this._scroll}
+                showsVerticalScrollIndicator={false}
               >
                 <FlatList 
                   data={brands}
                   renderItem={({item}) => (<ScrollElement item={item} />)}
                 />
               </ScrollView>
-              <View style={{backgroundColor: 'rgba(0,0,0,0.2)', position: 'relative'}}>
-                <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: 'green', position: 'relative', top: topScroll}} />
+              <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
+                <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: '#6ACB6D', position: 'relative', top: topScroll}} />
               </View>
             </View>
             <View style={styles.separator} />
