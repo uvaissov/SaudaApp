@@ -1,49 +1,45 @@
+import { 
+  ACTION_GET_BRANDS_SUCCESED,
+  ACTION_GET_ITEMS_STARTED,
+  ACTION_GET_ITEMS_SUCCESED,
+  ACTION_GET_ITEMS_FAILED
+} from '../types'
 
 const initialState = {
-  isLoading: false,
-  items: [
-    { id: 0, title: 'Напитки', img: require('../../../../resources/images/icons/category/drink.png')},
-    { id: 1, title: 'Гастроном', img: require('../../../../resources/images/icons/category/gastranom.png')},
-    { id: 2, title: 'Молочные продукты', img: require('../../../../resources/images/icons/category/milk.png')},
-    { id: 3, title: 'Детское питание', img: require('../../../../resources/images/icons/category/baby.png')},
-    { id: 4, title: 'Хлеб', img: require('../../../../resources/images/icons/category/bread.png')},
-    { id: 5, title: 'Выпечка', img: require('../../../../resources/images/icons/category/cookies.png')},
-    { id: 6, title: 'Моющие стредства', img: require('../../../../resources/images/icons/category/wash.png')}
-  ],
-  brands: [
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'},
-    {id: 0, name: 'test1'},
-    {id: 1, name: 'test1 asd asd'},
-    {id: 2, name: 'test1a sdas dasd'}
-  ]
+  isLoadingItems: false,
+  current_page: 1,
+  last_page: 1,
+  items: [],
+  brands: []
 }
   
 export default (state = initialState, action) => {
   switch (action.type) {
-  case 'ACTION_GET_NEWS_STARTED': {
+  case ACTION_GET_BRANDS_SUCCESED: {
     return {
       ...state,
-      isLoading: true
+      brands: action.payload
+    }
+  }
+  case ACTION_GET_ITEMS_SUCCESED: {
+    return {
+      ...state,
+      items: action.payload,
+      current_page: action.current_page,
+      last_page: action.last_page,
+      isLoadingItems: false
+    }
+  }
+  case ACTION_GET_ITEMS_STARTED: {
+    return {
+      ...state,
+      isLoadingItems: true
+    }
+  }
+  case ACTION_GET_ITEMS_FAILED: {
+    return {
+      ...state,
+      isLoadingItems: false
     }
   }
   default: {

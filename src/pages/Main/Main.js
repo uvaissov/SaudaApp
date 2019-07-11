@@ -1,18 +1,28 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView} from 'react-native'
 import { connect } from 'react-redux'
+import { getCategories } from './actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import SliderApp from './view/Slider'
 import CategorySlider from './view/CategorySlider'
+import Loader from '../../components/Loader'
 
 class Main extends Component {
   state={
     loginShow: false
   }
+  async componentDidMount() {
+    this.props.getCategories()
+  }
   render() {
-    const { navigation, categories } = this.props
+    const { navigation, categories, isLoading } = this.props
+
+    if (isLoading === true) {
+      return <Loader animating={!isLoading} color={'black'} />
+    }
+
     return (
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="white" barStyle="dark-content" />
@@ -43,9 +53,9 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
-    categories: state.main.categories
+    categories: state.main.categories,
+    isLoading: state.main.isLoading
   }
 }
-export default connect(mapStateToProps, { })(Main)
+export default connect(mapStateToProps, { getCategories })(Main)

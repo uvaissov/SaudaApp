@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList} from 'react-native'
 import { connect } from 'react-redux'
+import {NavigationEvents} from 'react-navigation'
+import { getBrands, getProducts } from './actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -8,12 +10,26 @@ import CategorySlider from '../Main/view/CategorySlider'
 import ItemView from './view/ItemView'
 import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
+import Loader from '../../components/Loader'
 import { w } from '../../constants/global'
 
 class Catalog extends Component {
   state={
     loginShow: false,
     filterShow: false
+  }
+
+  async componentDidMount() {
+    this.props.getBrands()
+    const categoryId = this.props.navigation.getParam('categoryId')
+    this.props.getProducts(categoryId)
+  }
+  componentDidUpdate(prevProps/*, prevState*/) {
+    const categoryId = this.props.navigation.getParam('categoryId')
+    const prevCategoryId = prevProps.navigation.getParam('categoryId')
+    if (categoryId && categoryId !== prevCategoryId) {
+      this.props.getProducts(categoryId)
+    }
   }
 
   _renderItem =({ item }) => {
@@ -28,9 +44,25 @@ class Catalog extends Component {
       </View>
     )
   }
+
+  _renderFlat = () => {
+    const { items, isLoadingItems } = this.props
+
+    if (isLoadingItems === true) {
+      return (<Loader animating={!isLoadingItems} color={'black'} />)
+    }
+    return (
+      <FlatList 
+        data={items}
+        renderItem={this._renderItem}
+        //ListHeaderComponent={this._renderHeader}
+        keyExtractor={(item) => item.id}
+      />
+    )
+  }
   
   render() {
-    const { navigation, categories, items } = this.props
+    const { navigation, categories } = this.props
     const { filterShow } = this.state
     return (
       <View style={styles.container}>
@@ -42,12 +74,8 @@ class Catalog extends Component {
           <View style={styles.bodyView}>            
             <Text style={styles.headerText}>Бакалея</Text>
           </View>
-          <FlatList 
-            data={items}
-            renderItem={this._renderItem}
-            ListHeaderComponent={this._renderHeader}
-            keyExtractor={(item) => item.id}
-          />
+          {this._renderHeader()}
+          {this._renderFlat()}          
         </ScrollView>        
         <Footer />
       </View>
@@ -85,7 +113,8 @@ const mapStateToProps = state => {
   console.log(state)
   return {
     categories: state.main.categories,
-    items: state.catalog.items
+    items: state.catalog.items,
+    isLoadingItems: state.catalog.isLoadingItems
   }
 }
-export default connect(mapStateToProps, { })(Catalog)
+export default connect(mapStateToProps, { getBrands, getProducts })(Catalog)

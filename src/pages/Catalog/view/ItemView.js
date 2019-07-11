@@ -11,7 +11,6 @@ class ItemView extends Component {
   }
   render() {
     const { item } = this.props
-    console.log(item)
     return (
       <View style={[styles.container, styles.shadow]}>
         <View style={styles.rowContainer}>

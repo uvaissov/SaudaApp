@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, ScrollView, FlatList } from 'react-native'
+import { Text, StyleSheet, View, TextInput, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -30,9 +30,10 @@ class FilterModal extends Component {
       const { visibility, hide, brands } = this.props
       const { topScroll, height } = this.state
       return (
-        <Modal 
-          style={styles.view} 
-          deviceWidth={w} 
+        <Modal           
+        
+          deviceWidth={w}
+          deviceHeight={h}
           isVisible={visibility} 
           onRequestClose={() => hide()} 
           onBackdropPress={() => hide()} 
@@ -40,48 +41,55 @@ class FilterModal extends Component {
           backdropColor="#000"
           useNativeDriver
         >
-          <View style={styles.content}>
-            <View>
-              <Text style={styles.brendWord}>Бренд</Text>
-            </View>
-            <View style={styles.textView}>
-              <TextInput style={[styles.textInput]} placeholder="Найдите бренд" />
-              <Ionicons name="ios-search" size={21} />
-            </View>
-            <View style={{flexDirection: 'row', height, marginBottom: 10}} >
-              <ScrollView 
-                style={{flex: 1 }}
-                onScroll={this._scroll}
-                showsVerticalScrollIndicator={false}
-              >
-                <FlatList 
-                  data={brands}
-                  renderItem={({item}) => (<ScrollElement item={item} />)}
-                />
-              </ScrollView>
-              <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
-                <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: '#6ACB6D', position: 'relative', top: topScroll}} />
+          
+          <View style={styles.view}>          
+            <View style={styles.content}>
+              <View>
+                <Text style={styles.brendWord}>Бренд</Text>
+              </View>              
+              <View style={styles.textView}>
+                <TextInput style={[styles.textInput]} placeholder="Найдите бренд" />
+                <Ionicons name="ios-search" size={21} />
               </View>
-            </View>
-            <View style={styles.separator} />
-            <View style={{ alignItems: 'center'}}>
-              <OutlineOption title="Цена" style={{width: w / 1.5, borderWidth: 0 }} />
-              <View style={styles.filterRow}>
-                <Text style={styles.brendWord}>От</Text>
-                <View style={[styles.textView, styles.filterTextView]} >
-                  <TextInput style={[styles.textInput, styles.filterTextInput]} value="1000" />
+              
+              <View style={{flexDirection: 'row', height, marginBottom: 10}} >
+                <ScrollView 
+                  style={{flex: 1 }}
+                  onScroll={this._scroll}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <FlatList 
+                    data={brands}
+                    renderItem={({item}) => (<ScrollElement item={item} />)}
+                  />
+                </ScrollView>
+                <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
+                  <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: '#6ACB6D', position: 'relative', top: topScroll}} />
                 </View>
-                <Text style={styles.brendWord}>KZT</Text>
-              </View>
-              <View style={styles.filterRow}>
-                <Text style={styles.brendWord}>До</Text>
-                <View style={[styles.textView, styles.filterTextView]} >
-                  <TextInput style={[styles.textInput, styles.filterTextInput]} value="25000" />
+              </View>              
+              <KeyboardAvoidingView keyboardVerticalOffset={50} behavior="position" enabled>
+                <View style={styles.separator} />
+                <View style={{ alignItems: 'center'}}>
+                  <OutlineOption title="Цена" style={{width: w / 1.5, borderWidth: 0 }} />                
+                  <View style={styles.filterRow}>
+                    <Text style={styles.brendWord}>От</Text>
+                    <View style={[styles.textView, styles.filterTextView]} >
+                      <TextInput style={[styles.textInput, styles.filterTextInput]} value="1000" />
+                    </View>
+                    <Text style={styles.brendWord}>KZT</Text>
+                  </View>
+                  <View style={styles.filterRow}>
+                    <Text style={styles.brendWord}>До</Text>
+                    <View style={[styles.textView, styles.filterTextView]} >
+                      <TextInput style={[styles.textInput, styles.filterTextInput]} value="25000" />
+                    </View>
+                    <Text style={styles.brendWord}>KZT</Text>
+                  </View>                  
                 </View>
-                <Text style={styles.brendWord}>KZT</Text>
-              </View>
+              </KeyboardAvoidingView>
             </View>
-          </View>
+           
+          </View>          
         </Modal>
       )
     }
@@ -115,8 +123,10 @@ const styles = StyleSheet.create({
     padding: 25
   },
   view: {
-    width: w,
-    margin: 0,
+    //width: w,
+    height: h,
+    //flex: 1,
+    marginBottom: 0,
     justifyContent: 'flex-end',
     alignItems: 'center'
   },

@@ -1,23 +1,33 @@
+import { 
+  ACTION_GET_CATEGORIOS_SUCCESED,
+  ACTION_GET_CATEGORIOS_STARTED,
+  ACTION_GET_CATEGORIOS_FAILED
+} from '../types'
 
 const initialState = {
   isLoading: false,
-  categories: [
-    { id: 0, name: 'Напитки', img: require('../../../../resources/images/icons/category/drink.png')},
-    { id: 1, name: 'Гастроном', img: require('../../../../resources/images/icons/category/gastranom.png')},
-    { id: 2, name: 'Молочные продукты', img: require('../../../../resources/images/icons/category/milk.png')},
-    { id: 3, name: 'Детское питание', img: require('../../../../resources/images/icons/category/baby.png')},
-    { id: 4, name: 'Хлеб', img: require('../../../../resources/images/icons/category/bread.png')},
-    { id: 5, name: 'Выпечка', img: require('../../../../resources/images/icons/category/cookies.png')},
-    { id: 6, name: 'Моющие стредства', img: require('../../../../resources/images/icons/category/wash.png')}
-  ]
+  categories: []
 }
   
 export default (state = initialState, action) => {
   switch (action.type) {
-  case 'ACTION_GET_NEWS_STARTED': {
+  case ACTION_GET_CATEGORIOS_SUCCESED: {
+    return {
+      ...state,
+      categories: action.payload,
+      isLoading: false
+    }
+  }
+  case ACTION_GET_CATEGORIOS_STARTED: {
     return {
       ...state,
       isLoading: true
+    }
+  }
+  case ACTION_GET_CATEGORIOS_FAILED: {
+    return {
+      ...state,
+      isLoading: false
     }
   }
   default: {
