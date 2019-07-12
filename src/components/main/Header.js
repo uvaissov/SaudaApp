@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import Location from '../modals/Location'
 
 export default class Header extends Component {
+  state={
+    locationShow: false
+  }
+
   render() {
     const { onPress } = this.props
+    const { locationShow } = this.state
     return (
       <View style={[styles.container, styles.shadow]}>
+        <Location visibility={locationShow} hide={() => this.setState({locationShow: false})} />           
         <View style={styles.headerView}>
           <TouchableOpacity onPress={onPress}>          
             <FastImage
@@ -23,11 +30,13 @@ export default class Header extends Component {
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
-          <FastImage
-            style={styles.image}
-            source={require('../../../resources/images/icons/header/location.png')}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+          <TouchableOpacity onPress={() => this.setState({locationShow: true})}>
+            <FastImage
+              style={styles.image}
+              source={require('../../../resources/images/icons/header/location.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     )

@@ -30,8 +30,7 @@ class FilterModal extends Component {
       const { visibility, hide, brands } = this.props
       const { topScroll, height } = this.state
       return (
-        <Modal           
-        
+        <Modal                   
           deviceWidth={w}
           deviceHeight={h}
           isVisible={visibility} 

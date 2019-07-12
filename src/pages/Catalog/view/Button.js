@@ -7,7 +7,10 @@ const Button = (props) => {
     <TouchableOpacity onPress={props.onPress} >
       <View style={[styles.view, props.style]}>
         <View style={styles.container}>
-          <View><EvilIcons name="cart" color="white" size={25} /></View>
+          {
+            props.icon &&
+            <View><EvilIcons name="cart" color="white" size={25} /></View>
+          }          
           <Text style={styles.title}>{props.title}</Text>
         </View>      
       </View>

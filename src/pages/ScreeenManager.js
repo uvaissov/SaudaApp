@@ -5,6 +5,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
 import Main from './Main/Main'
 import Catalog from './Catalog/Catalog'
+import ProductView from './Product/ProductView'
 import HowOrder from './drawer/HowOrder'
 import DeliveryAndPay from './drawer/DeliveryAndPay'
 import AboutApp from './drawer/AboutApp'
@@ -86,7 +87,8 @@ const TransitionConfiguration = () => {
 const CatalogStack = createStackNavigator(
   {
     Main,
-    Catalog
+    Catalog,
+    ProductView
   },
   {
     initialRouteName: 'Main',

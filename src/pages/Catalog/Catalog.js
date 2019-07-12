@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList} from 'react-native'
 import { connect } from 'react-redux'
-import {NavigationEvents} from 'react-navigation'
 import { getBrands, getProducts } from './actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import CategorySlider from '../Main/view/CategorySlider'
-import ItemView from './view/ItemView'
+import ItemRowView from './view/ItemRowView'
 import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
 import Loader from '../../components/Loader'
@@ -33,7 +32,8 @@ class Catalog extends Component {
   }
 
   _renderItem =({ item }) => {
-    return (<ItemView item={item} />)
+    const { navigation } = this.props
+    return (<ItemRowView item={item} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
   _renderHeader = () => {
@@ -49,7 +49,7 @@ class Catalog extends Component {
     const { items, isLoadingItems } = this.props
 
     if (isLoadingItems === true) {
-      return (<Loader animating={!isLoadingItems} color={'black'} />)
+      return (<Loader animating={!isLoadingItems} />)
     }
     return (
       <FlatList 

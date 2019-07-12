@@ -2,23 +2,39 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
-import { w } from '../../../constants/global'
-import { Button } from './Button'
+import axios from 'axios'
+import { w, hostName } from '../../constants/global'
+import { Button } from '../Catalog/view/Button'
+import Loader from '../../components/Loader'
+import { transformProduct } from '../../transform'
 
-class ItemView extends Component {
+class ProductView extends Component {
   state={
-    loginShow: false
+    isLoading: true
+  }
+  async componentDidMount() {
+    const { id } = this.props.navigation.getParam('product')
+    axios.get(`${hostName}/api/v1/offer/${id}`)
+      .then((res) => {
+        this.setState({item: transformProduct(res.data), isLoading: false })
+      })
+      .catch(() => {
+        this.setState({ isLoading: false })
+      })
   }
   render() {
-    const { item } = this.props
+    const { isLoading, item } = this.state
+    if (isLoading === true) {
+      return (<Loader animating={!isLoading} />)
+    }
     return (
-      <View style={[styles.container, styles.shadow]}>
-        <View style={styles.rowContainer}>
+      <View style={[styles.container]}>
+        <View>
           <View style={styles.imgView}>
             <FastImage
-              style={{ height: 90, width: 70 }} 
+              style={{ height: 150, width: w - 50 }} 
               source={item.img}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={FastImage.resizeMode.cover}
             />
           </View>
           <View style={styles.bodyView}>
@@ -27,7 +43,7 @@ class ItemView extends Component {
               <View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View>
             </View>
             <View><Text style={styles.itemPriceText}>340 тг</Text></View>
-            <View><Button title="В корзину" onPress={() => {}} /></View>
+            <View><Button title="В корзину" icon="cart" onPress={() => {}} /></View>
           </View>
         </View>
       </View>
@@ -47,24 +63,8 @@ const styles = StyleSheet.create({
     color: '#FF798D'  
   },
   container: {
-    width: w - 50,
-    marginHorizontal: 25,
-    backgroundColor: 'white',
-    padding: 20,
-    marginBottom: 20
-  },
-  rowContainer: {
     flex: 1,
-    flexDirection: 'row'
-  },
-  imgView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 20
-  },
-  bodyView: {
-    flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'flex-start'
   },
   shadow: {
     shadowColor: 'rgba(48, 25, 0, 0.1)',
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
 
   }
 })
-export default ItemView
+export default ProductView
