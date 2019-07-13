@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     backgroundColor: 'white',
     padding: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    borderWidth: 0
   },
   rowContainer: {
     flex: 1,
@@ -69,10 +70,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   shadow: {
-    shadowColor: 'rgba(48, 25, 0, 0.1)',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
-    shadowRadius: 16,
+    shadowRadius: 4,
     elevation: 8,
     position: 'relative'
 

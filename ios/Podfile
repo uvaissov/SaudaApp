@@ -1,0 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'SaudaApp' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  
+
+end
+
+# this is needed to avoid including multiple references to react.
+ post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "React"
+        target.remove_from_project
+      end
+    end
+  end
+
