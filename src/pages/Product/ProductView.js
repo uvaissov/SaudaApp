@@ -1,70 +1,126 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import axios from 'axios'
+import HTML from 'react-native-render-html'
+import Header from '../../components/main/Header'
+import Footer from '../../components/main/Footer'
+import CustomStatusBar from '../../components/CustomStatusBar'
 import { w, hostName } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
+import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
 import { transformProduct } from '../../transform'
 
 class ProductView extends Component {
   state={
-    isLoading: true
+    isLoading: true,
+    item: null,
+    count: 1,
+    oftenBuy: []
   }
   async componentDidMount() {
     const { id } = this.props.navigation.getParam('product')
     axios.get(`${hostName}/api/v1/offer/${id}`)
       .then((res) => {
-        this.setState({item: transformProduct(res.data), isLoading: false })
+        this.setState(
+          {
+            item: transformProduct(res.data.product), 
+            isLoading: false, 
+            oftenBuy: res.data.oftenBuy.map((row) => transformProduct(row)) 
+          })
       })
       .catch(() => {
         this.setState({ isLoading: false })
       })
   }
   render() {
-    const { isLoading, item } = this.state
+    const { isLoading, item, count, oftenBuy } = this.state
+    const { navigation } = this.props
     if (isLoading === true) {
       return (<Loader animating={!isLoading} />)
     }
+    console.log('oftenBuy', oftenBuy)
     return (
       <View style={[styles.container]}>
-        <View>
+        <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <Header onPress={() => navigation.openDrawer()} />
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+          <View style={styles.favoritePos}>
+            <TouchableOpacity onPress={() => {}}>
+              <Ionicons name="md-heart-empty" size={50} color="#FF798D" />
+            </TouchableOpacity>
+          </View>
           <View style={styles.imgView}>
             <FastImage
-              style={{ height: 150, width: w - 50 }} 
+              style={{ height: 300, width: w - 50 }} 
+              height={300}
+              width={w - 50}
               source={item.img}
-              resizeMode={FastImage.resizeMode.cover}
+              resizeMode={FastImage.resizeMode.contain}
             />
-          </View>
+          </View>          
           <View style={styles.bodyView}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
-              <View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View>
+            <View><Text style={styles.itemTitle} >{item.title}</Text></View>
+            <View><Text style={styles.itemDesc} >{item.short_description}</Text></View>
+            <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
+            <View style={{marginTop: 10}}><CountControl count={count} /></View>
+            <View style={{marginTop: 10}}><Button title="В корзину" icon="cart" onPress={() => {}} /></View>
+            <View style={{marginTop: 10}}><Button style={{backgroundColor: '#E54B65'}} title="В избранное" icon="heart" onPress={() => {}} /></View>
+            <View style={{marginBottom: 20}}>
+              <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.description} imagesMaxWidth={w} />
             </View>
-            <View><Text style={styles.itemPriceText}>340 тг</Text></View>
-            <View><Button title="В корзину" icon="cart" onPress={() => {}} /></View>
           </View>
-        </View>
+        </ScrollView>
+        <Footer />
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({ 
-  itemTitle: {    
+const styles = StyleSheet.create({
+  imgView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+  },
+  favoritePos: {
+    position: 'absolute', 
+    top: 15, 
+    right: 0,
+    zIndex: 20
+  },
+  itemDesc: {    
+    fontFamily: 'CenturyGothic',
+    fontSize: 16,
+    color: 'rgba(0,0,0,0.7)',
+    marginTop: 10   
+  },
+  itemDescFull: {    
     fontFamily: 'CenturyGothic',
     fontSize: 14,
-    color: 'black'
+    color: 'rgba(0,0,0,0.8)'
+  },
+  itemTitle: {    
+    fontFamily: 'CenturyGothic',
+    fontSize: 19,
+    color: 'rgba(0,0,0,0.7)',
+    textTransform: 'uppercase'
   },
   itemPriceText: {
     fontFamily: 'CenturyGothic',
-    fontSize: 14,
-    color: '#FF798D'  
+    fontSize: 16,
+    color: '#FF798D',
+    marginTop: 10   
   },
   container: {
     flex: 1,
     justifyContent: 'flex-start'
+  },
+  scrollView: {
+    padding: 25,
+    flex: 1
   },
   shadow: {
     shadowColor: 'rgba(48, 25, 0, 0.1)',
