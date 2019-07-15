@@ -7,8 +7,8 @@ import { ACTION_SELECT_USER_CARD_UUID } from '../types'
   
 export const init = () => async (dispatch, getState) => {  
   try {
-    const { auth } = getState()
-    if (!auth.cardUuid) {
+    const { auth, main } = getState()
+    if (_.isEmpty(auth.cardUuid)) {
       dispatch({
         type: ACTION_SELECT_USER_CARD_UUID,
         payload: uuid.uuid()

@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import axios from 'axios'
 import HTML from 'react-native-render-html'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
+import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import { w, hostName } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
@@ -34,6 +35,22 @@ class ProductView extends Component {
       .catch(() => {
         this.setState({ isLoading: false })
       })
+  }
+
+  _renderItem =({ item }) => {
+    const { navigation } = this.props
+    return (<ItemRowView item={item} onPress={() => navigation.push('ProductView', { product: item })} />)
+  }
+
+  _renderOftenBy = () => {
+    const { oftenBuy } = this.state
+    return (
+      <FlatList 
+        data={oftenBuy}
+        renderItem={this._renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    )
   }
   render() {
     const { isLoading, item, count, oftenBuy } = this.state
@@ -72,6 +89,7 @@ class ProductView extends Component {
               <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.description} imagesMaxWidth={w} />
             </View>
           </View>
+          {this._renderOftenBy()}
         </ScrollView>
         <Footer />
       </View>
@@ -83,12 +101,16 @@ const styles = StyleSheet.create({
   imgView: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20
+    paddingHorizontal: 20,
+    paddingBottom: 25
+  },
+  bodyView: {
+    paddingHorizontal: 25
   },
   favoritePos: {
     position: 'absolute', 
     top: 15, 
-    right: 0,
+    right: 25,
     zIndex: 20
   },
   itemDesc: {    
@@ -119,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   scrollView: {
-    padding: 25,
+    //margin: 25,
     flex: 1
   },
   shadow: {
