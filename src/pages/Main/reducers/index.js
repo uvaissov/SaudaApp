@@ -1,12 +1,15 @@
 import { 
   ACTION_GET_CATEGORIOS_SUCCESED,
   ACTION_GET_CATEGORIOS_STARTED,
-  ACTION_GET_CATEGORIOS_FAILED
+  ACTION_GET_CATEGORIOS_FAILED,
+  ACTION_GET_CITY_SUCCESED
 } from '../types'
 
 const initialState = {
   isLoading: false,
-  categories: []
+  categories: [],
+  cities: []
+
 }
   
 export default (state = initialState, action) => {
@@ -28,6 +31,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       isLoading: false
+    }
+  }
+  case ACTION_GET_CITY_SUCCESED: {
+    return {
+      ...state,
+      cities: action.payload
     }
   }
   default: {

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView} from 'react-native'
 import { connect } from 'react-redux'
-import { getCategories } from './actions'
+import { getCategories, getCities } from './actions'
+import { init } from '../Auth/actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -15,6 +16,9 @@ class Main extends Component {
   }
   async componentDidMount() {
     this.props.getCategories()
+    await this.props.getCities()
+    //init call after city putted to reduce
+    this.props.init()
   }
   render() {
     const { navigation, categories, isLoading } = this.props
@@ -58,4 +62,4 @@ const mapStateToProps = state => {
     isLoading: state.main.isLoading
   }
 }
-export default connect(mapStateToProps, { getCategories })(Main)
+export default connect(mapStateToProps, { init, getCategories, getCities })(Main)
