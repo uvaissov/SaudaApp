@@ -14,7 +14,8 @@ export const getCategories = () => async dispatch => {
     dispatch({
       type: ACTION_GET_CATEGORIOS_STARTED
     })
-    const response = await axios.get(`${hostName}/api/v1/categories`)
+    const response = await axios.get(`${hostName}/api/v1/categories/`)
+    console.log(response)
     const data = response.data.map((row) => transformCategory(row))
     dispatch({
       type: ACTION_GET_CATEGORIOS_SUCCESED,

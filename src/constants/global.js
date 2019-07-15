@@ -6,6 +6,8 @@ export const STORE_KEY_NAME = '@MyLocalStore:reduxStoreName'
 
 export const WHITE = '#fff'
 export const BLACK = '#000'
+export const GREEN = '#6ACB6D'
+export const RED = '#E54B65'
 
 export const statusBarHeight = Platform.OS === 'ios' ? isIphoneX() ? 30 : 20 : StatusBar.currentHeight
 

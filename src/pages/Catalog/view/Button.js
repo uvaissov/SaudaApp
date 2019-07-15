@@ -9,7 +9,7 @@ const Button = (props) => {
         <View style={styles.container}>
           {
             props.icon &&
-            <View><EvilIcons name="cart" color="white" size={25} /></View>
+            <View><EvilIcons name={props.icon} color="white" size={25} /></View>
           }          
           <Text style={styles.title}>{props.title}</Text>
         </View>      
