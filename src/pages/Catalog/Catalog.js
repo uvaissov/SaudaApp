@@ -9,13 +9,14 @@ import CategorySlider from '../Main/view/CategorySlider'
 import ItemRowView from './view/ItemRowView'
 import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
+import ProductAdded from '../../components/modals/ProductAdded'
 import Loader from '../../components/Loader'
 import { w } from '../../constants/global'
 
 class Catalog extends Component {
   state={
-    loginShow: false,
-    filterShow: false
+    filterShow: false,
+    productAddShow: false
   }
 
   async componentDidMount() {
@@ -33,7 +34,7 @@ class Catalog extends Component {
 
   _renderItem =({ item }) => {
     const { navigation } = this.props
-    return (<ItemRowView item={item} onPress={() => navigation.push('ProductView', { product: item })} />)
+    return (<ItemRowView item={item} onCardPress={() => this.setState({productAddShow: true})} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
   _renderHeader = () => {
@@ -63,11 +64,12 @@ class Catalog extends Component {
   
   render() {
     const { navigation, categories } = this.props
-    const { filterShow } = this.state
+    const { filterShow, productAddShow } = this.state
     return (
       <View style={styles.container}>
-        <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
         <Header onPress={() => navigation.openDrawer()} />
+        <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          

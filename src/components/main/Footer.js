@@ -2,16 +2,22 @@ import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Login from '../../components/modals/Login'
+import Registration from '../../components/modals/Registration'
+import Callback from '../../components/modals/Callback'
 
 export default class Footer extends Component {
   state={
-    loginShow: false
+    loginShow: false,
+    regShow: false,
+    callBackShow: false
   }
   render() {
-    const { loginShow } = this.state
+    const { loginShow, regShow, callBackShow } = this.state
     return (
       <View style={[styles.container, styles.shadow]}>
-        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} />           
+        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.setState({regShow: true, loginShow: false})} />           
+        <Registration visibility={regShow} hide={() => this.setState({regShow: false})} />
+        <Callback visibility={callBackShow} hide={() => this.setState({callBackShow: false})} />
         <View style={styles.view}>
           <TouchableOpacity onPress={() => this.setState({loginShow: true})}>
             <View style={styles.buttton}>
@@ -31,7 +37,7 @@ export default class Footer extends Component {
               /> 
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.setState({callBackShow: true})}>
             <View style={styles.buttton}>
               <FastImage
                 style={styles.image}

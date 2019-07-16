@@ -13,10 +13,12 @@ import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
 import { transformProduct } from '../../transform'
+import ProductAdded from '../../components/modals/ProductAdded'
 
 class ProductView extends Component {
   state={
     isLoading: true,
+    productAddShow: false,
     item: null,
     count: 1,
     oftenBuy: []
@@ -39,7 +41,7 @@ class ProductView extends Component {
 
   _renderItem =({ item }) => {
     const { navigation } = this.props
-    return (<ItemRowView item={item} onPress={() => navigation.push('ProductView', { product: item })} />)
+    return (<ItemRowView item={item} onCardPress={() => this.setState({productAddShow: true})} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
   _renderOftenBy = () => {
@@ -53,16 +55,16 @@ class ProductView extends Component {
     )
   }
   render() {
-    const { isLoading, item, count, oftenBuy } = this.state
+    const { isLoading, item, count, productAddShow } = this.state
     const { navigation } = this.props
     if (isLoading === true) {
       return (<Loader animating={!isLoading} />)
     }
-    console.log('oftenBuy', oftenBuy)
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
+        <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
           <View style={styles.favoritePos}>
             <TouchableOpacity onPress={() => {}}>

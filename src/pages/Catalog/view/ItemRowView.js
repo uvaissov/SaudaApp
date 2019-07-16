@@ -10,7 +10,7 @@ class ItemRowView extends Component {
     loginShow: false
   }
   render() {
-    const { item, onPress } = this.props
+    const { item, onPress, onCardPress } = this.props
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, styles.shadow]}>
@@ -28,7 +28,7 @@ class ItemRowView extends Component {
                 <View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View>
               </View>
               <View><Text style={styles.itemPriceText}>340 тг</Text></View>
-              <View><Button title="В корзину" icon="cart" onPress={() => {}} /></View>
+              <View><Button title="В корзину" icon="cart" onPress={() => onCardPress()} /></View>
             </View>
           </View>
         </View>

@@ -1,32 +1,20 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
-import { w, GREEN, BLACK, RED } from '../../constants/global'
+import { w, GREEN, BLACK } from '../../constants/global'
 
 export default class Login extends Component {
   render() {
-    const { visibility, hide, reg } = this.props
+    const { visibility, hide } = this.props
     return (
       <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
-        <Window style={styles.view} title="Вход">
+        <Window style={styles.view} title="Товар добавлен в корзину" normal center>
           <View style={{padding: 15}}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={[styles.word, {color: BLACK }]}>С помощью аккаунта</Text>
-              <TouchableOpacity onPress={() => reg()}>
-                <Text style={[styles.word, {color: GREEN }]}>Создать аккаунт</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Ваш E-mail" />
-            </View>
-            <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Пароль" />
-            </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Button title="Войти" style={{backgroundColor: GREEN, width: 150 }} />
-              <Text style={[styles.word, {color: RED }]}>Забыли пароль?</Text>
+              <Button title="Продолжить покупки" style={{backgroundColor: 'rgba(0, 0, 0, 0.08)', width: 180 }} textStyle={{color: BLACK, fontSize: 12 }} />
+              <Button title="Оформить заказ" style={{backgroundColor: GREEN, width: 180 }} textStyle={{ fontSize: 12 }} />
             </View>
           </View>
         </Window>

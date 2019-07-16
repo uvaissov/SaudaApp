@@ -11,7 +11,7 @@ const Button = (props) => {
             props.icon &&
             <View><EvilIcons name={props.icon} color="white" size={25} /></View>
           }          
-          <Text style={styles.title}>{props.title}</Text>
+          <Text style={[styles.title, props.textStyle]}>{props.title}</Text>
         </View>      
       </View>
     </TouchableOpacity>
