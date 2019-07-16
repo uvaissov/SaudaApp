@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontFamily: 'CenturyGothic',
-    color: '#3e4152'
+    color: '#3e4152',
+    textTransform: 'uppercase'
+
   },
   shadow: {
     shadowColor: 'rgba(0, 0, 0, 0.1)',
