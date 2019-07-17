@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView} from 'react-native'
 import { connect } from 'react-redux'
 import { getCategories, getCities } from './actions'
+import { getCard } from '../Card/actions'
 import { init } from '../Auth/actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
@@ -18,7 +19,8 @@ class Main extends Component {
     this.props.getCategories()
     await this.props.getCities()
     //init call after city putted to reduce
-    this.props.init()
+    await this.props.init()
+    this.props.getCard()
   }
   render() {
     const { navigation, categories, isLoading } = this.props
@@ -37,7 +39,7 @@ class Main extends Component {
             <SliderApp data={[{id: 3, img: require('../../../resources/images/img/main_slide_1.png')}, {id: 1, img: require('../../../resources/images/img/main_slide_1.png')}]} />
           </View>
         </ScrollView>        
-        <Footer />
+        <Footer navigation={navigation} />
       </View>
     )
   }
@@ -62,4 +64,4 @@ const mapStateToProps = state => {
     isLoading: state.main.isLoading
   }
 }
-export default connect(mapStateToProps, { init, getCategories, getCities })(Main)
+export default connect(mapStateToProps, { init, getCategories, getCities, getCard })(Main)

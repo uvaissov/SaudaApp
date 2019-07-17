@@ -11,6 +11,7 @@ import DeliveryAndPay from './drawer/DeliveryAndPay'
 import AboutApp from './drawer/AboutApp'
 import Vacancy from './drawer/Vacancy'
 import Contact from './drawer/Contact'
+import Card from './Card'
 import { w } from '../constants/global'
 
 const CustomDrawerComponent = (props) => (
@@ -88,12 +89,13 @@ const CatalogStack = createStackNavigator(
   {
     Main,
     Catalog,
-    ProductView
+    ProductView,
+    Card
   },
   {
     initialRouteName: 'Main',
     headerMode: 'none',
-    mode: Platform.OS === 'ios' ? 'modal' : 'card',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
     //transitionConfig: TransitionConfiguration
   }
 )

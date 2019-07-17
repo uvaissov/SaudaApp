@@ -2,11 +2,13 @@ import { combineReducers } from 'redux'
 import mainReducer from '../pages/Main/reducers'
 import catalogReducer from '../pages/Catalog/reducers'
 import authReducer from '../pages/Auth/reducers'
+import cardReducer from '../pages/Card/reducers'
 
 const reducers = combineReducers({
   main: mainReducer,
   catalog: catalogReducer,
-  auth: authReducer
+  auth: authReducer,
+  card: cardReducer
 })
   
 export default reducers

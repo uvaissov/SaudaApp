@@ -13,6 +13,7 @@ export default class Footer extends Component {
   }
   render() {
     const { loginShow, regShow, callBackShow } = this.state
+    const { navigation } = this.props
     return (
       <View style={[styles.container, styles.shadow]}>
         <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.setState({regShow: true, loginShow: false})} />           
@@ -46,7 +47,7 @@ export default class Footer extends Component {
               /> 
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Card')}>
             <View style={styles.buttton}>
               <FastImage
                 style={styles.image}

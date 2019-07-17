@@ -79,7 +79,7 @@ class Catalog extends Component {
           {this._renderHeader()}
           {this._renderFlat()}          
         </ScrollView>        
-        <Footer />
+        <Footer navigation={navigation} />
       </View>
     )
   }

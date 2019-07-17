@@ -9,7 +9,7 @@ import rootReducer from '../reducers'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['navigation']
+  whitelist: ['auth']
 }
 
 const logger = createLogger({
