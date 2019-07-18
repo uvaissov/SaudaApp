@@ -1,14 +1,12 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import FastImage from 'react-native-fast-image'
+import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native'
 //import axios from 'axios'
 import { connect } from 'react-redux'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w } from '../../constants/global'
+import { } from '../../constants/global'
 import Loader from '../../components/Loader'
 import { } from '../../transform'
 
@@ -21,7 +19,7 @@ class Card extends Component {
     oftenBuy: []
   }
   async componentDidMount() {
-    
+    console.log('Card dm')
   }
 
   _renderItem =({ item }) => {
