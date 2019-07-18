@@ -3,8 +3,9 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 const Button = (props) => {
+  const { onPress } = props
   return (
-    <TouchableOpacity onPress={props.onPress} >
+    <TouchableOpacity onPress={onPress} >
       <View style={[styles.view, props.style]}>
         <View style={styles.container}>
           {

@@ -1,16 +1,15 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import { GREEN, RED, WHITE, BLACK } from '../../../constants/global'
+import { GREEN, RED, WHITE, BLACK, normalize } from '../../../constants/global'
 
 const CountCardControl = (props) => {
   return (    
-    <View style={[styles.view, props.style]}>
-      
+    <View style={[styles.view, props.style]}>      
       <View style={styles.container}>
         <TouchableOpacity onPress={props.onPressLeft} >
           <View style={styles.leftBtn}><Text style={styles.btnText}>-</Text></View>
         </TouchableOpacity>
-        <View>
+        <View style={styles.textView}>
           <Text style={styles.title}>{props.count} шт</Text>
         </View>
         <TouchableOpacity onPress={props.onPressRight} >
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    width: 75,
+    minWidth: 40,
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
     backgroundColor: RED
@@ -34,13 +33,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    width: 70,
+    minWidth: 40,
     borderTopRightRadius: 25,
     borderBottomRightRadius: 25,
     backgroundColor: GREEN
   },
+  textView: {
+    backgroundColor: '#F3F3F3',
+    height: 30,
+    flex: 1,
+    justifyContent: 'center'
+  },
   btnText: {
-    fontSize: 25,
+    fontSize: normalize(18),
     color: WHITE,
     fontWeight: 'normal'
   },
@@ -51,12 +56,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   view: {
+    flex: 1,
     borderRadius: 25,
     backgroundColor: WHITE,
-    height: 35
+    height: 30
   },
   title: {
-    fontSize: 14,
+    fontSize: normalize(11),
     fontFamily: 'CenturyGothic',
     fontWeight: '300',
     color: BLACK,

@@ -13,7 +13,7 @@ export default class Login extends Component {
         <Window style={styles.view} title="Товар добавлен в корзину" normal center>
           <View style={{padding: 15}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Button title="Продолжить покупки" style={{backgroundColor: 'rgba(0, 0, 0, 0.08)', width: 180 }} textStyle={{color: BLACK, fontSize: 12 }} />
+              <Button onPress={() => hide()} title="Продолжить покупки" style={{backgroundColor: 'rgba(0, 0, 0, 0.08)', width: 180 }} textStyle={{color: BLACK, fontSize: 12 }} />
               <Button title="Оформить заказ" style={{backgroundColor: GREEN, width: 180 }} textStyle={{ fontSize: 12 }} />
             </View>
           </View>

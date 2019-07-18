@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList} from 'react-native'
 import { connect } from 'react-redux'
 import { getBrands, getProducts } from './actions'
+import { addToCard, getCard } from '../Card/actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -32,9 +33,15 @@ class Catalog extends Component {
     }
   }
 
+   _addToCard = async (id, q) => {
+     await this.props.addToCard(id, q)
+     this.setState({productAddShow: true})
+     this.props.getCard()
+   }
+
   _renderItem =({ item }) => {
     const { navigation } = this.props
-    return (<ItemRowView item={item} onCardPress={() => this.setState({productAddShow: true})} onPress={() => navigation.push('ProductView', { product: item })} />)
+    return (<ItemRowView item={item} onCardPress={this._addToCard} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
   _renderHeader = () => {
@@ -119,4 +126,4 @@ const mapStateToProps = state => {
     isLoadingItems: state.catalog.isLoadingItems
   }
 }
-export default connect(mapStateToProps, { getBrands, getProducts })(Catalog)
+export default connect(mapStateToProps, { getBrands, getProducts, addToCard, getCard })(Catalog)

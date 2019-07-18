@@ -89,8 +89,7 @@ const CatalogStack = createStackNavigator(
   {
     Main,
     Catalog,
-    ProductView,
-    Card
+    ProductView
   },
   {
     initialRouteName: 'Main',
@@ -108,6 +107,12 @@ const styles = StyleSheet.create({
 })
 
 const Screens = createDrawerNavigator({
+  Card: {
+    screen: Card,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
   Main: {
     screen: CatalogStack,
     navigationOptions: {

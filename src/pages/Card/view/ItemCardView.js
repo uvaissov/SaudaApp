@@ -1,51 +1,71 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import FastImage from 'react-native-fast-image'
-import { w } from '../../../constants/global'
+import { w, normalize } from '../../../constants/global'
 import { CountCardControl } from './CountCardControl'
 
 class ItemCardView extends Component {
-  state={
-    loginShow: false
+  constructor(props) {
+    super(props)
+    this.state = { count: this.props.item.amount }
+  }
+
+  changeCount = (q) => {
+    if (q < 0 && this.state.count < 2) {
+      return
+    }
+    const total = this.state.count + q
+    this.setState({count: total })
+    this.props.addToCard(this.props.item.id, total)
   }
   render() {
-    const { item, onPress } = this.props
+    const { item, removeFromCard } = this.props
     return (
-      <TouchableOpacity onPress={onPress}>
-        <View style={[styles.container, styles.shadow]}>
-          <View style={styles.rowContainer}>
-            <View style={styles.imgView}>
-              <FastImage
-                style={{ height: 90, width: 70 }} 
-                source={item.img}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+      <View style={[styles.container, styles.shadow]}>
+        <View style={styles.rowContainer}>
+          <View style={styles.imgView}>
+            <FastImage
+              style={{ height: 110, width: 70 }} 
+              source={item.img}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          </View>
+          <View style={styles.bodyView}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
+              <TouchableOpacity onPress={() => removeFromCard(item.id)} style={{position: 'relative', top: -10, right: -10}}>
+                <View ><FontAwesome name="trash-o" size={25} color="rgba(0,0,0,0.5)" /></View>
+              </TouchableOpacity>
             </View>
-            <View style={styles.bodyView}>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
-                <View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View>
-              </View>
-              <View><Text style={styles.itemPriceText}>340 тг</Text></View>
-              <View><CountCardControl count={1} /></View>
+              
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <CountCardControl               
+                onPressLeft={() => this.changeCount(-1)} 
+                onPressRight={() => this.changeCount(1)} 
+                count={this.state.count} 
+              />
+              <View style={styles.priceView}><Text style={styles.itemPriceText}>340 тг</Text></View>
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({ 
+  priceView: {
+    paddingLeft: 15
+  },
   itemTitle: {    
     fontFamily: 'CenturyGothic',
-    fontSize: 14,
+    fontSize: normalize(11),
     color: 'black'
   },
   itemPriceText: {
     fontFamily: 'CenturyGothic',
-    fontSize: 14,
+    fontSize: normalize(13),
     color: '#FF798D'  
   },
   container: {

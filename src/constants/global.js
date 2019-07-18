@@ -8,11 +8,12 @@ export const WHITE = '#fff'
 export const BLACK = '#000'
 export const GREEN = '#6ACB6D'
 export const RED = '#E54B65'
+export const FONT = 'CenturyGothic'
 
 export const statusBarHeight = Platform.OS === 'ios' ? isIphoneX() ? 30 : 20 : StatusBar.currentHeight
 
 export const BORDER_COLOR = '#ddd'
-export const BG_COLOR = '#FAFAFA'
+export const BG_COLOR = '#F8F8F8'
 export const TRASPARENT = 'transparent'
 
 export const MAIN_COLOR = '#4388D6'
