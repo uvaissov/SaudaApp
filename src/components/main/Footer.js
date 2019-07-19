@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { connect } from 'react-redux'
 import FastImage from 'react-native-fast-image'
 import Login from '../../components/modals/Login'
 import Registration from '../../components/modals/Registration'
 import Callback from '../../components/modals/Callback'
+import { RED, FONT, WHITE, normalize } from '../../constants/global'
 
-export default class Footer extends Component {
+class Footer extends Component {
   state={
     loginShow: false,
     regShow: false,
@@ -13,7 +15,7 @@ export default class Footer extends Component {
   }
   render() {
     const { loginShow, regShow, callBackShow } = this.state
-    const { navigation } = this.props
+    const { navigation, items } = this.props
     return (
       <View style={[styles.container, styles.shadow]}>
         <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.setState({regShow: true, loginShow: false})} />           
@@ -29,7 +31,7 @@ export default class Footer extends Component {
               />              
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Favorite')}>
             <View style={styles.buttton}>
               <FastImage
                 style={styles.image}
@@ -54,6 +56,11 @@ export default class Footer extends Component {
                 source={require('../../../resources/images/icons/footer/basket.png')}
                 resizeMode={FastImage.resizeMode.contain}
               />
+              {items && items.length > 0 &&
+              (<View style={styles.cardCountView}>
+                <Text style={styles.cardCountText}>{items.length}</Text>
+              </View>)
+              }
             </View>
           </TouchableOpacity>
         </View>
@@ -63,6 +70,22 @@ export default class Footer extends Component {
 }
 
 const styles = StyleSheet.create({
+  cardCountView: {
+    position: 'absolute', 
+    right: 0, 
+    top: 0, 
+    height: 20, 
+    width: 20, 
+    borderRadius: 10, 
+    backgroundColor: RED,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  cardCountText: {
+    fontFamily: FONT,
+    color: WHITE,
+    fontSize: normalize(10)
+  },
   image: {
     height: 40,
     width: 40
@@ -93,3 +116,9 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = state => {
+  return {
+    items: state.card.items
+  }
+}
+export default connect(mapStateToProps, { })(Footer)

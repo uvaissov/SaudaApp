@@ -33,7 +33,8 @@ export default (state = initialState, action) => {
   case ACTION_GET_ITEMS_STARTED: {
     return {
       ...state,
-      isLoadingItems: true
+      isLoadingItems: true,
+      items: []
     }
   }
   case ACTION_GET_ITEMS_FAILED: {

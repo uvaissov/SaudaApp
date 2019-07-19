@@ -8,7 +8,7 @@ import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w, hostName } from '../../constants/global'
+import { w, hostName, GREEN } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
@@ -65,6 +65,9 @@ class ProductView extends Component {
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
+        <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
+          <View style={{margin: 15}}><Text style={[styles.itemDesc, {color: GREEN}]}> В каталог</Text></View>
+        </TouchableOpacity>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
           <View style={styles.favoritePos}>
             <TouchableOpacity onPress={() => {}}>
@@ -93,7 +96,7 @@ class ProductView extends Component {
           </View>
           {this._renderOftenBy()}
         </ScrollView>
-        <Footer />
+        <Footer navigation={navigation} />
       </View>
     )
   }

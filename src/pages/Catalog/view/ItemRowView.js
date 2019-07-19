@@ -1,17 +1,32 @@
 import React, {Component} from 'react'
+import _ from 'lodash'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
 import FastImage from 'react-native-fast-image'
+import { toFav, remFromFav } from '../../Favorite/actions'
 import { w } from '../../../constants/global'
 import { Button } from './Button'
 
 class ItemRowView extends Component {
-  state={
-    loginShow: false
+  toFavorite = (item) => {
+    this.props.toFav(item)
   }
+  remFavorite = (item) => {
+    this.props.remFromFav(item)
+  }
+
+  renderFavButton =() => {
+    const { item, items } = this.props    
+    const isExistFromFav = _.findIndex(items, (current) => current.id === item.id)
+    if (isExistFromFav > -1) {
+      return (<TouchableOpacity onPress={() => this.remFavorite(item)}><View><Ionicons name="md-heart" size={25} color="#FF798D" /></View></TouchableOpacity>)
+    }
+    return (<TouchableOpacity onPress={() => this.toFavorite(item)}><View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View></TouchableOpacity>)
+  }
+
   render() {
-    const { item, onPress, onCardPress } = this.props
-    console.log(this.props)
+    const { item, onPress, onCardPress } = this.props    
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.container, styles.shadow]}>
@@ -26,7 +41,7 @@ class ItemRowView extends Component {
             <View style={styles.bodyView}>
               <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
-                <View><Ionicons name="md-heart-empty" size={25} color="#FF798D" /></View>
+                {this.renderFavButton()}
               </View>
               <View><Text style={styles.itemPriceText}>340 тг</Text></View>
               <View><Button title="В корзину" icon="cart" onPress={() => onCardPress(item.id, 1)} /></View>
@@ -77,7 +92,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 8,
     position: 'relative'
-
   }
 })
-export default ItemRowView
+
+const mapStateToProps = state => {
+  return {
+    items: state.favorite.items
+  }
+}
+export default connect(mapStateToProps, { toFav, remFromFav })(ItemRowView)

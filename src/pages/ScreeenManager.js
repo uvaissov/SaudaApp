@@ -12,6 +12,7 @@ import AboutApp from './drawer/AboutApp'
 import Vacancy from './drawer/Vacancy'
 import Contact from './drawer/Contact'
 import Card from './Card'
+import Favorite from './Favorite/Favorite'
 import { w } from '../constants/global'
 
 const CustomDrawerComponent = (props) => (
@@ -109,6 +110,12 @@ const styles = StyleSheet.create({
 const Screens = createDrawerNavigator({
   Card: {
     screen: Card,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Favorite: {
+    screen: Favorite,
     navigationOptions: {
       drawerLabel: () => null
     }
