@@ -1,4 +1,4 @@
-import { ACTION_SELECT_USER_CITY, ACTION_SELECT_USER_CARD_UUID } from '../types'
+import { ACTION_SELECT_USER_CITY, ACTION_SELECT_USER_CARD_UUID, ACTION_SET_TOKEN } from '../types'
   
 const initialState = {
   cardUuid: null,
@@ -18,6 +18,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       cardUuid: action.payload
+    }
+  }
+  case ACTION_SET_TOKEN: {
+    return {
+      ...state,
+      token: action.payload
     }
   }
   default: {

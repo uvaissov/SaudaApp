@@ -13,12 +13,17 @@ class Footer extends Component {
     regShow: false,
     callBackShow: false
   }
+  createAccountClick = () => {
+    this.setState({loginShow: false})
+    const me = this
+    setTimeout(() => { me.setState({regShow: true}) }, 500)    
+  }
   render() {
     const { loginShow, regShow, callBackShow } = this.state
     const { navigation, items } = this.props
     return (
       <View style={[styles.container, styles.shadow]}>
-        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.setState({regShow: true, loginShow: false})} />           
+        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.createAccountClick()} />           
         <Registration visibility={regShow} hide={() => this.setState({regShow: false})} />
         <Callback visibility={callBackShow} hide={() => this.setState({callBackShow: false})} />
         <View style={styles.view}>

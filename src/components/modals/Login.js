@@ -1,13 +1,49 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import _ from 'lodash'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert } from 'react-native'
 import Modal from 'react-native-modal'
+import { connect } from 'react-redux'
+import { login } from '../../pages/Auth/actions'
 import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
 import { w, GREEN, BLACK, RED } from '../../constants/global'
 
-export default class Login extends Component {
+class Login extends Component {
+  state = {
+    mail: 'laravel@email.com',
+    password: 'secretsecret'
+  }
+
+  login = async () => {
+    const data = await this.props.login(this.state.mail, this.state.password)
+    const { token, errors } = data
+    if (!_.isEmpty(token)) {
+      this.props.hide()
+    }
+    if (!_.isEmpty(errors)) {
+      const values = _.values(errors)
+      let message = ''
+      values.map((row) => {
+        row.map((inner) => {
+          message += `${inner}\n`
+          return message
+        })
+        return message
+      })
+      Alert.alert(
+        'Ошибка авторизации',
+        message,
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        {cancelable: false},
+      )
+    }
+  }
+
   render() {
     const { visibility, hide, reg } = this.props
+    const { mail, password } = this.state
     return (
       <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
         <Window style={styles.view} title="Вход">
@@ -19,13 +55,13 @@ export default class Login extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Ваш E-mail" />
+              <TextInput style={styles.textInput} placeholder="Ваш E-mail" value={mail} />
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Пароль" />
+              <TextInput style={styles.textInput} placeholder="Пароль" value={password} />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <Button title="Войти" style={{backgroundColor: GREEN, width: 150 }} />
+              <Button title="Войти" onPress={() => this.login()} style={{backgroundColor: GREEN, width: 150 }} />
               <Text style={[styles.word, {color: RED }]}>Забыли пароль?</Text>
             </View>
           </View>
@@ -60,3 +96,10 @@ const styles = StyleSheet.create({
     fontFamily: 'CenturyGothic'
   }
 })
+
+const mapStateToProps = state => {
+  return {
+    //...state.auth
+  }
+}
+export default connect(mapStateToProps, { login })(Login)
