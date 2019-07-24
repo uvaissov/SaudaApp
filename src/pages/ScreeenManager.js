@@ -13,6 +13,7 @@ import Vacancy from './drawer/Vacancy'
 import Contact from './drawer/Contact'
 import Card from './Card'
 import Favorite from './Favorite/Favorite'
+import Profile from './Profile/Profile'
 import { w } from '../constants/global'
 
 const CustomDrawerComponent = (props) => (
@@ -116,6 +117,12 @@ const Screens = createDrawerNavigator({
   },
   Favorite: {
     screen: Favorite,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Profile: {
+    screen: Profile,
     navigationOptions: {
       drawerLabel: () => null
     }

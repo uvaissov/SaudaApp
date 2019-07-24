@@ -13,6 +13,17 @@ export function transformCategory(data) {
   }
 }
 
+export function transformProfile(data) {
+  const { name = '', email = '', phone = '', address = '', additional_address = '' } = data  
+  return { 
+    name, 
+    email,
+    phone,
+    address,
+    additional_address
+  }
+}
+
 export function transformProduct(data) {
   const { id, title, /*image,*/ short_description, description, views, country, amount, price } = data  
   return { 

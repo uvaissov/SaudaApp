@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import _ from 'lodash'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import FastImage from 'react-native-fast-image'
@@ -18,6 +19,16 @@ class Footer extends Component {
     const me = this
     setTimeout(() => { me.setState({regShow: true}) }, 500)    
   }
+
+  profileClick = () => {
+    const { token, navigation } = this.props
+    if (_.isEmpty(token)) {
+      this.setState({loginShow: true})
+    } else {
+      navigation.navigate('Profile')
+    }
+  }
+  
   render() {
     const { loginShow, regShow, callBackShow } = this.state
     const { navigation, items } = this.props
@@ -27,7 +38,7 @@ class Footer extends Component {
         <Registration visibility={regShow} hide={() => this.setState({regShow: false})} />
         <Callback visibility={callBackShow} hide={() => this.setState({callBackShow: false})} />
         <View style={styles.view}>
-          <TouchableOpacity onPress={() => this.setState({loginShow: true})}>
+          <TouchableOpacity onPress={() => this.profileClick()}>
             <View style={styles.buttton}>
               <FastImage
                 style={styles.image}
@@ -123,7 +134,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    items: state.card.items
+    items: state.card.items,
+    token: state.auth.token
   }
 }
 export default connect(mapStateToProps, { })(Footer)
