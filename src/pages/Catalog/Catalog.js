@@ -8,6 +8,7 @@ import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import CategorySlider from '../Main/view/CategorySlider'
 import ItemRowView from './view/ItemRowView'
+import ItemFooter from './view/ItemFooter'
 import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
 import ProductAdded from '../../components/modals/ProductAdded'
@@ -53,6 +54,11 @@ class Catalog extends Component {
     )
   }
 
+  _renderFooter= () => {
+    const { current_page, last_page } = this.props
+    return (<ItemFooter current_page={current_page} last_page={last_page} onPagePress={(page) => console.log(page)} />)
+  }
+
   _renderFlat = () => {
     const { items, isLoadingItems } = this.props
 
@@ -65,6 +71,7 @@ class Catalog extends Component {
         renderItem={this._renderItem}
         //ListHeaderComponent={this._renderHeader}
         keyExtractor={(item) => item.id}
+        ListFooterComponent={this._renderFooter}
       />
     )
   }
@@ -119,11 +126,12 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     categories: state.main.categories,
     items: state.catalog.items,
-    isLoadingItems: state.catalog.isLoadingItems
+    isLoadingItems: state.catalog.isLoadingItems,
+    current_page: state.catalog.current_page,
+    last_page: state.catalog.last_page
   }
 }
 export default connect(mapStateToProps, { getBrands, getProducts, addToCard, getCard })(Catalog)
