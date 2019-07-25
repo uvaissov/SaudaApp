@@ -1,14 +1,16 @@
+import { genImageUri } from '../constants/global'
+
 export function transformBrand(data) {
   const { id, title } = data
   return {id, name: title}
 }
 
 export function transformCategory(data) {
-  const { id, name, children } = data  
+  const { id, name, children, image } = data  
   return { 
     id, 
     name, 
-    img: require('../../resources/images/icons/category/drink.png'),
+    img: {uri: genImageUri(image)},
     children: children.map((item) => ({id: item.id, name: item.name}))
   }
 }
@@ -25,7 +27,7 @@ export function transformProfile(data) {
 }
 
 export function transformProduct(data) {
-  const { id, title, /*image,*/ short_description, description, views, country, amount, price } = data  
+  const { id, title, image, short_description, description, views, country, amount, price } = data  
   return { 
     id, 
     title,
@@ -35,7 +37,18 @@ export function transformProduct(data) {
     country,
     amount,
     price,
-    img: require('../../resources/images/icons/category/drink.png')
+    img: {uri: genImageUri(image)}
   } 
+}
+
+export function transformOrder(data) {
+  const { id, total_price, created_at, status, products } = data  
+  return { 
+    id, 
+    status,
+    total: total_price,
+    date: created_at,
+    products: products.map((item) => ({...transformProduct(item.product), count: item.amount, total: item.price }))
+  }
 }
 

@@ -55,10 +55,10 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Ваш E-mail" value={mail} />
+              <TextInput style={styles.textInput} placeholder="Ваш E-mail" value={mail} onChangeText={(text) => this.setState({mail: text})} />
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Пароль" value={password} />
+              <TextInput style={styles.textInput} placeholder="Пароль" value={password} onChangeText={(text) => this.setState({password: text})} />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <Button title="Войти" onPress={() => this.login()} style={{backgroundColor: GREEN, width: 150 }} />
@@ -97,9 +97,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => {
-  return {
-    //...state.auth
-  }
+const mapStateToProps = () => {
+  return {}
 }
 export default connect(mapStateToProps, { login })(Login)

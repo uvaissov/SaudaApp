@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import _ from 'lodash'
+//import _ from 'lodash'
 import axios from 'axios'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 //import axios from 'axios'
@@ -28,13 +28,13 @@ class Profile extends Component {
   }
   
   render() {
-    const { navigation } = this.props
+    const { navigation, auth } = this.props
     const { name, email, phone, address, additional_address} = this.state
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
-        <HeaderButtonContainer selected="profile" navigation={navigation} />
+        <HeaderButtonContainer selected="profile" navigation={navigation} token={auth.token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={styles.bodyView}>
             <View style={{padding: 10 }}>

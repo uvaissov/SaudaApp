@@ -6,6 +6,8 @@ target 'SaudaApp' do
   use_frameworks!
   
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
 
 # this is needed to avoid including multiple references to react.

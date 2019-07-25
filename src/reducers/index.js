@@ -5,6 +5,7 @@ import authReducer from '../pages/Auth/reducers'
 import cardReducer from '../pages/Card/reducers'
 import favReducer from '../pages/Favorite/reducers'
 import profileReducer from '../pages/Profile/reducers'
+import ordersReducer from '../pages/MyOrders/reducers'
 
 const reducers = combineReducers({
   main: mainReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   auth: authReducer,
   card: cardReducer,
   favorite: favReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  orders: ordersReducer
 })
   
 export default reducers

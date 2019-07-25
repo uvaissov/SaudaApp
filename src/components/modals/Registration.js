@@ -109,10 +109,8 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => {
-  return {
-    //...state.auth
-  }
+const mapStateToProps = () => {
+  return {}
 }
 export default connect(mapStateToProps, { register })(Registration)
 //export default Registration

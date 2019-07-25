@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, FlatList, Alert } from 'react-native'
 //import axios from 'axios'
 import { connect } from 'react-redux'
 import Header from '../../components/main/Header'
@@ -8,7 +8,8 @@ import Footer from '../../components/main/Footer'
 import ItemCardView from './view/ItemCardView'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import { Button } from '../Catalog/view/Button'
-import { addToCard, getCard, removeFromCard } from './actions'
+import { addToCard, getCard, removeFromCard, makeOrder } from './actions'
+import { getMyOrders } from '../MyOrders/actions'
 import { WHITE, RED, BLACK, FONT, BG_COLOR, normalize } from '../../constants/global'
 //import Loader from '../../components/Loader'
 import { } from '../../transform'
@@ -40,8 +41,36 @@ class Card extends Component {
     this.props.getCard()
   }
 
+  _makeOrder = async () => {
+    const { total_price } = this.props    
+    if (total_price <= 0) {
+      Alert.alert(
+        'Корзина пустая',
+        'Сначало необходимо добавить товары из каталога',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        {cancelable: false},
+      )
+      return 
+    }
+    const data = await this.props.makeOrder()
+    const { order_id } = data
+    if (_.isNumber(order_id)) {
+      Alert.alert(
+        'Спасибо',
+        'Ваш заказ принят в обработку',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        {cancelable: false},
+      )
+      this.props.getCard()
+      this.props.getMyOrders()
+    }
+  }
+
   _renderItem =({ item }) => {
-    //const { navigation } = this.props
     return (<ItemCardView key={_.uniqueId('ItemCardView')} addToCard={this._addToCard} removeFromCard={this._removeFromCard} item={item} onPress={() => {}} />)
   }
 
@@ -67,9 +96,9 @@ class Card extends Component {
           <View style={styles.totalView} >
             <Text style={styles.totalBoxTitle}>Всего к оплате:</Text>
             <View style={styles.totalBoxView}><Text style={styles.totalBoxText}>{total_price} тг</Text></View>
-          </View> 
+          </View>
           <View style={styles.buttonView}>
-            <Button title="Оформит заказ" style={{paddingHorizontal: 50}} />
+            <Button title="Оформит заказ" style={{paddingHorizontal: 50}} onPress={() => this._makeOrder()} />
           </View>       
         </ScrollView>
         <Footer navigation={navigation} />
@@ -144,4 +173,4 @@ const mapStateToProps = state => {
     total_price: state.card.total_price
   }
 }
-export default connect(mapStateToProps, { addToCard, getCard, removeFromCard })(Card)
+export default connect(mapStateToProps, { addToCard, getCard, removeFromCard, makeOrder, getMyOrders })(Card)

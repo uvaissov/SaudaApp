@@ -1,62 +1,48 @@
 import React, {Component} from 'react'
-import _ from 'lodash'
+//import _ from 'lodash'
+//import axios from 'axios'
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
-import ItemFavView from './view/ItemFavView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { addToCard, getCard } from '../Card/actions'
-import ProductAdded from '../../components/modals/ProductAdded'
 import { HeaderButtonContainer } from '../Profile/view/HeaderButtonContainer'
-import { } from './actions'
-import { BG_COLOR } from '../../constants/global'
+import ItemOrderView from './view/ItemOrderView'
+import OrderHeaderView from './view/OrderHeaderView'
+import { getMyOrders } from './actions'
+import { FONT, BG_COLOR, normalize } from '../../constants/global'
 import { } from '../../transform'
 
-class Favotite extends Component {
-  state ={
-    productAddShow: false
-  }
+class MyOrders extends Component {
   async componentDidMount() {
-    console.log('Fav dm')
+    this.props.getMyOrders()
   }
 
-  _addToCard = async (id, q) => {
-    await this.props.addToCard(id, q)
-    this.setState({productAddShow: true})
-    this.props.getCard()
-  }
-
-  _removeFromFav =async (id) => {
-    console.log(id)
-  }
-
-  _renderItem =({ item }) => {
-    //const { navigation } = this.props
-    return (<ItemFavView key={_.uniqueId('ItemFavView')} onCardPress={this._addToCard} item={item} onPress={() => {}} />)
-  }
-
+  _renderItem = ({item}) => (<ItemOrderView item={item} />)
+  _renderHeader = () => (<OrderHeaderView />)
   _renderFlat = () => {
     const { items } = this.props  
     return (
       <FlatList 
+        ListHeaderComponent={this._renderHeader}
         data={items}
         renderItem={this._renderItem}
         keyExtractor={(item) => item.id}
       />
     )
   }
+  
   render() {
-    const { navigation, token } = this.props 
-    const { productAddShow } = this.state
+    const { navigation, token } = this.props
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
-        <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
-        <HeaderButtonContainer selected="favorite" navigation={navigation} token={token} />
+        <HeaderButtonContainer selected="orders" navigation={navigation} token={token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
-          {this._renderFlat()}                
+          <View style={styles.bodyView}>
+            {this._renderFlat()}
+          </View>
         </ScrollView>
         <Footer navigation={navigation} />
       </View>
@@ -64,15 +50,19 @@ class Favotite extends Component {
   }
 }
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({  
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: BG_COLOR
   },
   scrollView: {
-    paddingVertical: 25,
     flex: 1
+  },
+  text: {
+    fontFamily: FONT,
+    fontSize: normalize(15),
+    marginTop: 20
   },
   shadow: {
     shadowColor: 'rgba(48, 25, 0, 0.1)',
@@ -87,8 +77,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    items: state.favorite.items,
+    items: state.orders.items,
     token: state.auth.token
   }
 }
-export default connect(mapStateToProps, { addToCard, getCard })(Favotite)
+export default connect(mapStateToProps, { getMyOrders })(MyOrders)

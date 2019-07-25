@@ -74,3 +74,13 @@ export const removeFromCard = (propuctId) => async (dispatch, getState) => {
   }
 }
 
+export const makeOrder = () => async (dispatch, getState) => {
+  try {
+    const { auth } = getState()
+    const { cardUuid, token } = auth
+    const { data } = await axios.post(`${hostName}/api/v1/cart/order?uid=${cardUuid}&api_token=${token}`)          
+    return data
+  } catch (error) {
+    return error
+  }
+}
