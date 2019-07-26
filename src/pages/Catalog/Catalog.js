@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, ScrollView, FlatList} from 'react-native'
+import _ from 'lodash'
 import { connect } from 'react-redux'
-import { getBrands, getProducts } from './actions'
+import { getBrands, getProducts, cleanFilters } from './actions'
 import { addToCard, getCard } from '../Card/actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
@@ -13,7 +14,7 @@ import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
 import ProductAdded from '../../components/modals/ProductAdded'
 import Loader from '../../components/Loader'
-import { w } from '../../constants/global'
+import { w, normalize } from '../../constants/global'
 
 class Catalog extends Component {
   state={
@@ -23,14 +24,14 @@ class Catalog extends Component {
 
   async componentDidMount() {
     this.props.getBrands()
-    const categoryId = this.props.navigation.getParam('categoryId')
-    this.props.getProducts(categoryId)
+    this._search()
   }
   componentDidUpdate(prevProps/*, prevState*/) {
     const categoryId = this.props.navigation.getParam('categoryId')
     const prevCategoryId = prevProps.navigation.getParam('categoryId')
     if (categoryId && categoryId !== prevCategoryId) {
-      this.props.getProducts(categoryId)
+      this.props.cleanFilters()
+      this._search()
     }
   }
 
@@ -38,6 +39,16 @@ class Catalog extends Component {
      await this.props.addToCard(id, q)
      this.setState({productAddShow: true})
      this.props.getCard()
+   }
+
+   _onPagePress = (page) => {
+     const categoryId = this.props.navigation.getParam('categoryId')
+     this.props.getProducts(categoryId, page)
+   }
+
+   _search = () => {
+     const categoryId = this.props.navigation.getParam('categoryId')
+     this.props.getProducts(categoryId, 1)
    }
 
   _renderItem =({ item }) => {
@@ -56,7 +67,7 @@ class Catalog extends Component {
 
   _renderFooter= () => {
     const { current_page, last_page } = this.props
-    return (<ItemFooter current_page={current_page} last_page={last_page} onPagePress={(page) => console.log(page)} />)
+    return (<ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={this._onPagePress} />)
   }
 
   _renderFlat = () => {
@@ -77,6 +88,7 @@ class Catalog extends Component {
   }
   
   render() {
+    const categoryId = this.props.navigation.getParam('categoryId')
     const { navigation, categories } = this.props
     const { filterShow, productAddShow } = this.state
     return (
@@ -84,11 +96,11 @@ class Catalog extends Component {
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
-        <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
+        <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} search={this._search} />
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          
           <View style={styles.bodyView}>            
-            <Text style={styles.headerText}>Бакалея</Text>
+            <Text style={styles.headerText}>{_.filter(categories, (item) => item.id === categoryId)[0].name}</Text>
           </View>
           {this._renderHeader()}
           {this._renderFlat()}          
@@ -107,9 +119,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25
   },
   headerText: {
-    fontFamily: 'CenturyGothic',
-    fontSize: 35,
-    textAlign: 'center'
+    fontFamily: 'ElowenRu',
+    fontSize: normalize(32),
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    marginTop: 10
   },
   container: {
     justifyContent: 'flex-start',
@@ -134,4 +148,4 @@ const mapStateToProps = state => {
     last_page: state.catalog.last_page
   }
 }
-export default connect(mapStateToProps, { getBrands, getProducts, addToCard, getCard })(Catalog)
+export default connect(mapStateToProps, { getBrands, getProducts, addToCard, getCard, cleanFilters })(Catalog)

@@ -1,17 +1,26 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-//import { w } from '../../../../constants/global'
+import { addBrandFilter, delBrandFilter } from '../../actions'
 
 class ScrollElement extends Component {
-  state={
-    selected: false
+  onSelect = () => {
+    const { item, filterBrands, search } = this.props
+    const selected = _.includes(filterBrands, item) 
+    if (selected) {
+      this.props.delBrandFilter(item)
+      search()
+    } else {
+      this.props.addBrandFilter(item)
+      search()
+    }
   }
   render() {
-    const { item } = this.props
-    const { selected } = this.state
-    console.log(item)
+    const { item, filterBrands } = this.props
+    const selected = _.includes(filterBrands, item) 
     return (
-      <TouchableOpacity onPress={() => this.setState({selected: !selected})}>
+      <TouchableOpacity onPress={() => this.onSelect()}>
         <View style={[styles.container]}>
           <View style={styles.buttonView}>
             <View style={[styles.buttonInnerView, { backgroundColor: selected ? '#E24E63' : 'white'}]} />
@@ -48,5 +57,11 @@ const styles = StyleSheet.create({
     paddingLeft: 15
   }
 })
-export default ScrollElement
+
+const mapStateToProps = state => {
+  return {      
+    filterBrands: state.catalog.filterBrands
+  }
+}
+export default connect(mapStateToProps, { addBrandFilter, delBrandFilter })(ScrollElement)
 

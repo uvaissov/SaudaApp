@@ -71,6 +71,9 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>CenturyGothic.ttf</string>
+		<string>Elowen.ttf</string>
+		<string>ElowenRu.ttf</string>
+		<string>ElowenCaps.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native'
+import _ from 'lodash'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -24,6 +25,11 @@ class FilterModal extends Component {
       const count = this.props.brands.length
       const indicatorHeight = ((height * 6.94) / count)      
       return height > indicatorHeight ? indicatorHeight : 0
+    }
+
+    _renderItem =({item}) => {
+      const { search } = this.props
+      return (<ScrollElement item={item} search={search} />)
     }
 
     render() {
@@ -59,7 +65,7 @@ class FilterModal extends Component {
                 >
                   <FlatList 
                     data={brands}
-                    renderItem={({item}) => (<ScrollElement item={item} />)}
+                    renderItem={this._renderItem}
                   />
                 </ScrollView>
                 <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
@@ -154,7 +160,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {      
-    brands: state.catalog.brands
+    brands: state.catalog.brands,
+    filterBrands: state.catalog.filterBrands
   }
 }
 export default connect(mapStateToProps, { })(FilterModal)
