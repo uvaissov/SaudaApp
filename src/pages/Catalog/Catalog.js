@@ -26,11 +26,14 @@ class Catalog extends Component {
     this.props.getBrands()
     this._search()
   }
-  componentDidUpdate(prevProps/*, prevState*/) {
+  componentDidUpdate(prevProps, prevState) {
     const categoryId = this.props.navigation.getParam('categoryId')
     const prevCategoryId = prevProps.navigation.getParam('categoryId')
     if (categoryId && categoryId !== prevCategoryId) {
       this.props.cleanFilters()
+      this._search()
+    }
+    if (prevState.filterShow === true && this.state.filterShow !== prevState.filterShow) {
       this._search()
     }
   }
@@ -96,7 +99,7 @@ class Catalog extends Component {
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
-        <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} search={this._search} />
+        <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          
           <View style={styles.bodyView}>            
@@ -115,11 +118,10 @@ const styles = StyleSheet.create({
   listHeaderView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10,
-    paddingHorizontal: 25
+    marginVertical: 10
   },
   headerText: {
-    fontFamily: 'ElowenRu',
+    fontFamily: 'ElowenCaps',
     fontSize: normalize(32),
     textAlign: 'center',
     textTransform: 'uppercase',
@@ -131,7 +133,8 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#F9F9F9'
+    backgroundColor: '#F9F9F9',
+    paddingHorizontal: 25
   },
   bodyView: {
     flex: 1,

@@ -3,17 +3,21 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList } from '
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import axios from 'axios'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 import HTML from 'react-native-render-html'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w, hostName, GREEN } from '../../constants/global'
+import { w, hostName, GREEN, WHITE } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
 import { transformProduct } from '../../transform'
 import ProductAdded from '../../components/modals/ProductAdded'
+import { toFav, remFromFav } from '../Favorite/actions'
+import { addToCard, getCard } from '../Card/actions'
 
 class ProductView extends Component {
   state={
@@ -54,6 +58,37 @@ class ProductView extends Component {
       />
     )
   }
+
+  changeCount = (q) => {
+    if (q < 0 && this.state.count < 2) {
+      return
+    }
+    const total = this.state.count + q
+    this.setState({count: total })
+  }
+
+  toFavorite = (item) => {
+    this.props.toFav(item)
+  }
+  remFavorite = (item) => {
+    this.props.remFromFav(item)
+  }
+  _addToCard = async (id, q) => {
+    await this.props.addToCard(id, q)
+    this.setState({productAddShow: true})
+    this.props.getCard()
+  }
+
+  renderFavButton =() => {
+    const { items } = this.props
+    const { item = {} } = this.state 
+    const isExistFromFav = _.findIndex(items, (current) => current.id === item.id)
+    if (isExistFromFav > -1) {
+      return (<TouchableOpacity onPress={() => this.remFavorite(item)}><View style={styles.favBox}><Ionicons name="md-heart" size={50} color="#FF798D" /></View></TouchableOpacity>)
+    }
+    return (<TouchableOpacity onPress={() => this.toFavorite(item)}><View style={styles.favBox}><Ionicons name="md-heart-empty" size={50} color="#FF798D" /></View></TouchableOpacity>)
+  }
+
   render() {
     const { isLoading, item, count, productAddShow } = this.state
     const { navigation } = this.props
@@ -70,9 +105,7 @@ class ProductView extends Component {
         </TouchableOpacity>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
           <View style={styles.favoritePos}>
-            <TouchableOpacity onPress={() => {}}>
-              <Ionicons name="md-heart-empty" size={50} color="#FF798D" />
-            </TouchableOpacity>
+            {this.renderFavButton()}
           </View>
           <View style={styles.imgView}>
             <FastImage
@@ -87,9 +120,9 @@ class ProductView extends Component {
             <View><Text style={styles.itemTitle} >{item.title}</Text></View>
             <View><Text style={styles.itemDesc} >{item.short_description}</Text></View>
             <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
-            <View style={{marginTop: 10}}><CountControl count={count} /></View>
-            <View style={{marginTop: 10}}><Button title="В корзину" icon="cart" onPress={() => {}} /></View>
-            <View style={{marginTop: 10}}><Button style={{backgroundColor: '#E54B65'}} title="В избранное" icon="heart" onPress={() => {}} /></View>
+            <View style={{marginTop: 10}}><CountControl count={count} onPressLeft={() => this.changeCount(-1)} onPressRight={() => this.changeCount(1)} /></View>
+            <View style={{marginTop: 10}}><Button title="В корзину" icon="cart" onPress={() => this._addToCard(item.id, count)} /></View>
+            <View style={{marginTop: 10}}><Button style={{backgroundColor: '#E54B65'}} title="В избранное" icon="heart" onPress={() => this.toFavorite(item)} /></View>
             <View style={{marginBottom: 20}}>
               <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.description} imagesMaxWidth={w} />
             </View>
@@ -115,7 +148,7 @@ const styles = StyleSheet.create({
   favoritePos: {
     position: 'absolute', 
     top: 15, 
-    right: 25,
+    right: 40,
     zIndex: 20
   },
   itemDesc: {    
@@ -159,4 +192,12 @@ const styles = StyleSheet.create({
 
   }
 })
-export default ProductView
+
+const mapStateToProps = state => {
+  return {      
+    items: state.favorite.items
+  }
+}
+
+export default connect(mapStateToProps, { toFav, remFromFav, addToCard, getCard })(ProductView)
+

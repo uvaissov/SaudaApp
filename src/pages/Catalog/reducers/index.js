@@ -7,7 +7,9 @@ import {
   ACTION_GET_ITEMS_FAILED,
   ACTION_ADD_BRAND_FILTER,
   ACTION_DEL_BRAND_FILTER,
-  ACTION_CLEAN_FILTERS
+  ACTION_CLEAN_FILTERS,
+  ACTION_CHANGE_PRICE_MIN_FILTER,
+  ACTION_CHANGE_PRICE_MAX_FILTER
 } from '../types'
 
 const initialState = {
@@ -35,6 +37,18 @@ export default (state = initialState, action) => {
     return {
       ...state,
       brands: action.payload
+    }
+  }
+  case ACTION_CHANGE_PRICE_MIN_FILTER: {
+    return {
+      ...state,
+      filterPriceMin: action.payload
+    }
+  }
+  case ACTION_CHANGE_PRICE_MAX_FILTER: {
+    return {
+      ...state,
+      filterPriceMax: action.payload
     }
   }
   case ACTION_GET_ITEMS_SUCCESED: {

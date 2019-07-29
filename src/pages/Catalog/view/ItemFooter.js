@@ -6,7 +6,7 @@ import { FONT, normalize, GREEN, WHITE } from '../../../constants/global'
 class ItemFooter extends Component {
   render() {
     const { current_page, last_page, elementCount, onPagePress } = this.props
-    console.log(current_page, last_page, elementCount)
+    //console.log(current_page, last_page, elementCount)
     if (!current_page || !last_page) {
       return null
     }

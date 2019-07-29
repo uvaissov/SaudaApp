@@ -43,7 +43,7 @@ class ItemRowView extends Component {
                 <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
                 {this.renderFavButton()}
               </View>
-              <View><Text style={styles.itemPriceText}>340 тг</Text></View>
+              <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
               <View><Button title="В корзину" icon="cart" onPress={() => onCardPress(item.id, 1)} /></View>
             </View>
           </View>
@@ -62,11 +62,12 @@ const styles = StyleSheet.create({
   itemPriceText: {
     fontFamily: 'CenturyGothic',
     fontSize: 14,
-    color: '#FF798D'  
+    color: '#FF798D',
+    marginVertical: 2
   },
   container: {
     width: w - 50,
-    marginHorizontal: 25,
+    //marginHorizontal: 25,
     backgroundColor: 'white',
     padding: 20,
     marginBottom: 20,

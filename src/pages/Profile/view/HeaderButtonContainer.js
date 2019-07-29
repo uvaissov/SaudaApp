@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   image: {
     width: 45,
     height: 45,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     marginVertical: 10,
     backgroundColor: GREEN,
     borderRadius: 30
@@ -108,7 +108,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   selectedBox: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: GREEN, borderTopRightRadius: 30, borderTopLeftRadius: 30 
+    flex: 1, 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    backgroundColor: GREEN, 
+    borderTopRightRadius: 30, 
+    borderTopLeftRadius: 30,
+    justifyContent: 'space-around',
+    paddingRight: 5
   },
   shadow: {
     shadowColor: 'black',

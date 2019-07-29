@@ -10,7 +10,9 @@ import {
   ACTION_GET_ITEMS_FAILED,
   ACTION_ADD_BRAND_FILTER,
   ACTION_DEL_BRAND_FILTER,
-  ACTION_CLEAN_FILTERS
+  ACTION_CLEAN_FILTERS,
+  ACTION_CHANGE_PRICE_MIN_FILTER,
+  ACTION_CHANGE_PRICE_MAX_FILTER
 } from '../types'
 
 export const getProducts = (categoryId, page) => async (dispatch, getState) => {
@@ -23,8 +25,16 @@ export const getProducts = (categoryId, page) => async (dispatch, getState) => {
     let filterBrand = ''
     _.forEach(filterBrands, ({id}) => {
       filterBrand += `&brands[]=${id}`
-    }) 
-    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&page=${page}${filterBrand}`)
+    })
+    let filterPrice = ''
+    if (!_.isEmpty(filterPriceMin)) {
+      filterPrice = `&price=${filterPriceMin}_`
+    }
+    if (!_.isEmpty(filterPriceMax)) {
+      filterPrice += _.includes(filterPrice, '_') ? filterPriceMax : `&price=_${filterPriceMax}`
+    }
+    console.log(filterPrice)
+    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&page=${page}${filterBrand}${filterPrice}`)
     const { current_page, data, last_page} = response.data
     const items = data.map((row) => transformProduct(row))
     dispatch({
@@ -57,9 +67,16 @@ export const getBrands = () => async dispatch => {
   }
 }
 
-export const addBrandFilter = (value) => {
+export const changePriceMIn = (value) => {
   return {
-    type: ACTION_ADD_BRAND_FILTER,
+    type: ACTION_CHANGE_PRICE_MIN_FILTER,
+    payload: value
+  }
+}
+
+export const changePriceMax = (value) => {
+  return {
+    type: ACTION_CHANGE_PRICE_MAX_FILTER,
     payload: value
   }
 }

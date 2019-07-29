@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native'
+import { Text, StyleSheet, View, TextInput, ScrollView, FlatList } from 'react-native'
 import _ from 'lodash'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { changePriceMIn, changePriceMax} from '../../actions'
 import { w, h } from '../../../../constants/global'
 import { OutlineOption } from '../OutlineOption'
 import ScrollElement from './ScrollElement'
@@ -11,7 +13,8 @@ import ScrollElement from './ScrollElement'
 class FilterModal extends Component {
     state = {
       topScroll: 0,
-      height: w * 0.6
+      height: w * 0.6,
+      textInputFilter: ''
     }
 
     _scroll = (event) => {
@@ -28,12 +31,27 @@ class FilterModal extends Component {
     }
 
     _renderItem =({item}) => {
-      const { search } = this.props
-      return (<ScrollElement item={item} search={search} />)
+      return (<ScrollElement item={item} />)
+    }
+
+    _filterData = (brands) => {
+      const { textInputFilter: text } = this.state
+      if (!_.isEmpty(text)) {
+        return _.filter(brands, (el) => _.includes(_.toLower(el.name), _.toLower(text)))
+      }
+      return brands
+    }
+
+    _onChangePriceMin = (value) => {
+      this.props.changePriceMIn(value)
+    }
+
+    _onChangePriceMax = (value) => {
+      this.props.changePriceMax(value)
     }
 
     render() {
-      const { visibility, hide, brands } = this.props
+      const { visibility, hide, brands, filterPriceMin, filterPriceMax } = this.props
       const { topScroll, height } = this.state
       return (
         <Modal                   
@@ -53,45 +71,45 @@ class FilterModal extends Component {
                 <Text style={styles.brendWord}>Бренд</Text>
               </View>              
               <View style={styles.textView}>
-                <TextInput style={[styles.textInput]} placeholder="Найдите бренд" />
+                <TextInput style={[styles.textInput]} onChangeText={(text) => this.setState({textInputFilter: text})} placeholder="Найдите бренд" value={this.state.textInputFilter} />
                 <Ionicons name="ios-search" size={21} />
               </View>
+              <KeyboardAwareScrollView keyboardVerticalOffset={50} behavior="padding" enabled>
+                <View style={{flexDirection: 'row', height, marginBottom: 10}} >
+                  <ScrollView 
+                    style={{flex: 1 }}
+                    onScroll={this._scroll}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    <FlatList 
+                      data={this._filterData(brands)}
+                      renderItem={this._renderItem}
+                    />
+                  </ScrollView>
+                  <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
+                    <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: '#6ACB6D', position: 'relative', top: topScroll}} />
+                  </View>
+                </View>              
               
-              <View style={{flexDirection: 'row', height, marginBottom: 10}} >
-                <ScrollView 
-                  style={{flex: 1 }}
-                  onScroll={this._scroll}
-                  showsVerticalScrollIndicator={false}
-                >
-                  <FlatList 
-                    data={brands}
-                    renderItem={this._renderItem}
-                  />
-                </ScrollView>
-                <View style={{backgroundColor: this._indicatorHeight() === 0 ? 'white' : 'rgba(0,0,0,0.2)', position: 'relative'}}>
-                  <View style={{width: 5, height: this._indicatorHeight(), backgroundColor: '#6ACB6D', position: 'relative', top: topScroll}} />
-                </View>
-              </View>              
-              <KeyboardAvoidingView keyboardVerticalOffset={50} behavior="position" enabled>
                 <View style={styles.separator} />
                 <View style={{ alignItems: 'center'}}>
                   <OutlineOption title="Цена" style={{width: w / 1.5, borderWidth: 0 }} />                
                   <View style={styles.filterRow}>
                     <Text style={styles.brendWord}>От</Text>
                     <View style={[styles.textView, styles.filterTextView]} >
-                      <TextInput style={[styles.textInput, styles.filterTextInput]} value="1000" />
+                      <TextInput style={[styles.textInput, styles.filterTextInput]} value={filterPriceMin} keyboardType={'numeric'} onChangeText={(text) => this._onChangePriceMin(text)} />
                     </View>
                     <Text style={styles.brendWord}>KZT</Text>
                   </View>
                   <View style={styles.filterRow}>
                     <Text style={styles.brendWord}>До</Text>
                     <View style={[styles.textView, styles.filterTextView]} >
-                      <TextInput style={[styles.textInput, styles.filterTextInput]} value="25000" />
+                      <TextInput style={[styles.textInput, styles.filterTextInput]} value={filterPriceMax} keyboardType={'numeric'} onChangeText={(text) => this._onChangePriceMax(text)} />
                     </View>
                     <Text style={styles.brendWord}>KZT</Text>
                   </View>                  
                 </View>
-              </KeyboardAvoidingView>
+              </KeyboardAwareScrollView>
             </View>
            
           </View>          
@@ -161,8 +179,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {      
     brands: state.catalog.brands,
-    filterBrands: state.catalog.filterBrands
+    filterBrands: state.catalog.filterBrands,
+    filterPriceMin: state.catalog.filterPriceMin,
+    filterPriceMax: state.catalog.filterPriceMax
   }
 }
-export default connect(mapStateToProps, { })(FilterModal)
+export default connect(mapStateToProps, { changePriceMIn, changePriceMax })(FilterModal)
   

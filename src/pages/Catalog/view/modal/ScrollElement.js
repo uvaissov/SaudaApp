@@ -6,14 +6,12 @@ import { addBrandFilter, delBrandFilter } from '../../actions'
 
 class ScrollElement extends Component {
   onSelect = () => {
-    const { item, filterBrands, search } = this.props
+    const { item, filterBrands } = this.props
     const selected = _.includes(filterBrands, item) 
     if (selected) {
       this.props.delBrandFilter(item)
-      search()
     } else {
       this.props.addBrandFilter(item)
-      search()
     }
   }
   render() {
