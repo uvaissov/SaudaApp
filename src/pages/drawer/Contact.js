@@ -1,11 +1,49 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View} from 'react-native'
+import axios from 'axios'
+import { StyleSheet, View, ScrollView} from 'react-native'
+import Header from '../../components/main/Header'
+import Footer from '../../components/main/Footer'
+import CustomStatusBar from '../../components/CustomStatusBar'
+import DelivaryView from './view/DelivaryView'
+import { WHITE, hostName, BG_COLOR } from '../../constants/global'
+import { HeaderButtonDelivery } from './view/HeaderButtonDelivery'
 
-export default class App extends Component {
+class Contact extends Component {
+  state = {
+    
+  }
+  async componentDidMount() {
+    const data = await this.getData()
+    this.setState(data)
+  }
+
+  getData = async () => {
+    try {
+      const { data } = await axios.get(`${hostName}/api/v1/delivery`)
+      const { id, address, fphone, sphone, email, schedule, location } = data
+      return { id, address, fphone, sphone, email, schedule, location }
+    } catch (error) {
+      return { items: [], error }
+    }
+  }
+
+  _renderItem = (item) => {
+    return <DelivaryView item={item} />
+  }
   render() {
+    const { navigation } = this.props 
+    const { selected } = this.state   
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Hello SaudaApp</Text>
+      <View style={[styles.container]}>
+        <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <Header onPress={() => navigation.openDrawer()} />
+        <HeaderButtonDelivery selected={selected} onPress={(index) => this.setState({ selected: index })} />
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
+          <View style={{paddingHorizontal: 1}}>
+            
+          </View>
+        </ScrollView>
+        <Footer navigation={navigation} />
       </View>
     )
   }
@@ -14,6 +52,22 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    backgroundColor: WHITE
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: BG_COLOR 
+  },
+  shadow: {
+    shadowColor: 'rgba(48, 25, 0, 0.1)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    elevation: 8,
+    position: 'relative'
+
   }
 })
+
+export default Contact
