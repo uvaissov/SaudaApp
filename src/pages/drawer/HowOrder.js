@@ -5,6 +5,7 @@ import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import ItemFooter from '../Catalog/view/ItemFooter'
+import FaqView from './view/FaqView'
 import { WHITE, RED, BLACK, FONT, BG_COLOR, normalize, hostName } from '../../constants/global'
 
 class HowOrder extends Component {
@@ -14,16 +15,27 @@ class HowOrder extends Component {
     last_page: undefined
   }
   async componentDidMount() {
-    try {
-      const { data } = await axios.get(`${hostName}/api/v1/faqs`)
-      const { current_page, last_page, data: array } = data
-      this.setState({ current_page, last_page, items: array.map(({ id, question, answer}) => ({ id, question, answer }))})
-    } catch (error) {
-      console.log(error)
-    }   
+    const data = await this.getData(1)
+    this.setState(data)
   }
+
+  getData = async (page) => {
+    try {
+      const { data } = await axios.get(`${hostName}/api/v1/faqs?page=${page}`)
+      const { current_page, last_page, data: array } = data
+      return { current_page, last_page, items: array.map(({ id, question, answer}) => ({ id, question, answer }))}
+    } catch (error) {
+      return { items: [], error }
+    }
+  }
+
+  toPage = async (page) => {
+    const data = await this.getData(page)
+    this.setState(data)
+  }
+
   _renderItem = ({item}) => {
-    return <View><Text>{item.question}</Text></View>
+    return <FaqView item={item} />
   }
   render() {
     const { navigation } = this.props 
@@ -35,10 +47,11 @@ class HowOrder extends Component {
         <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Частые вопросы</Text></View>                  
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <FlatList 
+            style={{paddingHorizontal: 20}}
             data={items}
             renderItem={this._renderItem}
             keyExtractor={(item) => item.id}
-            ListFooterComponent={() => (<ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={() => {}} />)}
+            ListFooterComponent={() => (<ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={(page) => this.toPage(page)} />)}
           />              
         </ScrollView>
         <Footer navigation={navigation} />
