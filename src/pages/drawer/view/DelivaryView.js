@@ -39,13 +39,17 @@ const styles = StyleSheet.create({
   itemDescFull: {    
     fontFamily: 'CenturyGothic',
     fontSize: 14,
-    color: BLACK
+    color: BLACK    
   }
 })
 
 const propsStyle = {
-  tagsStyles: { },
-  classesStyles: { 'text-style': { fontWeight: '800' } }
+  tagsStyles: { img: { alignSelf: 'center'} },
+  classesStyles: { 
+    'text-style': { fontWeight: '800' }, 
+    'text-center': { textAlign: 'center', alignItems: 'center' },
+    row: { flexDirection: 'row', justifyContent: 'space-around' }
+  }
 }
 
 export default DelivaryView 

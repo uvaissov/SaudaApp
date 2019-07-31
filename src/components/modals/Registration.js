@@ -10,17 +10,18 @@ import { w, GREEN, BLACK } from '../../constants/global'
 
 class Registration extends Component {
   state = {
-    mail: 'test1@test.kz',
-    password: '12345678',
-    confirm: '12345678',
-    name: 'Test'
+    mail: '',
+    password: '',
+    confirm: '',
+    name: ''
   }
 
   register = async () => {
     const { mail, password, confirm, name } = this.state
 
     if (!mail || !password || !confirm || !name) {
-      alert('isNUll')
+      //alert('Необходимо заполнить обязательные поля')
+      //return {}
     }
 
     const data = await this.props.register(mail, name, password, confirm)
@@ -63,7 +64,7 @@ class Registration extends Component {
               <TextInput style={styles.textInput} placeholder="Придумайте пароль" value={password} onChangeText={(text) => this.setState({password: text})} />              
             </View>
             <View>
-              <Text style={[styles.word]}>(не короче шести символов)</Text>
+              <Text style={[styles.word]}>(не короче восьми символов)</Text>
             </View>
             <View style={styles.textView}>
               <TextInput style={styles.textInput} placeholder="Повторите пароль" value={confirm} onChangeText={(text) => this.setState({confirm: text})} />

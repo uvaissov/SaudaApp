@@ -11,16 +11,12 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isReduxLoaded: false
+      isReduxLoaded: true
     }
   }
 
   componentWillMount() {
-    console.log('componentWillMount')
-    const self = this
-    setTimeout(() => {
-      self.setState({isReduxLoaded: true})
-    }, 500)
+    console.log('componentWillMount')    
   }
   componentWillUnmount() {
     console.log('componentWillUnmount')

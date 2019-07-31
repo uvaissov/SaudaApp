@@ -10,8 +10,8 @@ import { w, GREEN, BLACK, RED } from '../../constants/global'
 
 class Login extends Component {
   state = {
-    mail: 'laravel@email.com',
-    password: 'secretsecret'
+    mail: '',
+    password: ''
   }
 
   login = async () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native'
 import { createDrawerNavigator, createAppContainer, DrawerItems, createStackNavigator } from 'react-navigation'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
@@ -15,7 +15,8 @@ import Card from './Card'
 import Favorite from './Favorite/Favorite'
 import Profile from './Profile/Profile'
 import MyOrders from './MyOrders/MyOrders'
-import { w } from '../constants/global'
+import { w, WHITE, FONT, normalize } from '../constants/global'
+import { SocialLinks } from './SocialLinks'
 
 const CustomDrawerComponent = (props) => (
   <View style={{ flex: 1 }}>
@@ -24,15 +25,20 @@ const CustomDrawerComponent = (props) => (
     }, {
       height: 210
     }),
-    backgroundColor: '#FAFAFA', 
+    backgroundColor: WHITE, 
     alignItems: 'center', 
     justifyContent: 'center'}} 
     >
-      <Text>LOGO</Text>
+      <FastImage
+        style={[{height: 150, width: 200 }]}
+        source={require('../../resources/images/logo.png')}
+        resizeMode={FastImage.resizeMode.contain}
+      />
     </View>
-    <ScrollView style={{ backgroundColor: '#FAFAFA'}}>
-      <DrawerItems {...props} />
+    <ScrollView style={{ backgroundColor: WHITE}}>
+      <DrawerItems {...props} />      
     </ScrollView>
+    <SocialLinks />
   </View>
 )
 
@@ -222,9 +228,9 @@ const Screens = createDrawerNavigator({
     activeBackgroundColor: '#FFFFFF',
     cityName: this.props,
     itemsContainerStyle: {
-      backgroundColor: '#FAFAFA'
+      backgroundColor: '#FFFFFF'
     },
-    labelStyle: { fontSize: 14, fontFamily: 'CenturyGothic', color: 'rgba(23, 7, 1, 0.87)' }
+    labelStyle: { fontSize: normalize(13), fontFamily: FONT, color: 'rgba(23, 7, 1, 0.87)', fontWeight: 'normal' }
   },
   contentComponent: CustomDrawerComponent
  
