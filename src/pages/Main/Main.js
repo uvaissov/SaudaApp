@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView} from 'react-native'
 import { connect } from 'react-redux'
-import { getCategories, getCities } from './actions'
+import { getCategories, getCities, getSliders } from './actions'
 import { getCard } from '../Card/actions'
 import { init } from '../Auth/actions'
 import Header from '../../components/main/Header'
@@ -12,18 +12,16 @@ import CategorySlider from './view/CategorySlider'
 import Loader from '../../components/Loader'
 
 class Main extends Component {
-  state={
-    loginShow: false
-  }
-  async componentDidMount() {
+  async componentDidMount() {    
     this.props.getCategories()
+    this.props.getSliders()
     await this.props.getCities()
     //init call after city putted to reduce
     await this.props.init()
     this.props.getCard()
   }
   render() {
-    const { navigation, categories, isLoading } = this.props
+    const { navigation, categories, isLoading, sliders } = this.props
 
     if (isLoading === true) {
       return <Loader animating={!isLoading} color={'black'} />
@@ -36,7 +34,7 @@ class Main extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.bodyView}>
             <CategorySlider data={categories} navigation={navigation} />
-            <SliderApp data={[{id: 3, img: require('../../../resources/images/img/main_slide_1.png')}, {id: 1, img: require('../../../resources/images/img/main_slide_1.png')}]} />
+            <SliderApp data={sliders} />
           </View>
         </ScrollView>        
         <Footer navigation={navigation} />
@@ -61,7 +59,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     categories: state.main.categories,
-    isLoading: state.main.isLoading
+    isLoading: state.main.isLoading,
+    sliders: state.main.sliders
   }
 }
-export default connect(mapStateToProps, { init, getCategories, getCities, getCard })(Main)
+export default connect(mapStateToProps, { init, getCategories, getCities, getCard, getSliders })(Main)

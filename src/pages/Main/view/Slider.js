@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Swiper from 'react-native-swiper'
+import _ from 'lodash'
 import { w } from '../../../constants/global'
 
 const getComponentHeight = (weight) => {
@@ -34,7 +35,10 @@ const SliderApp = ({
         }
       </Swiper>
     </View>
-  )  
+  )
+  if (_.isEmpty(data)) {
+    return null
+  }
   return this._renderSwiper()
 }
 

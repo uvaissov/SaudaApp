@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { hostName } from '../../../constants/global'
-import { transformCategory, transformBrand } from '../../../transform'
+import { transformCategory, transformBrand, transformProduct } from '../../../transform'
 import {
   ACTION_GET_CATEGORIOS_SUCCESED,
   ACTION_GET_CATEGORIOS_FAILED,
   ACTION_GET_CATEGORIOS_STARTED,
   ACTION_GET_CITY_SUCCESED,
-  ACTION_GET_CITY_FAILED
+  ACTION_GET_CITY_FAILED,
+  ACTION_GET_SLIDER_SUCCESED,
+  ACTION_GET_SLIDER_FAILED
 } from '../types'
   
 export const getCategories = () => async dispatch => {  
@@ -24,6 +26,22 @@ export const getCategories = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: ACTION_GET_CATEGORIOS_FAILED,
+      error
+    })
+  }
+}
+
+export const getSliders = () => async dispatch => {  
+  try {
+    const response = await axios.get(`${hostName}/api/v1/sliders`)
+    const data = response.data.map((row) => transformProduct(row))
+    dispatch({
+      type: ACTION_GET_SLIDER_SUCCESED,
+      payload: data
+    })
+  } catch (error) {
+    dispatch({
+      type: ACTION_GET_SLIDER_FAILED,
       error
     })
   }

@@ -2,14 +2,16 @@ import {
   ACTION_GET_CATEGORIOS_SUCCESED,
   ACTION_GET_CATEGORIOS_STARTED,
   ACTION_GET_CATEGORIOS_FAILED,
-  ACTION_GET_CITY_SUCCESED
+  ACTION_GET_CITY_SUCCESED,
+  ACTION_GET_SLIDER_SUCCESED,
+  ACTION_GET_SLIDER_FAILED
 } from '../types'
 
 const initialState = {
   isLoading: false,
   categories: [],
-  cities: []
-
+  cities: [],
+  sliders: []
 }
   
 export default (state = initialState, action) => {
@@ -37,6 +39,18 @@ export default (state = initialState, action) => {
     return {
       ...state,
       cities: action.payload
+    }
+  }
+  case ACTION_GET_SLIDER_SUCCESED: {
+    return {
+      ...state,
+      sliders: action.payload
+    }
+  }
+  case ACTION_GET_SLIDER_FAILED: {
+    return {
+      ...state,
+      sliders: []
     }
   }
   default: {

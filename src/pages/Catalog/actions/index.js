@@ -34,7 +34,7 @@ export const getProducts = (categoryId, page) => async (dispatch, getState) => {
       filterPrice += _.includes(filterPrice, '_') ? filterPriceMax : `&price=_${filterPriceMax}`
     }
     console.log(filterPrice)
-    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&page=${page}${filterBrand}${filterPrice}`)
+    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}`)
     const { current_page, data, last_page} = response.data
     const items = data.map((row) => transformProduct(row))
     dispatch({
@@ -77,6 +77,13 @@ export const changePriceMIn = (value) => {
 export const changePriceMax = (value) => {
   return {
     type: ACTION_CHANGE_PRICE_MAX_FILTER,
+    payload: value
+  }
+}
+
+export const addBrandFilter = (value) => {
+  return {
+    type: ACTION_ADD_BRAND_FILTER,
     payload: value
   }
 }
