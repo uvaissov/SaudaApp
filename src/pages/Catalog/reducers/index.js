@@ -9,7 +9,8 @@ import {
   ACTION_DEL_BRAND_FILTER,
   ACTION_CLEAN_FILTERS,
   ACTION_CHANGE_PRICE_MIN_FILTER,
-  ACTION_CHANGE_PRICE_MAX_FILTER
+  ACTION_CHANGE_PRICE_MAX_FILTER,
+  ACTION_SET_SORTED
 } from '../types'
 
 const initialState = {
@@ -18,6 +19,13 @@ const initialState = {
   last_page: 1,
   items: [],
   brands: [],
+  sort: [
+    {id: 'date_sort', name: 'По новинкам'}, 
+    {id: 'popularity_sort', name: 'По популярности'}, 
+    {id: 'price_sort_asc', name: 'По возрастанию цены'}, 
+    {id: 'price_sort_desc', name: 'По убыванию цены'}
+  ],
+  sorted: 'date_sort',
   filterBrands: [],
   filterPriceMin: null,
   filterPriceMax: null
@@ -37,6 +45,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       brands: action.payload
+    }
+  }
+  case ACTION_SET_SORTED: {
+    return {
+      ...state,
+      sorted: action.payload
     }
   }
   case ACTION_CHANGE_PRICE_MIN_FILTER: {

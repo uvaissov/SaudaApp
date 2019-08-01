@@ -12,16 +12,22 @@ import {
   ACTION_DEL_BRAND_FILTER,
   ACTION_CLEAN_FILTERS,
   ACTION_CHANGE_PRICE_MIN_FILTER,
-  ACTION_CHANGE_PRICE_MAX_FILTER
+  ACTION_CHANGE_PRICE_MAX_FILTER,
+  ACTION_SET_SORTED
 } from '../types'
 
+/** {id: 'date_sort', name: 'По новинкам'}, 
+    {id: 'popularity_sort', name: 'По популярности'}, 
+    {id: 'price_sort_asc', name: 'По возрастанию цены'}, 
+    {id: 'price_sort_desc', name: 'По убыванию цены'}
+ */
 export const getProducts = (categoryId, page) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ACTION_GET_ITEMS_STARTED
     })
     const { city } = getState().auth
-    const { filterBrands, filterPriceMin, filterPriceMax } = getState().catalog 
+    const { filterBrands, filterPriceMin, filterPriceMax, sorted } = getState().catalog 
     let filterBrand = ''
     _.forEach(filterBrands, ({id}) => {
       filterBrand += `&brands[]=${id}`
@@ -33,8 +39,28 @@ export const getProducts = (categoryId, page) => async (dispatch, getState) => {
     if (!_.isEmpty(filterPriceMax)) {
       filterPrice += _.includes(filterPrice, '_') ? filterPriceMax : `&price=_${filterPriceMax}`
     }
+    let sortLine = ''
+    if (!_.isEmpty(sorted)) {
+      switch (sorted) {
+      case 'date_sort':
+        sortLine += '&date_sort=desc'
+        break
+      case 'popularity_sort':
+        sortLine += '&popularity_sort=asc'
+        break
+      case 'price_sort_asc':
+        sortLine += '&price_sort=asc'
+        break
+      case 'price_sort_desc':
+        sortLine += '&price_sort=desc'
+        break
+                  
+      default:
+        break
+      }     
+    }
     console.log(filterPrice)
-    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}`)
+    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}${sortLine}`)
     const { current_page, data, last_page} = response.data
     const items = data.map((row) => transformProduct(row))
     dispatch({
@@ -91,6 +117,13 @@ export const addBrandFilter = (value) => {
 export const delBrandFilter = (value) => {
   return {
     type: ACTION_DEL_BRAND_FILTER,
+    payload: value
+  }
+}
+
+export const setSorted = (value) => {
+  return {
+    type: ACTION_SET_SORTED,
     payload: value
   }
 }

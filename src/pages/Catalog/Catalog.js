@@ -12,6 +12,7 @@ import ItemRowView from './view/ItemRowView'
 import ItemFooter from './view/ItemFooter'
 import { OutlineOption } from './view/OutlineOption'
 import FilterModal from './view/modal/FilterModal'
+import SortModal from './view/modal/SortModal'
 import ProductAdded from '../../components/modals/ProductAdded'
 import Loader from '../../components/Loader'
 import { w, normalize } from '../../constants/global'
@@ -19,6 +20,7 @@ import { w, normalize } from '../../constants/global'
 class Catalog extends Component {
   state={
     filterShow: false,
+    sortShow: false,
     productAddShow: false
   }
 
@@ -34,6 +36,9 @@ class Catalog extends Component {
       this._search()
     }
     if (prevState.filterShow === true && this.state.filterShow !== prevState.filterShow) {
+      this._search()
+    }
+    if (prevState.sortShow === true && this.state.sortShow !== prevState.sortShow) {
       this._search()
     }
   }
@@ -63,7 +68,7 @@ class Catalog extends Component {
     return (
       <View style={styles.listHeaderView} >
         <OutlineOption style={{width: w / 2.5}} title="Фильтры" onPress={() => this.setState({filterShow: true})} />
-        <OutlineOption style={{width: w / 2.5}} title="Сортировка" />
+        <OutlineOption style={{width: w / 2.5}} title="Сортировка" onPress={() => this.setState({sortShow: true})} />
       </View>
     )
   }
@@ -93,13 +98,14 @@ class Catalog extends Component {
   render() {
     const categoryId = this.props.navigation.getParam('categoryId')
     const { navigation, categories } = this.props
-    const { filterShow, productAddShow } = this.state
+    const { filterShow, productAddShow, sortShow } = this.state
     return (
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
+        <SortModal visibility={sortShow} hide={() => this.setState({sortShow: false})} />
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          
           <View style={styles.bodyView}>            
