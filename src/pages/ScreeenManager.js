@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { createDrawerNavigator, createAppContainer, DrawerItems, createStackNavigator } from 'react-navigation'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
@@ -29,11 +29,13 @@ const CustomDrawerComponent = (props) => (
     alignItems: 'center', 
     justifyContent: 'center'}} 
     >
-      <FastImage
-        style={[{height: 150, width: 200 }]}
-        source={require('../../resources/images/logo.png')}
-        resizeMode={FastImage.resizeMode.contain}
-      />
+      <TouchableWithoutFeedback onPress={() => props.navigation.navigate('Main')}>
+        <FastImage
+          style={[{height: 150, width: 200 }]}
+          source={require('../../resources/images/logo.png')}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </TouchableWithoutFeedback>
     </View>
     <ScrollView style={{ backgroundColor: WHITE}}>
       <DrawerItems {...props} />      

@@ -5,7 +5,12 @@ import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
 import { w, GREEN, BLACK } from '../../constants/global'
 
-export default class Login extends Component {
+export default class ProductAdded extends Component {
+  navigateToCard = () => {
+    const { hide, navigation } = this.props
+    hide()
+    navigation.navigate('Card')    
+  }
   render() {
     const { visibility, hide } = this.props
     return (
@@ -14,7 +19,7 @@ export default class Login extends Component {
           <View style={{padding: 15}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <Button onPress={() => hide()} title="Продолжить покупки" style={{backgroundColor: 'rgba(0, 0, 0, 0.08)', width: 180 }} textStyle={{color: BLACK, fontSize: 12 }} />
-              <Button title="Оформить заказ" style={{backgroundColor: GREEN, width: 180 }} textStyle={{ fontSize: 12 }} />
+              <Button onPress={() => this.navigateToCard()} title="Оформить заказ" style={{backgroundColor: GREEN, width: 180 }} textStyle={{ fontSize: 12 }} />
             </View>
           </View>
         </Window>

@@ -103,7 +103,7 @@ class Catalog extends Component {
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
         <Header onPress={() => navigation.openDrawer()} />
-        <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
+        <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
         <SortModal visibility={sortShow} hide={() => this.setState({sortShow: false})} />
         <CategorySlider data={categories} navigation={navigation} />

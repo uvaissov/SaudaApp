@@ -99,7 +99,7 @@ class ProductView extends Component {
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
-        <ProductAdded visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
+        <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
           <View style={{margin: 15}}><Text style={[styles.itemDesc, {color: GREEN}]}> В каталог</Text></View>
         </TouchableOpacity>
