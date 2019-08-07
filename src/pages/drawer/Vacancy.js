@@ -21,7 +21,7 @@ class Vacancy extends Component {
 
   getData = async (page) => {
     try {
-      const { data } = await axios.get(`${hostName}/api/v1/jobs?page=${page}`)
+      const { data } = await axios.get(`${hostName}/api/v1/jobs?per_page=8&page=${page}`)
       const { current_page, last_page, data: array } = data
       return { current_page, last_page, items: array.map(({ id, title, payment_type, salary, employment_type }) => ({ id, title, payment_type, salary, employment_type }))}
     } catch (error) {
@@ -51,9 +51,10 @@ class Vacancy extends Component {
             data={items}
             renderItem={this._renderItem}
             keyExtractor={(item) => item.id}
-            ListFooterComponent={() => (<ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={(page) => this.toPage(page)} />)}
+            //ListFooterComponent={() => (<ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={(page) => this.toPage(page)} />)}
           />              
         </ScrollView>
+        <ItemFooter current_page={current_page} last_page={last_page} elementCount={4} onPagePress={(page) => this.toPage(page)} />
         <Footer navigation={navigation} />
       </View>
     )

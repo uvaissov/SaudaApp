@@ -14,10 +14,29 @@ class Footer extends Component {
     regShow: false,
     callBackShow: false
   }
+
+  componentDidMount() {
+    if (this.props.onRef) {
+      this.props.onRef(this)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.onRef) {
+      this.props.onRef(undefined)
+    }
+  }
+
   createAccountClick = () => {
     this.setState({loginShow: false})
     const me = this
     setTimeout(() => { me.setState({regShow: true}) }, 500)    
+  }
+
+  clickRemember = () => {
+    const { navigation } = this.props
+    this.setState({loginShow: false})
+    navigation.navigate('Remember')
   }
 
   profileClick = () => {
@@ -34,7 +53,7 @@ class Footer extends Component {
     const { navigation, items } = this.props
     return (
       <View style={[styles.container, styles.shadow]}>
-        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.createAccountClick()} />           
+        <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.createAccountClick()} remember={() => this.clickRemember()} />           
         <Registration visibility={regShow} hide={() => this.setState({regShow: false})} />
         <Callback visibility={callBackShow} hide={() => this.setState({callBackShow: false})} />
         <View style={styles.view}>

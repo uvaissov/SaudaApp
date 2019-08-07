@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, Platform, Animated, Easing, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { ScrollView, View, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { createDrawerNavigator, createAppContainer, DrawerItems, createStackNavigator } from 'react-navigation'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
@@ -14,6 +14,8 @@ import Contact from './drawer/Contact'
 import Card from './Card'
 import Favorite from './Favorite/Favorite'
 import Profile from './Profile/Profile'
+import Remember from './Profile/Remember'
+import ChangePassword from './Profile/ChangePassword'
 import MyOrders from './MyOrders/MyOrders'
 import { w, WHITE, FONT, normalize } from '../constants/global'
 import { SocialLinks } from './SocialLinks'
@@ -43,7 +45,7 @@ const CustomDrawerComponent = (props) => (
     <SocialLinks />
   </View>
 )
-
+/*
 const CollapseExpand = (index, position) => {
   const inputRange = [index - 1, index, index + 1]
   const opacity = position.interpolate({
@@ -95,6 +97,7 @@ const TransitionConfiguration = () => {
     }
   }
 }
+*/
 
 const CatalogStack = createStackNavigator(
   {
@@ -110,6 +113,32 @@ const CatalogStack = createStackNavigator(
   }
 )
 
+const CardStack = createStackNavigator(
+  {
+    Card,
+    ProductView
+  },
+  {
+    initialRouteName: 'Card',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
+const FavStack = createStackNavigator(
+  {
+    Favorite,
+    ProductView
+  },
+  {
+    initialRouteName: 'Favorite',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
 const styles = StyleSheet.create({
   image: {
     height: 30,
@@ -119,19 +148,31 @@ const styles = StyleSheet.create({
 
 const Screens = createDrawerNavigator({
   Card: {
-    screen: Card,
+    screen: CardStack,
     navigationOptions: {
       drawerLabel: () => null
     }
   },
   Favorite: {
-    screen: Favorite,
+    screen: FavStack,
     navigationOptions: {
       drawerLabel: () => null
     }
   },
   Profile: {
     screen: Profile,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Remember: {
+    screen: Remember,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  ChangePassword: {
+    screen: ChangePassword,
     navigationOptions: {
       drawerLabel: () => null
     }

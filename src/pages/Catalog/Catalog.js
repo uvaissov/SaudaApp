@@ -99,6 +99,8 @@ class Catalog extends Component {
     const categoryId = this.props.navigation.getParam('categoryId')
     const { navigation, categories } = this.props
     const { filterShow, productAddShow, sortShow } = this.state
+    const [blank = {}] = _.filter(categories, (item) => item.id === categoryId)
+    const { name } = blank
     return (
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
@@ -109,7 +111,7 @@ class Catalog extends Component {
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          
           <View style={styles.bodyView}>            
-            <Text style={styles.headerText}>{_.filter(categories, (item) => item.id === categoryId)[0].name}</Text>
+            <Text style={styles.headerText}>{name}</Text>
           </View>
           {this._renderHeader()}
           {this._renderFlat()}          

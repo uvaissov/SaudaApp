@@ -42,7 +42,13 @@ class Card extends Component {
   }
 
   _makeOrder = async () => {
-    const { total_price } = this.props    
+    const { total_price, token } = this.props
+
+    if (!token) {
+      this.showLogin()
+      return
+    }
+
     if (total_price <= 0) {
       Alert.alert(
         'Корзина пустая',
@@ -84,6 +90,10 @@ class Card extends Component {
       />
     )
   }
+  showLogin = () => {
+    this.child.profileClick()
+  }
+
   render() {
     const { navigation, total_price } = this.props    
     return (
@@ -98,10 +108,10 @@ class Card extends Component {
             <View style={styles.totalBoxView}><Text style={styles.totalBoxText}>{total_price} тг</Text></View>
           </View>
           <View style={styles.buttonView}>
-            <Button title="Оформит заказ" style={{paddingHorizontal: 50}} onPress={() => this._makeOrder()} />
+            <Button title="Оформить заказ" style={{paddingHorizontal: 50}} onPress={() => this._makeOrder()} />
           </View>       
         </ScrollView>
-        <Footer navigation={navigation} />
+        <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
       </View>
     )
   }
@@ -170,7 +180,8 @@ const mapStateToProps = state => {
     items: state.card.items,
     isLoadingItems: state.card.isLoadingItems,
     count: state.card.count,
-    total_price: state.card.total_price
+    total_price: state.card.total_price,
+    token: state.auth.token
   }
 }
 export default connect(mapStateToProps, { addToCard, getCard, removeFromCard, makeOrder, getMyOrders })(Card)

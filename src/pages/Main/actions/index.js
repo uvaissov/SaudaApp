@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { hostName } from '../../../constants/global'
-import { transformCategory, transformBrand, transformProduct } from '../../../transform'
+import { transformCategory, transformBrand, transformProduct, transformCity } from '../../../transform'
 import {
   ACTION_GET_CATEGORIOS_SUCCESED,
   ACTION_GET_CATEGORIOS_FAILED,
@@ -53,7 +53,7 @@ export const getCities = () => async dispatch => {
       type: ACTION_GET_CATEGORIOS_STARTED
     })
     const response = await axios.get(`${hostName}/api/v1/cities`)
-    const data = response.data.map((row) => transformBrand(row))
+    const data = response.data.map((row) => transformCity(row))
     dispatch({
       type: ACTION_GET_CITY_SUCCESED,
       payload: data

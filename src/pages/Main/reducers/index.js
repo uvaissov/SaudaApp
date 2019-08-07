@@ -11,7 +11,14 @@ const initialState = {
   isLoading: false,
   categories: [],
   cities: [],
-  sliders: []
+  sliders: [],
+  brandSliders: [
+    { img: require('../../../../resources/images/img/brands/1.png')},
+    { img: require('../../../../resources/images/img/brands/2.png')},
+    { img: require('../../../../resources/images/img/brands/3.png')},
+    { img: require('../../../../resources/images/img/brands/4.png')},
+    { img: require('../../../../resources/images/img/brands/5.png')}
+  ]
 }
   
 export default (state = initialState, action) => {

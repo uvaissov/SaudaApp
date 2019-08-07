@@ -7,20 +7,22 @@ import { w, GREEN, BLACK } from '../../constants/global'
 
 export default class Callback extends Component {
   state={
-    selected: false
+    selected: false,
+    number: '',
+    name: ''
   }
   render() {
     const { visibility, hide } = this.props
-    const { selected } = this.state
+    const { selected, number, name } = this.state
     return (
       <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
-        <Window style={styles.view} title="Обратный звонок">
+        <Window closed={() => hide()} style={styles.view} title="Обратный звонок">
           <View style={{padding: 15}}>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Ваш E-mail" />
+              <TextInput value={number} onChangeText={(text) => this.setState({number: text})} style={styles.textInput} placeholder="Ваш номер" />
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Ваше имя" />              
+              <TextInput value={name} onChangeText={(text) => this.setState({name: text})} style={styles.textInput} placeholder="Ваше имя" />              
             </View>            
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 20 }}>
               <Button title="Отправить" style={{backgroundColor: GREEN, width: 150 }} />              

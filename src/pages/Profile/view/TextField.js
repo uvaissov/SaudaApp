@@ -2,10 +2,10 @@ import React from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import { WHITE, GREEN, FONT, normalize, BLACK } from '../../../constants/global'
 
-const TextField = ({value, placeholder, style, onChange}) => {  
+const TextField = ({value, placeholder, style, onChange, wordStyle}) => {  
   return (
     <View style={[styles.view, style]}>
-      <TextInput style={styles.word} value={value} onChange={onChange} placeholder={placeholder} />
+      <TextInput style={[styles.word, wordStyle]} value={value} onChange={onChange} placeholder={placeholder} />
     </View>
   )
 }

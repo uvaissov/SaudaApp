@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, GREEN, FONT, normalize } from '../../../constants/global'
 
-const HeaderButtonContainer = ({selected, navigation, style, token}) => {  
+const HeaderButtonContainer = ({selected, navigation, style, token, showLogin}) => {  
   this.renderButtonProfile = () => {
     if (selected === 'profile') {
       return (
@@ -17,7 +17,7 @@ const HeaderButtonContainer = ({selected, navigation, style, token}) => {
         </View>)
     }
     return (
-      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('Profile') } }}>
+      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('Profile') } else showLogin() }}>
         <View style={styles.buttonBox}>
           <FastImage
             style={[styles.image, styles.shadow]}
@@ -40,7 +40,7 @@ const HeaderButtonContainer = ({selected, navigation, style, token}) => {
         </View>)
     }
     return (
-      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('MyOrders') } }}>
+      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('MyOrders') } else showLogin() }}>
         <View style={styles.buttonBox}>
           <FastImage
             style={[styles.image, styles.shadow]}
@@ -63,7 +63,7 @@ const HeaderButtonContainer = ({selected, navigation, style, token}) => {
         </View>)
     }
     return (
-      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('Favorite') } }}>
+      <TouchableOpacity onPress={() => { if (token) { navigation.navigate('Favorite') } else showLogin() }}>
         <View style={[styles.buttonBox]}>
           <FastImage
             style={[styles.image, styles.shadow]}

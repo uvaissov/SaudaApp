@@ -10,7 +10,7 @@ import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w, hostName, GREEN, WHITE } from '../../constants/global'
+import { w, hostName, GREEN, WHITE, BLACK, BG_COLOR } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
@@ -31,6 +31,7 @@ class ProductView extends Component {
     const { id } = this.props.navigation.getParam('product')
     axios.get(`${hostName}/api/v1/offer/${id}`)
       .then((res) => {
+        console.log(res)
         this.setState(
           {
             item: transformProduct(res.data.product), 
@@ -100,31 +101,33 @@ class ProductView extends Component {
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
-        <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
-          <View style={{margin: 15}}><Text style={[styles.itemDesc, {color: GREEN}]}> В каталог</Text></View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View style={{marginVertical: 15, backgroundColor: WHITE, paddingHorizontal: 15}}><Text style={[styles.itemDesc, {color: GREEN}]}> В каталог</Text></View>
         </TouchableOpacity>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-          <View style={styles.favoritePos}>
-            {this.renderFavButton()}
-          </View>
-          <View style={styles.imgView}>
-            <FastImage
-              style={{ height: 300, width: w - 50 }} 
-              height={300}
-              width={w - 50}
-              source={item.img}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>          
-          <View style={styles.bodyView}>
-            <View><Text style={styles.itemTitle} >{item.title}</Text></View>
-            <View><Text style={styles.itemDesc} >{item.short_description}</Text></View>
-            <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
-            <View style={{marginTop: 10}}><CountControl count={count} onPressLeft={() => this.changeCount(-1)} onPressRight={() => this.changeCount(1)} /></View>
-            <View style={{marginTop: 10}}><Button title="В корзину" icon="cart" onPress={() => this._addToCard(item.id, count)} /></View>
-            <View style={{marginTop: 10}}><Button style={{backgroundColor: '#E54B65'}} title="В избранное" icon="heart" onPress={() => this.toFavorite(item)} /></View>
-            <View style={{marginBottom: 20}}>
-              <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.description} imagesMaxWidth={w} />
+          <View style={[styles.bodyView, styles.shadow]}> 
+            <View style={styles.favoritePos}>
+              {this.renderFavButton()}
+            </View>
+            <View style={styles.imgView}>
+              <FastImage
+                style={{ height: 300, width: w - 50 }} 
+                height={300}
+                width={w - 50}
+                source={item.img}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>          
+            <View >
+              <View><Text style={styles.itemTitle} >{item.title}</Text></View>
+              <View><Text style={styles.itemDesc} >{item.short_description}</Text></View>
+              <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
+              <View style={{marginTop: 10}}><CountControl count={count} onPressLeft={() => this.changeCount(-1)} onPressRight={() => this.changeCount(1)} /></View>
+              <View style={{marginTop: 10}}><Button title="В корзину" icon="cart" onPress={() => this._addToCard(item.id, count)} /></View>
+              <View style={{marginTop: 10}}><Button style={{backgroundColor: '#E54B65'}} title="В избранное" icon="heart" onPress={() => this.toFavorite(item)} /></View>
+              <View style={{marginBottom: 20}}>
+                <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.description} imagesMaxWidth={w} />
+              </View>
             </View>
           </View>
           {this._renderOftenBy()}
@@ -143,7 +146,11 @@ const styles = StyleSheet.create({
     paddingBottom: 25
   },
   bodyView: {
-    paddingHorizontal: 25
+    marginHorizontal: 25,
+    paddingHorizontal: 20,
+    backgroundColor: WHITE,
+    borderWidth: 0,
+    marginBottom: 25
   },
   favoritePos: {
     position: 'absolute', 
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
     fontFamily: 'CenturyGothic',
     fontSize: 16,
     color: 'rgba(0,0,0,0.7)',
-    marginTop: 10   
+    marginVertical: 10   
   },
   itemDescFull: {    
     fontFamily: 'CenturyGothic',
@@ -176,20 +183,20 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    backgroundColor: BG_COLOR
   },
   scrollView: {
     //margin: 25,
     flex: 1
   },
   shadow: {
-    shadowColor: 'rgba(48, 25, 0, 0.1)',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: 'rgba(0, 0, 0, 1)',
+    shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.1,
-    shadowRadius: 16,
+    shadowRadius: 4,
     elevation: 8,
     position: 'relative'
-
   }
 })
 

@@ -5,6 +5,11 @@ export function transformBrand(data) {
   return {id, name: title}
 }
 
+export function transformCity(data) {
+  const { id, title } = data
+  return {key: id, label: title}
+}
+
 export function transformCategory(data) {
   const { id, name, children, image } = data  
   return { 

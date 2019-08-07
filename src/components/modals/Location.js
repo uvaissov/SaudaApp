@@ -1,22 +1,42 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import _ from 'lodash'
 import Modal from 'react-native-modal'
-import { w } from '../../constants/global'
+import ModalSelector from 'react-native-modal-selector'
+import { connect } from 'react-redux'
+import { selectCity } from '../../pages/Auth/actions'
+import { w, BG_COLOR, GREEN, RED } from '../../constants/global'
 import { Button } from '../../pages/Catalog/view/Button'
 
-export default class Location extends Component {
+class Location extends Component {
   render() {
-    const { visibility, hide } = this.props
+    const { visibility, hide, cities, city } = this.props
+    const [blank = {}] = _.filter(cities, (item) => item.key === city)
+    const { label = ''} = blank
     return (
       <Modal useNativeDriver style={styles.container} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.2} backdropColor="#000" >
         <View style={styles.container}>
           <View style={[styles.view, styles.shadow]}>
             <View style={styles.viewText}>
               <Text style={styles.text}>Ваше местоположение:</Text>
-              <Text style={styles.location}>Алматы </Text>
+              <Text style={styles.location}>{label} </Text>
             </View>
             <View style={{width: 200, marginTop: 20}}>
-              <Button title="Изменить" onPress={() => {}} style={{backgroundColor: '#00CC65' }} />
+              <ModalSelector
+                optionContainerStyle={styles.optionContainerStyle}
+                optionTextStyle={styles.optionTextStyle}
+                sectionTextStyle={styles.optionTextStyle}
+                cancelStyle={styles.optionContainerStyle}
+                cancelTextStyle={styles.cancelTextStyle}
+                selectStyle={styles.selectStyle}
+                selectTextStyle={styles.selectTextStyle}
+                backdropPressToClose
+                data={[{ key: 0, section: true, label: 'Выберите город' }, ...cities]}
+                cancelText="Отмена"
+                onChange={(option) => { this.props.selectCity(option.key) }}
+              >
+                <Button title="Изменить" onPress={() => {}} style={{backgroundColor: '#00CC65' }} />
+              </ModalSelector>
             </View>           
           </View>
         </View>
@@ -58,5 +78,37 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
     position: 'relative'
+  },
+  optionContainerStyle: {
+    backgroundColor: BG_COLOR,
+    borderWidth: 1,
+    borderColor: GREEN
+  },
+  optionTextStyle: {
+    color: GREEN
+  },
+  cancelTextStyle: {
+    paddingVertical: 5,
+    color: RED
+  },
+  selectStyle: {
+    borderColor: GREEN,
+    borderWidth: 1,
+    borderRadius: 1,
+    flexDirection: 'row',
+    paddingVertical: 10
+  },
+  selectTextStyle: {
+    fontSize: 16,
+    color: 'white',
+    paddingHorizontal: 15
   }
 })
+
+const mapStateToProps = state => {
+  return {
+    cities: state.main.cities,
+    city: state.auth.city
+  }
+}
+export default connect(mapStateToProps, { selectCity })(Location)

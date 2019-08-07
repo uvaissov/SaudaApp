@@ -31,6 +31,9 @@ class MyOrders extends Component {
       />
     )
   }
+  showLogin = () => {
+    this.child.profileClick()
+  }
   
   render() {
     const { navigation, token } = this.props
@@ -38,13 +41,13 @@ class MyOrders extends Component {
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
-        <HeaderButtonContainer selected="orders" navigation={navigation} token={token} />
+        <HeaderButtonContainer showLogin={this.showLogin} selected="orders" navigation={navigation} token={token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={styles.bodyView}>
             {this._renderFlat()}
           </View>
         </ScrollView>
-        <Footer navigation={navigation} />
+        <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
       </View>
     )
   }

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { StyleSheet, View } from 'react-native'
 import HTML from 'react-native-render-html'
-import { w, FONT, BLACK } from '../../../constants/global'
+import Entypo from 'react-native-vector-icons/Entypo'
+import { w, FONT, BLACK, GREEN } from '../../../constants/global'
 
 class DelivaryView extends Component {
   state = {
@@ -12,7 +13,7 @@ class DelivaryView extends Component {
     const { item } = this.props
     return (
       <View style={[styles.container]}>
-        <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.content} imagesMaxWidth={w} tagsStyles={propsStyle.tagsStyles} classesStyles={propsStyle.classesStyles} />
+        <HTML allowedStyles={['color']} baseFontStyle={styles.itemDescFull} html={item.content} imagesMaxWidth={w} tagsStyles={propsStyle.tagsStyles} classesStyles={propsStyle.classesStyles} listsPrefixesRenderers={propsStyle.listRenders} />
       </View>
     )
   }
@@ -44,6 +45,13 @@ const styles = StyleSheet.create({
 })
 
 const propsStyle = {
+  listRenders: {
+    ul: (htmlAttribs, children, convertedCSSStyles, passProps) => {
+      return (
+        <Entypo color={GREEN} name="dot-single" size={23} />
+      )
+    }
+  },
   tagsStyles: { img: { alignSelf: 'center'} },
   classesStyles: { 
     'text-style': { fontWeight: '800' }, 

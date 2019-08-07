@@ -18,7 +18,7 @@ const HeaderButtonDelivery = ({selected, style, onPress}) => {
     }
     return (
       <TouchableOpacity onPress={() => { onPress(0) }}>
-        <View style={styles.buttonBox}>
+        <View style={[styles.buttonBox, styles.shadow]}>
           <FastImage
             style={[styles.image, styles.shadow]}
             source={require('../../../../resources/images/icons/delivery/car.png')}
@@ -41,7 +41,7 @@ const HeaderButtonDelivery = ({selected, style, onPress}) => {
     }
     return (
       <TouchableOpacity onPress={() => { onPress(1) }}>
-        <View style={styles.buttonBox}>
+        <View style={[styles.buttonBox, styles.shadow]}>
           <FastImage
             style={[styles.image, styles.shadow]}
             source={require('../../../../resources/images/icons/delivery/pay.png')}
@@ -64,7 +64,7 @@ const HeaderButtonDelivery = ({selected, style, onPress}) => {
     }
     return (
       <TouchableOpacity onPress={() => { onPress(2) }}>
-        <View style={[styles.buttonBox]}>
+        <View style={[styles.buttonBox, styles.shadow]}>
           <FastImage
             style={[styles.image, styles.shadow]}
             source={require('../../../../resources/images/icons/delivery/fav.png')}
@@ -89,7 +89,7 @@ const HeaderButtonDelivery = ({selected, style, onPress}) => {
     }
     return (
       <TouchableOpacity onPress={() => { onPress(3) }}>
-        <View style={[styles.buttonBox]}>
+        <View style={[styles.buttonBox, styles.shadow]}>
           <FastImage
             style={[styles.image, styles.shadow]}
             source={require('../../../../resources/images/icons/delivery/box.png')}
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     height: 45,
     marginHorizontal: 5,
     marginVertical: 10,
-    backgroundColor: GREEN,
+    //backgroundColor: GREEN,
     borderRadius: 30
   },
   word: {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     color: WHITE
   },
   buttonBox: {
-    marginHorizontal: 10
+    marginHorizontal: 0
   },
   selectedBox: {
     flex: 1, 

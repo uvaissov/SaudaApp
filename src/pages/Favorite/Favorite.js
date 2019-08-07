@@ -32,8 +32,9 @@ class Favotite extends Component {
   }
 
   _renderItem =({ item }) => {
-    //const { navigation } = this.props
-    return (<ItemFavView key={_.uniqueId('ItemFavView')} onCardPress={this._addToCard} item={item} onPress={() => {}} />)
+    const { navigation } = this.props
+    console.log(navigation)
+    return (<ItemFavView key={_.uniqueId('ItemFavView')} onCardPress={this._addToCard} item={item} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
   _renderFlat = () => {
@@ -46,6 +47,11 @@ class Favotite extends Component {
       />
     )
   }
+
+  showLogin = () => {
+    this.child.profileClick()
+  }
+  
   render() {
     const { navigation, token } = this.props 
     const { productAddShow } = this.state
@@ -54,11 +60,11 @@ class Favotite extends Component {
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
         <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
-        <HeaderButtonContainer selected="favorite" navigation={navigation} token={token} />
+        <HeaderButtonContainer showLogin={this.showLogin} selected="favorite" navigation={navigation} token={token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           {this._renderFlat()}                
         </ScrollView>
-        <Footer navigation={navigation} />
+        <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
       </View>
     )
   }
@@ -72,6 +78,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingVertical: 25,
+    paddingHorizontal: 20,
     flex: 1
   },
   shadow: {

@@ -20,12 +20,19 @@ export const init = () => async (dispatch, getState) => {
       if (_.isArray(main.cities) && main.cities.length > 0) {        
         dispatch({
           type: ACTION_SELECT_USER_CITY,
-          payload: main.cities[0].id
+          payload: main.cities[0].key
         })
       }
     }
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const selectCity = (value) => {
+  return {
+    type: ACTION_SELECT_USER_CITY,
+    payload: value
   }
 }
 

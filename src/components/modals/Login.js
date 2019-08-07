@@ -42,7 +42,7 @@ class Login extends Component {
   }
 
   render() {
-    const { visibility, hide, reg } = this.props
+    const { visibility, hide, reg, remember } = this.props
     const { mail, password } = this.state
     return (
       <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
@@ -62,7 +62,9 @@ class Login extends Component {
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <Button title="Войти" onPress={() => this.login()} style={{backgroundColor: GREEN, width: 150 }} />
-              <Text style={[styles.word, {color: RED }]}>Забыли пароль?</Text>
+              <TouchableOpacity onPress={() => remember()}>
+                <Text style={[styles.word, {color: RED }]}>Забыли пароль?</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Window>

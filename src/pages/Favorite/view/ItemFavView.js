@@ -13,29 +13,31 @@ class ItemFavView extends Component {
   }
 
   render() {
-    const { item, onCardPress } = this.props
+    const { item, onCardPress, onPress } = this.props
     return (
-      <View style={[styles.container, styles.shadow]}>
-        <View style={styles.rowContainer}>
-          <View style={styles.imgView}>
-            <FastImage
-              style={{ height: 90, width: 70 }} 
-              source={item.img}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={styles.bodyView}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
-              <TouchableOpacity onPress={() => this.remFavorite(item)}>
-                <View><FontAwesome name="trash-o" size={25} color={BLACK} /></View>
-              </TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
+        <View style={[styles.container, styles.shadow]}>
+          <View style={styles.rowContainer}>
+            <View style={styles.imgView}>
+              <FastImage
+                style={{ height: 90, width: 70 }} 
+                source={item.img}
+                resizeMode={FastImage.resizeMode.contain}
+              />
             </View>
-            <View><Text style={styles.itemPriceText}>340 тг</Text></View>
-            <View><Button title="В корзину" icon="cart" onPress={() => onCardPress(item.id, 1)} /></View>
+            <View style={styles.bodyView}>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flex: 1}}><Text style={styles.itemTitle} >{item.title}</Text></View>
+                <TouchableOpacity onPress={() => this.remFavorite(item)}>
+                  <View><FontAwesome name="trash-o" size={25} color={BLACK} /></View>
+                </TouchableOpacity>
+              </View>
+              <View><Text style={styles.itemPriceText}>340 тг</Text></View>
+              <View><Button title="В корзину" icon="cart" onPress={() => onCardPress(item.id, 1)} /></View>
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: w - 50,
-    marginHorizontal: 25,
+    marginHorizontal: 5,
     backgroundColor: 'white',
     padding: 20,
     marginBottom: 20,

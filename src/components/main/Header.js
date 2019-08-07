@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Location from '../modals/Location'
+import { normalize } from '../../constants/global';
 
 export default class Header extends Component {
   state={
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: 'CenturyGothic',
     paddingVertical: 0,
-    fontSize: 14,
+    fontSize: normalize(9),
     height: 30    
   }
 })

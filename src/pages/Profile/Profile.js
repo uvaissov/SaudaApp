@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-//import _ from 'lodash'
+import _ from 'lodash'
 import axios from 'axios'
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native'
 //import axios from 'axios'
 import { connect } from 'react-redux'
 import Header from '../../components/main/Header'
@@ -22,8 +22,59 @@ class Profile extends Component {
       const { token } = this.props.auth
       const { data } = await axios.get(`${hostName}/api/v1/user?api_token=${token}`)
       this.setState(transformProfile(data))
+      console.log(data)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  showLogin = () => {
+    this.child.profileClick()
+  }
+
+  editData = async () => {
+    let data = {}  
+    try {
+      const { token } = this.props.auth
+      const { name, email, phone, address, additional_address } = this.state
+      const response = await axios.post(`${hostName}/api/v1/user/update?api_token=${token}&name=${name}&email=${email}&phone=${phone}&address=${address}&additional_address=${additional_address}`)
+      data = response.data
+      console.log(data)
+    } catch (error) {
+      data = error.response.data
+      console.log(data)
+    }
+
+    const { updated, errors } = data
+    if (!_.isEmpty(errors)) {
+      const values = _.values(errors)
+      let message = ''
+      values.map((row) => {
+        row.map((inner) => {
+          message += `${inner}\n`
+          return message
+        })
+        return message
+      })
+      Alert.alert(
+        'Внимание',
+        message,
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        {cancelable: false},
+      )
+    }
+    console.log(updated)
+    if (updated && updated > -1) {
+      Alert.alert(
+        'Отлично',
+        'Данные сохранены',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        {cancelable: false},
+      )  
     }
   }
   
@@ -34,7 +85,7 @@ class Profile extends Component {
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} />
-        <HeaderButtonContainer selected="profile" navigation={navigation} token={auth.token} />
+        <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={styles.bodyView}>
             <View style={{padding: 10 }}>
@@ -43,16 +94,16 @@ class Profile extends Component {
               <TextField value={phone} onChange={(text) => this.setState({phone: text})} placeholder="Ваш телефон" />
               <TextField value={address} onChange={(text) => this.setState({address: text})} placeholder="Ваш адрес" />
               <TextField value={additional_address} onChange={(text) => this.setState({additional_address: text})} placeholder="Дополнительный адрес" />          
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')}>
                 <Text style={styles.text}>Сменить пароль</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => this.editData()}>
                 <Text style={styles.text}>Редактировать данные</Text>
               </TouchableOpacity>              
             </View>
           </View>
         </ScrollView>
-        <Footer navigation={navigation} />
+        <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
       </View>
     )
   }
