@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import _ from 'lodash'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -25,7 +26,8 @@ class Remember extends Component {
       let data = {}  
       try {
         const { email } = this.state
-        const response = await axios.post(`${hostName}/api/v1/password/email?email=${email}`)
+        console.log(`${hostName}/api/v1/password/email?email=${email}`)
+        const response = await axios.post(`${hostName}/api/v1/password/email?email=${email}`)        
         data = response.data
         console.log(data)
       } catch (error) {
@@ -33,7 +35,7 @@ class Remember extends Component {
         console.log(data)
       }
 
-      const { updated, errors } = data
+      const { status, errors } = data
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let message = ''
@@ -53,11 +55,11 @@ class Remember extends Component {
           {cancelable: false}
         )
       } 
-      if (updated && updated > -1) {
+      if (!_.isEmpty(status)) {
         const { navigation } = this.props
         Alert.alert(
-          'Отлично',
-          'На указанный вами адрес выслан временный пароль',
+          'Статус',
+          status,
           [
             {text: 'OK', onPress: () => navigation.goBack()}
           ],
@@ -73,19 +75,23 @@ class Remember extends Component {
         <View style={[styles.container]}>
           <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
           <Header onPress={() => navigation.openDrawer()} />
-          <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
-          <View style={styles.bodyView}>
-            <View style={{padding: 10 }}>
-              <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Забыли пароль?</Text></View>
-              <Text style={styles.textInfo}>Введите ваш e-mail и Вам на почту придет временный пароль</Text>
-              <TextField wordStyle={{fontSize: normalize(16)}} value={email} onChange={(text) => this.setState({email: text})} placeholder="Ваш E-mail" />
-              <Button onPress={() => this.resetPassword()} title="Отправить" style={{width: 200, alignSelf: 'center', marginTop: 20 }} />
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={styles.textBack}>Вернуться</Text>
-              </TouchableOpacity>       
-            </View>
-          </View>
-          <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
+          <KeyboardAwareScrollView keyboardVerticalOffset={50} behavior="padding" enabled>
+            <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
+            <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Забыли пароль?</Text></View>
+            <View style={styles.bodyView}>
+              <View style={{padding: 10 }}>
+                      
+                <Text style={styles.textInfo}>Введите ваш e-mail и Вам на почту придет временный пароль</Text>
+                <TextField wordStyle={{fontSize: normalize(16)}} value={email} onChange={(text) => this.setState({email: text})} placeholder="Ваш E-mail" />
+                <Button onPress={() => this.resetPassword()} title="Отправить" style={{width: 200, alignSelf: 'center', marginTop: 20 }} />
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Text style={styles.textBack}>Вернуться</Text>
+                </TouchableOpacity>
+             
+              </View>
+            </View>          
+          </KeyboardAwareScrollView>
+          <Footer onRef={ref => (this.child = ref)} navigation={navigation} />          
         </View>
       )
     }

@@ -111,9 +111,7 @@ class ProductView extends Component {
             </View>
             <View style={styles.imgView}>
               <FastImage
-                style={{ height: 300, width: w - 50 }} 
-                height={300}
-                width={w - 50}
+                style={{ flex: 1, height: 280, width: undefined }} 
                 source={item.img}
                 resizeMode={FastImage.resizeMode.contain}
               />
@@ -140,14 +138,12 @@ class ProductView extends Component {
 
 const styles = StyleSheet.create({
   imgView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 25
+    marginBottom: 25
   },
   bodyView: {
     marginHorizontal: 25,
     paddingHorizontal: 20,
+    paddingTop: 20,
     backgroundColor: WHITE,
     borderWidth: 0,
     marginBottom: 25

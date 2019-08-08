@@ -61,13 +61,13 @@ class Registration extends Component {
               <TextInput style={styles.textInput} placeholder="Ваш E-mail" value={mail} onChangeText={(text) => this.setState({mail: text})} />
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Придумайте пароль" value={password} onChangeText={(text) => this.setState({password: text})} />              
+              <TextInput secureTextEntry style={styles.textInput} placeholder="Придумайте пароль" value={password} onChangeText={(text) => this.setState({password: text})} />              
             </View>
             <View>
               <Text style={[styles.word]}>(не короче восьми символов)</Text>
             </View>
             <View style={styles.textView}>
-              <TextInput style={styles.textInput} placeholder="Повторите пароль" value={confirm} onChangeText={(text) => this.setState({confirm: text})} />
+              <TextInput secureTextEntry style={styles.textInput} placeholder="Повторите пароль" value={confirm} onChangeText={(text) => this.setState({confirm: text})} />
             </View>
             <View style={styles.textView}>
               <TextInput style={styles.textInput} placeholder="Ваше имя" value={name} onChangeText={(text) => this.setState({name: text})} />

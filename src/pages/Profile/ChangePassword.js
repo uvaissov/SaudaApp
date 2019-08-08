@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import _ from 'lodash'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -28,7 +29,7 @@ class ChangePassword extends Component {
       try {
         const { token } = this.props.auth
         const { password_old, password, password_confirmation } = this.state
-        const response = await axios.post(`${hostName}/api/v1/cart/user/password?password_old=${password_old}&password=${password}&password_confirmation=${password_confirmation}&api_token=${token}`)
+        const response = await axios.post(`${hostName}/api/v1/user/password?password_old=${password_old}&password=${password}&password_confirmation=${password_confirmation}&api_token=${token}`)
         data = response.data
         console.log(data)
       } catch (error) {
@@ -37,7 +38,7 @@ class ChangePassword extends Component {
         console.log(data)
       }
 
-      const { errors } = data
+      const { password_updated, errors } = data
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let message = ''
@@ -56,11 +57,12 @@ class ChangePassword extends Component {
           ],
           {cancelable: false},
         )
-      } else {
+      }  
+      if (password_updated && password_updated > -1) {
         const { navigation } = this.props
         Alert.alert(
-          'Отлично',
-          'На указанный вами адрес выслан временный пароль',
+          'Статус',
+          'Пароль успешно изменен',
           [
             {text: 'OK', onPress: () => navigation.goBack()}
           ],
@@ -76,21 +78,23 @@ class ChangePassword extends Component {
         <View style={[styles.container]}>
           <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
           <Header onPress={() => navigation.openDrawer()} />
-          <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
-          <View style={styles.bodyView}>
-            <View style={{padding: 10 }}>
-              <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Забыли пароль?</Text></View>
-              <Text style={styles.textInfo}>Введите ваш e-mail и Вам на почту придет временный пароль</Text>
-              <TextField wordStyle={{fontSize: normalize(16)}} value={password_old} onChange={(text) => this.setState({password_old: text})} placeholder="Старый пароль" />
-              <TextField wordStyle={{fontSize: normalize(16)}} value={password} onChange={(text) => this.setState({password: text})} placeholder="Новый пароль" />
-              <TextField wordStyle={{fontSize: normalize(16)}} value={password_confirmation} onChange={(text) => this.setState({password_confirmation: text})} placeholder="Подтвердите новый пароль" />
-              <Button onPress={() => this.resetPassword()} title="Сохранить" style={{width: 200, alignSelf: 'center', marginTop: 20 }} />
-              <TouchableOpacity onPress={() => navigation.navigate('Remember')}>
-                <Text style={styles.textBack}>Забыли пароль?</Text>
-              </TouchableOpacity>       
+          <KeyboardAwareScrollView keyboardVerticalOffset={50} behavior="padding" enabled>
+            <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
+            <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Сменить пароль</Text></View>
+            <View style={styles.bodyView}>
+              <View style={{padding: 10 }}>              
+                <Text style={styles.textInfo}>Введите ваш e-mail и Вам на почту придет временный пароль</Text>
+                <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password_old} onChange={(text) => this.setState({password_old: text})} placeholder="Старый пароль" />
+                <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password} onChange={(text) => this.setState({password: text})} placeholder="Новый пароль" />
+                <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password_confirmation} onChange={(text) => this.setState({password_confirmation: text})} placeholder="Подтвердите новый пароль" />
+                <Button onPress={() => this.resetPassword()} title="Сохранить" style={{width: 200, alignSelf: 'center', marginTop: 20 }} />
+                <TouchableOpacity onPress={() => navigation.navigate('Remember')}>
+                  <Text style={styles.textBack}>Забыли пароль?</Text>
+                </TouchableOpacity>       
+              </View>
             </View>
-          </View>
-          <Footer onRef={ref => (this.child = ref)} navigation={navigation} />
+          </KeyboardAwareScrollView>      
+          <Footer onRef={ref => (this.child = ref)} navigation={navigation} />         
         </View>
       )
     }

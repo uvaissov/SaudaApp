@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import _ from 'lodash'
 import Modal from 'react-native-modal'
 import ModalSelector from 'react-native-modal-selector'
 import { connect } from 'react-redux'
 import { selectCity } from '../../pages/Auth/actions'
-import { w, BG_COLOR, GREEN, RED } from '../../constants/global'
+import { w, BG_COLOR, GREEN, RED, WHITE } from '../../constants/global'
 import { Button } from '../../pages/Catalog/view/Button'
 
 class Location extends Component {
@@ -15,6 +16,11 @@ class Location extends Component {
     const { label = ''} = blank
     return (
       <Modal useNativeDriver style={styles.container} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.2} backdropColor="#000" >
+        <TouchableOpacity style={styles.closeBtnView} onPress={() => hide()} >
+          <View style={styles.closeBtn}>
+            <EvilIcons name="close" size={30} />
+          </View>
+        </TouchableOpacity>
         <View style={styles.container}>
           <View style={[styles.view, styles.shadow]}>
             <View style={styles.viewText}>
@@ -46,6 +52,18 @@ class Location extends Component {
 }
 
 const styles = StyleSheet.create({
+  closeBtnView: {
+    top: -25
+  },
+  closeBtn: {
+    backgroundColor: WHITE,
+    borderRadius: 100,    
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50
+  },
   text: {
     fontFamily: 'CenturyGothic',
     fontSize: 16,
