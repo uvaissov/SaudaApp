@@ -55,7 +55,7 @@ class Contact extends Component {
                     initialRegion={{
                       latitude: lat,
                       longitude: long,
-                      latitudeDelta: 0.01his122,
+                      latitudeDelta: 0.01122,
                       longitudeDelta: 0.00121
                     }}
                   >
