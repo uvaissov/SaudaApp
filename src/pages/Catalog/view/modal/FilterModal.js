@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, ScrollView, FlatList } from 'react-native'
+import { Text, StyleSheet, View, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { changePriceMIn, changePriceMax} from '../../actions'
-import { w, h } from '../../../../constants/global'
+import { w, h, WHITE } from '../../../../constants/global'
 import { OutlineOption } from '../OutlineOption'
 import ScrollElement from './ScrollElement'
 
@@ -65,7 +66,12 @@ class FilterModal extends Component {
           useNativeDriver
         >
           
-          <View style={styles.view}>          
+          <View style={styles.view}>
+            <TouchableOpacity style={styles.closeBtnView} onPress={() => hide()} >
+              <View style={styles.closeBtn}>
+                <EvilIcons name="close" size={30} />
+              </View>
+            </TouchableOpacity>        
             <View style={styles.content}>
               <View>
                 <Text style={styles.brendWord}>Бренд</Text>
@@ -173,6 +179,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     height: 30,
     color: 'rgba(0, 0, 0, 1)'
+  },
+  closeBtnView: {
+    top: -25
+  },
+  closeBtn: {
+    backgroundColor: WHITE,
+    borderRadius: 100,    
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50
   }
 })
 

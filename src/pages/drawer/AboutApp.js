@@ -36,7 +36,7 @@ class AboutApp extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <FlatList 
             style={{paddingHorizontal: 8}}

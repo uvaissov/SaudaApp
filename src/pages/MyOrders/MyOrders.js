@@ -40,7 +40,7 @@ class MyOrders extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <HeaderButtonContainer showLogin={this.showLogin} selected="orders" navigation={navigation} token={token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={styles.bodyView}>

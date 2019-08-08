@@ -36,7 +36,7 @@ class DeliveryAndPay extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <HeaderButtonDelivery selected={selected} onPress={(index) => this.setState({ selected: index })} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={{paddingHorizontal: 1}}>

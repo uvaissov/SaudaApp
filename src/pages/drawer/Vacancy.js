@@ -6,7 +6,7 @@ import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import ItemFooter from '../Catalog/view/ItemFooter'
 import VacancyView from './view/VacancyView'
-import { WHITE, RED, BLACK, FONT, BG_COLOR, normalize, hostName } from '../../constants/global'
+import { WHITE, FONT, BG_COLOR, normalize, hostName } from '../../constants/global'
 
 class Vacancy extends Component {
   state = {
@@ -43,7 +43,7 @@ class Vacancy extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Вакансии</Text></View>                  
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <FlatList 

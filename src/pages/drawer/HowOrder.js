@@ -43,7 +43,7 @@ class HowOrder extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Частые вопросы</Text></View>                  
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <FlatList 

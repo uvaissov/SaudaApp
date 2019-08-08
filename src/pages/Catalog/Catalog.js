@@ -16,22 +16,24 @@ import SortModal from './view/modal/SortModal'
 import ProductAdded from '../../components/modals/ProductAdded'
 import Loader from '../../components/Loader'
 import { w, normalize } from '../../constants/global'
+import CategoryModal from './view/modal/CategoryModal'
 
 class Catalog extends Component {
   state={
     filterShow: false,
     sortShow: false,
-    productAddShow: false
+    productAddShow: false,
+    categoryListshow: false
   }
 
   async componentDidMount() {
     this.props.getBrands()
     this._search()
   }
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const categoryId = this.props.navigation.getParam('categoryId')
     const prevCategoryId = prevProps.navigation.getParam('categoryId')
-    if (categoryId && categoryId !== prevCategoryId) {
+    if (prevCategoryId && categoryId && categoryId !== prevCategoryId) {
       this.props.cleanFilters()
       this._search()
     }
@@ -65,10 +67,24 @@ class Catalog extends Component {
   }
 
   _renderHeader = () => {
+    const categoryId = this.props.navigation.getParam('categoryId')
+    const { categories } = this.props
+    let name = null
+    _.forEach(categories, (item) => {
+      const { children } = item
+      const [first] = _.filter(children, (e) => e.id === categoryId)
+      if (!_.isEmpty(first)) {
+        name = first.name
+      }
+    })
+
     return (
-      <View style={styles.listHeaderView} >
-        <OutlineOption style={{width: w / 2.5}} title="Фильтры" onPress={() => this.setState({filterShow: true})} />
-        <OutlineOption style={{width: w / 2.5}} title="Сортировка" onPress={() => this.setState({sortShow: true})} />
+      <View style={{marginTop: 15}}>
+        <OutlineOption style={{width: w - 50}} title={name || 'Категории'} onPress={() => this.setState({categoryListshow: true})} />
+        <View style={styles.listHeaderView} >
+          <OutlineOption style={{width: w / 2.5}} title="Фильтры" onPress={() => this.setState({filterShow: true})} />
+          <OutlineOption style={{width: w / 2.5}} title="Сортировка" onPress={() => this.setState({sortShow: true})} />
+        </View>
       </View>
     )
   }
@@ -98,16 +114,24 @@ class Catalog extends Component {
   render() {
     const categoryId = this.props.navigation.getParam('categoryId')
     const { navigation, categories } = this.props
-    const { filterShow, productAddShow, sortShow } = this.state
-    const [blank = {}] = _.filter(categories, (item) => item.id === categoryId)
-    const { name } = blank
+    const { filterShow, productAddShow, sortShow, categoryListshow } = this.state
+    const [category = {}] = _.filter(categories, (item) => {
+      const { children } = item
+      const [first] = _.filter(children, (e) => e.id === categoryId)
+      if (!_.isEmpty(first)) {
+        return true
+      }
+      return item.id === categoryId 
+    })
+    const { name, children } = category
     return (
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />        
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <FilterModal visibility={filterShow} hide={() => this.setState({filterShow: false})} />
         <SortModal visibility={sortShow} hide={() => this.setState({sortShow: false})} />
+        <CategoryModal categoryId={categoryId} data={children} visibility={categoryListshow} hide={() => this.setState({categoryListshow: false})} navigation={navigation} />
         <CategorySlider data={categories} navigation={navigation} />
         <ScrollView style={styles.scrollView}>          
           <View style={styles.bodyView}>            

@@ -10,7 +10,7 @@ import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w, hostName, GREEN, WHITE, BLACK, BG_COLOR } from '../../constants/global'
+import { w, hostName, GREEN, WHITE, BG_COLOR } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
@@ -99,7 +99,7 @@ class ProductView extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={{marginVertical: 15, backgroundColor: WHITE, paddingHorizontal: 15}}><Text style={[styles.itemDesc, {color: GREEN}]}> В каталог</Text></View>

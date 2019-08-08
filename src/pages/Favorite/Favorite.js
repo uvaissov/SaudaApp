@@ -58,7 +58,7 @@ class Favotite extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <ProductAdded navigation={navigation} visibility={productAddShow} hide={() => this.setState({productAddShow: false})} />
         <HeaderButtonContainer showLogin={this.showLogin} selected="favorite" navigation={navigation} token={token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          

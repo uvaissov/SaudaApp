@@ -10,7 +10,11 @@ import {
   ACTION_CLEAN_FILTERS,
   ACTION_CHANGE_PRICE_MIN_FILTER,
   ACTION_CHANGE_PRICE_MAX_FILTER,
-  ACTION_SET_SORTED
+  ACTION_SET_SORTED,
+  ACTION_SET_SEARCH_TEXT,
+  ACTION_GET_SEARCH_ITEMS_SUCCESED,
+  ACTION_GET_SEARCH_ITEMS_FAILED,
+  ACTION_GET_SEARCH_ITEMS_STARTED
 } from '../types'
 
 const initialState = {
@@ -28,7 +32,12 @@ const initialState = {
   sorted: 'date_sort',
   filterBrands: [],
   filterPriceMin: null,
-  filterPriceMax: null
+  filterPriceMax: null,
+  search: '',
+  s_items: [],
+  s_current_page: 1,
+  s_last_page: 1,
+  s_isLoadingItems: false
 }
   
 export default (state = initialState, action) => {
@@ -53,6 +62,12 @@ export default (state = initialState, action) => {
       sorted: action.payload
     }
   }
+  case ACTION_SET_SEARCH_TEXT: {
+    return {
+      ...state,
+      search: action.payload
+    }
+  }
   case ACTION_CHANGE_PRICE_MIN_FILTER: {
     return {
       ...state,
@@ -72,6 +87,28 @@ export default (state = initialState, action) => {
       current_page: action.current_page,
       last_page: action.last_page,
       isLoadingItems: false
+    }
+  }
+  case ACTION_GET_SEARCH_ITEMS_SUCCESED: {
+    return {
+      ...state,
+      s_items: action.payload,
+      s_current_page: action.current_page,
+      s_last_page: action.last_page,
+      s_isLoadingItems: false
+    }
+  }
+  case ACTION_GET_SEARCH_ITEMS_STARTED: {
+    return {
+      ...state,
+      s_isLoadingItems: true,
+      s_items: []
+    }
+  }
+  case ACTION_GET_SEARCH_ITEMS_FAILED: {
+    return {
+      ...state,
+      s_isLoadingItems: false
     }
   }
   case ACTION_GET_ITEMS_STARTED: {

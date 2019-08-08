@@ -7,12 +7,14 @@ import Login from '../../components/modals/Login'
 import Registration from '../../components/modals/Registration'
 import Callback from '../../components/modals/Callback'
 import { RED, FONT, WHITE, normalize } from '../../constants/global'
+import CallBackIntro from '../modals/CallBackIntro'
 
 class Footer extends Component {
   state={
     loginShow: false,
     regShow: false,
-    callBackShow: false
+    callBackShow: false,
+    callBackIntroShow: false
   }
 
   componentDidMount() {
@@ -39,6 +41,12 @@ class Footer extends Component {
     navigation.navigate('Remember')
   }
 
+  clickCallBack = () => {
+    this.setState({callBackIntroShow: false})
+    const me = this
+    setTimeout(() => { me.setState({callBackShow: true}) }, 500)    
+  }
+
   profileClick = () => {
     const { token, navigation } = this.props
     if (_.isEmpty(token)) {
@@ -49,13 +57,14 @@ class Footer extends Component {
   }
   
   render() {
-    const { loginShow, regShow, callBackShow } = this.state
+    const { loginShow, regShow, callBackShow, callBackIntroShow } = this.state
     const { navigation, items } = this.props
     return (
       <View style={[styles.container, styles.shadow]}>
         <Login visibility={loginShow} hide={() => this.setState({loginShow: false})} reg={() => this.createAccountClick()} remember={() => this.clickRemember()} />           
         <Registration visibility={regShow} hide={() => this.setState({regShow: false})} />
         <Callback visibility={callBackShow} hide={() => this.setState({callBackShow: false})} />
+        <CallBackIntro callback={() => this.clickCallBack()} visibility={callBackIntroShow} hide={() => this.setState({callBackIntroShow: false})} />
         <View style={styles.view}>
           <TouchableOpacity onPress={() => this.profileClick()}>
             <View style={styles.buttton}>
@@ -75,7 +84,7 @@ class Footer extends Component {
               /> 
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.setState({callBackShow: true})}>
+          <TouchableOpacity onPress={() => this.setState({callBackIntroShow: true})}>
             <View style={styles.buttton}>
               <FastImage
                 style={styles.image}

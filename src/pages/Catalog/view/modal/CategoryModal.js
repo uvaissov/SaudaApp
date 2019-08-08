@@ -5,12 +5,12 @@ import Modal from 'react-native-modal'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { connect } from 'react-redux'
 import { setSorted } from '../../actions'
-import ScrollElementSort from './ScrollElementSort'
+import ScrollElementCategory from './ScrollElementCategory'
 import { w, h, WHITE } from '../../../../constants/global'
 
-class SortModal extends Component {  
+class CategoryModal extends Component {  
   render() {
-    const { visibility, hide, sort} = this.props
+    const { visibility, hide, data, navigation, categoryId } = this.props
     return (
       <Modal                   
         deviceWidth={w}
@@ -31,8 +31,8 @@ class SortModal extends Component {
           </TouchableOpacity>          
           <View style={styles.content}>              
             <FlatList 
-              data={sort}
-              renderItem={({item}) => (<ScrollElementSort item={item} />)}
+              data={data}
+              renderItem={({item}) => (<ScrollElementCategory hide={hide} categoryId={categoryId} navigation={navigation} item={item} />)}
             />
           </View>           
         </View>          
@@ -78,5 +78,5 @@ const mapStateToProps = state => {
     sorted: state.catalog.sorted
   }
 }
-export default connect(mapStateToProps, { setSorted })(SortModal)
+export default connect(mapStateToProps, { setSorted })(CategoryModal)
   

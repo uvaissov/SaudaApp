@@ -5,6 +5,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
 import Main from './Main/Main'
 import Catalog from './Catalog/Catalog'
+import Search from './Catalog/Search'
 import ProductView from './Product/ProductView'
 import HowOrder from './drawer/HowOrder'
 import DeliveryAndPay from './drawer/DeliveryAndPay'
@@ -139,6 +140,19 @@ const FavStack = createStackNavigator(
   }
 )
 
+const SearchStack = createStackNavigator(
+  {
+    Search,
+    ProductView
+  },
+  {
+    initialRouteName: 'Search',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
 const styles = StyleSheet.create({
   image: {
     height: 30,
@@ -179,6 +193,12 @@ const Screens = createDrawerNavigator({
   },
   MyOrders: {
     screen: MyOrders,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Search: {
+    screen: SearchStack,
     navigationOptions: {
       drawerLabel: () => null
     }

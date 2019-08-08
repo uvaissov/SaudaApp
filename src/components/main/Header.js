@@ -1,16 +1,32 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+import _ from 'lodash'
 import FastImage from 'react-native-fast-image'
+import { changeText, searchQuery } from '../../pages/Catalog/actions'
 import Location from '../modals/Location'
-import { normalize } from '../../constants/global';
+import { normalize } from '../../constants/global'
 
-export default class Header extends Component {
+class Header extends Component {
   state={
-    locationShow: false
+    locationShow: false,
+    text: ''
   }
 
+  changeText = (text) => {
+    this.props.changeText(text)
+  }
+
+  search = () => {
+    const { search, navigation } = this.props
+    if (!_.isEmpty(search)) {
+      navigation.navigate('Search')
+      this.props.searchQuery()
+    }
+  }  
+
   render() {
-    const { onPress } = this.props
+    const { onPress, search } = this.props
     const { locationShow } = this.state
     return (
       <View style={[styles.container, styles.shadow]}>
@@ -24,12 +40,14 @@ export default class Header extends Component {
             />
           </TouchableOpacity>
           <View style={styles.textView}>
-            <TextInput style={[styles.textInput]} placeholder="Введите название продукта" />
-            <FastImage
-              style={{height: 15, width: 15}}
-              source={require('../../../resources/images/icons/header/search.png')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
+            <TextInput onSubmitEditing={() => this.search()} returnKeyType="search" value={search} onChangeText={this.changeText} style={[styles.textInput]} placeholder="Введите название продукта" />
+            <TouchableOpacity onPress={() => this.search()}>
+              <FastImage
+                style={{height: 15, width: 15}}
+                source={require('../../../resources/images/icons/header/search.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={() => this.setState({locationShow: true})}>
             <FastImage
@@ -88,3 +106,11 @@ const styles = StyleSheet.create({
     height: 30    
   }
 })
+
+const mapStateToProps = state => {
+  return {
+    search: state.catalog.search
+  }
+}
+
+export default connect(mapStateToProps, { changeText, searchQuery })(Header)

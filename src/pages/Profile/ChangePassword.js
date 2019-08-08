@@ -77,7 +77,7 @@ class ChangePassword extends Component {
       return (
         <View style={[styles.container]}>
           <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
-          <Header onPress={() => navigation.openDrawer()} />
+          <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
           <KeyboardAwareScrollView keyboardVerticalOffset={50} behavior="padding" enabled>
             <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
             <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Сменить пароль</Text></View>

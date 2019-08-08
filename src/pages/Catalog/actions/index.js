@@ -13,7 +13,11 @@ import {
   ACTION_CLEAN_FILTERS,
   ACTION_CHANGE_PRICE_MIN_FILTER,
   ACTION_CHANGE_PRICE_MAX_FILTER,
-  ACTION_SET_SORTED
+  ACTION_SET_SORTED,
+  ACTION_SET_SEARCH_TEXT,
+  ACTION_GET_SEARCH_ITEMS_SUCCESED,
+  ACTION_GET_SEARCH_ITEMS_STARTED,
+  ACTION_GET_SEARCH_ITEMS_FAILED
 } from '../types'
 
 /** {id: 'date_sort', name: 'По новинкам'}, 
@@ -93,6 +97,30 @@ export const getBrands = () => async dispatch => {
   }
 }
 
+export const searchQuery = (page) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ACTION_GET_SEARCH_ITEMS_STARTED
+    })
+    const { city } = getState().auth
+    const { search } = getState().catalog     
+    const response = await axios.get(`${hostName}/api/v1/search/${search}?city=${city}&per_page=8&page=${page}`)
+    const { current_page, data, last_page} = response.data
+    const items = data.map((row) => transformProduct(row))
+    dispatch({
+      type: ACTION_GET_SEARCH_ITEMS_SUCCESED,
+      payload: items,
+      current_page,
+      last_page
+    })
+  } catch (error) {
+    dispatch({
+      type: ACTION_GET_SEARCH_ITEMS_FAILED,
+      error
+    })
+  }
+}
+
 export const changePriceMIn = (value) => {
   return {
     type: ACTION_CHANGE_PRICE_MIN_FILTER,
@@ -124,6 +152,13 @@ export const delBrandFilter = (value) => {
 export const setSorted = (value) => {
   return {
     type: ACTION_SET_SORTED,
+    payload: value
+  }
+}
+
+export const changeText = (value) => {
+  return {
+    type: ACTION_SET_SEARCH_TEXT,
     payload: value
   }
 }

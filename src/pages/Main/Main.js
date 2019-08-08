@@ -31,7 +31,7 @@ class Main extends Component {
     return (
       <View style={styles.container}>
         <CustomStatusBar backgroundColor="white" barStyle="dark-content" />
-        <Header onPress={() => navigation.openDrawer()} />
+        <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <ScrollView style={styles.scrollView}>
           <View style={styles.bodyView}>
             <CategorySlider data={categories} navigation={navigation} />
