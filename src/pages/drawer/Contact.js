@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -10,10 +11,12 @@ import { WHITE, hostName, BG_COLOR, normalize, FONT, w } from '../../constants/g
 
 class Contact extends Component {
   state = {
-    
+    //lat: 43.251888,
+    //long: 126.888429
   }
   async componentDidMount() {
     const data = await this.getData()
+    console.log(data)
     this.setState(data)
   }
 
@@ -21,7 +24,9 @@ class Contact extends Component {
     try {
       const { data } = await axios.get(`${hostName}/api/v1/contacts`)
       const { id, address, fphone, sphone, email, schedule, location } = data
-      return { id, address, fphone, sphone, email, schedule, location }
+      const [lat, long] = location.split(',')
+      const result = { id, address, fphone, sphone, email, schedule, lat: parseFloat(lat), long: parseFloat(long) }
+      return result
     } catch (error) {
       return { items: [], error }
     }
@@ -32,7 +37,7 @@ class Contact extends Component {
   }
   render() {
     const { navigation } = this.props 
-    const { address, fphone, sphone, email, schedule, location } = this.state   
+    const { address, fphone, sphone, email, schedule, lat, long } = this.state   
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -41,11 +46,28 @@ class Contact extends Component {
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           <View style={{flex: 1, backgroundColor: BG_COLOR}} >
             <View style={{height: 250, width: w }} >
-              <FastImage
-                style={[{height: 250, width: w }]}
-                source={require('../../../resources/images/map.png')}
-                resizeMode={FastImage.resizeMode.stretch}
-              />
+              {
+                lat && long &&
+                (
+                  <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={styles.map}
+                    initialRegion={{
+                      latitude: lat,
+                      longitude: long,
+                      latitudeDelta: 0.01his122,
+                      longitudeDelta: 0.00121
+                    }}
+                  >
+                    <Marker
+                      coordinate={{latitude: lat, longitude: long}}
+                      title={'123'}
+                      description={'wqwe'}
+                    />
+                  </MapView>
+                )
+              }
+              
             </View>
             <View style={styles.rowCont}>
               <FastImage
@@ -136,6 +158,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: normalize(17),
     fontFamily: FONT
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
   }
 })
 
