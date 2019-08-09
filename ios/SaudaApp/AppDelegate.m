@@ -13,6 +13,8 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 
+#import "RNSplashScreen.h"  // here
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,6 +32,9 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  [RNSplashScreen show];
+  
   return YES;
 }
 

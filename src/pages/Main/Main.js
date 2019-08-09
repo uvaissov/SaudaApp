@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView, Text} from 'react-native'
 import { connect } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen'
 import { getCategories, getCities, getSliders } from './actions'
 import { getCard } from '../Card/actions'
 import { init } from '../Auth/actions'
@@ -13,13 +14,16 @@ import Loader from '../../components/Loader'
 import { FONT, normalize, RED } from '../../constants/global'
 
 class Main extends Component {
-  async componentDidMount() {    
+  async componentDidMount() {
     this.props.getCategories()
     this.props.getSliders()
     await this.props.getCities()
     //init call after city putted to reduce
     await this.props.init()
     this.props.getCard()
+    setTimeout(() => {
+      SplashScreen.hide()
+    }, 500)
   }
   render() {
     const { navigation, categories, isLoading, sliders, brandSliders } = this.props

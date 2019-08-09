@@ -24,6 +24,7 @@
     "react-native-phone-call": "^1.0.9",
     "react-native-read-more-text": "^1.1.0",
     "react-native-render-html": "^4.1.2",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^9.5.3",
     "react-native-svg-icon": "^0.8.1",
     "react-native-swiper": "^1.5.14",
