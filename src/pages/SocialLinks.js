@@ -1,14 +1,30 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { WHITE, GREEN, FONT, normalize, BLACK } from '../constants/global'
+import Share from 'react-native-share'
+import { WHITE, GREEN, FONT, normalize, BLACK, hostName } from '../constants/global'
 
 const SocialLinks = () => {
+  this.shareApp = (social) => {
+    const shareOptions = {
+      title: 'Dosta-market',
+      message: 'Советую',
+      url: hostName,
+      social
+    }
+    Share.shareSingle(shareOptions)
+  }
+  this.shareVk = () => {
+    let url = `http://vk.com/share.php?url=${hostName}`
+    url += '&noparse=true'
+    Linking.openURL(url)
+  }
+
   return (
     <View style={{justifyContent: 'flex-end'}}>
       <Text style={styles.shareText}>Поделиться</Text>
       <View style={[styles.view]}>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { this.shareVk() }}>
           <View style={[styles.buttonBox]}>
             <FastImage
               style={[styles.image, styles.shadow]}
@@ -17,7 +33,7 @@ const SocialLinks = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { this.shareApp(Share.Social.INSTAGRAM) }}>
           <View style={[styles.buttonBox]}>
             <FastImage
               style={[styles.image, styles.shadow]}
@@ -26,7 +42,7 @@ const SocialLinks = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { this.shareApp(Share.Social.WHATSAPP) }}>
           <View style={[styles.buttonBox]}>
             <FastImage
               style={[styles.image, styles.shadow]}
@@ -35,7 +51,7 @@ const SocialLinks = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { this.shareApp(Share.Social.FACEBOOK) }}>
           <View style={[styles.buttonBox]}>
             <FastImage
               style={[styles.image, styles.shadow]}

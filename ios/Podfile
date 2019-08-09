@@ -42,6 +42,8 @@ target 'SaudaApp' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
 end
 
 # this is needed to avoid including multiple references to react.
