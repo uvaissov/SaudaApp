@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import _ from 'lodash'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import FastImage from 'react-native-fast-image'
@@ -49,7 +48,7 @@ class Footer extends Component {
 
   profileClick = () => {
     const { token, navigation } = this.props
-    if (_.isEmpty(token)) {
+    if (!token) {
       this.setState({loginShow: true})
     } else {
       navigation.navigate('Profile')

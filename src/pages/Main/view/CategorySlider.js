@@ -14,7 +14,12 @@ const CategorySlider = ({
         {
           data.map((item) => {
             return (
-              <TouchableOpacity key={item.id} onPress={() => navigation.navigate('Catalog', {categoryId: item.id})}>
+              <TouchableOpacity 
+                key={item.id} 
+                onPress={() => {
+                  navigation.navigate('Catalog', {categoryId: item.id})
+                }} 
+              >
                 <View key={item.id} style={[child]}>      
                   <FastImage
                     style={{ height: 70, width: 70 }} 

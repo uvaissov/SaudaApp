@@ -48,7 +48,7 @@ class Remember extends Component {
         })
         Alert.alert(
           'Внимание',
-          message,
+          'Мы отправили вам письмо ссылкой на сброс пароля',
           [
             {text: 'OK', onPress: () => console.log('OK Pressed')}
           ],

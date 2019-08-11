@@ -102,12 +102,11 @@ const TransitionConfiguration = () => {
 
 const CatalogStack = createStackNavigator(
   {
-    Main,
     Catalog,
     ProductView
   },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Catalog',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
     //transitionConfig: TransitionConfiguration
@@ -204,6 +203,12 @@ const Screens = createDrawerNavigator({
     }
   },
   Main: {
+    screen: Main,
+    navigationOptions: {
+      drawerLabel: () => null
+    }
+  },
+  Catalog: {
     screen: CatalogStack,
     navigationOptions: {
       drawerLabel: 'Каталог',

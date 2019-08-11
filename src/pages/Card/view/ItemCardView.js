@@ -45,7 +45,7 @@ class ItemCardView extends Component {
                 onPressRight={() => this.changeCount(1)} 
                 count={this.state.count} 
               />
-              <View style={styles.priceView}><Text style={styles.itemPriceText}>340 тг</Text></View>
+              <View style={styles.priceView}><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
             </View>
           </View>
         </View>

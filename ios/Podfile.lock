@@ -35,6 +35,8 @@ PODS:
     - React
   - react-native-maps (0.25.0):
     - React
+  - react-native-splash-screen (3.2.0):
+    - React
   - React/Core (0.59.9):
     - yoga (= 0.59.9.React)
   - React/CxxBridge (0.59.9):
@@ -88,6 +90,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNShare (1.2.1):
+    - React
   - yoga (0.59.9.React)
 
 DEPENDENCIES:
@@ -98,6 +102,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -111,6 +116,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNShare (from `../node_modules/react-native-share`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -132,6 +138,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -145,8 +155,10 @@ SPEC CHECKSUMS:
   React: a86b92f00edbe1873a63e4a212c29b7a7ad5224f
   react-native-google-maps: 88d750ad441b19c24885f20d43a55ecac25939b5
   react-native-maps: 190c02ca533fddac5bb49cf17bdece3644612107
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
   yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
 
-PODFILE CHECKSUM: 7362399c59b63bf5eea2431da7ff14197bc98c85
+PODFILE CHECKSUM: c7f937918d31bc42127132a381e4e86968672b79
 
 COCOAPODS: 1.7.3

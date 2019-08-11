@@ -32,7 +32,7 @@ class ItemFavView extends Component {
                   <View><FontAwesome name="trash-o" size={25} color={BLACK} /></View>
                 </TouchableOpacity>
               </View>
-              <View><Text style={styles.itemPriceText}>340 тг</Text></View>
+              <View><Text style={styles.itemPriceText}>{item.price} тг</Text></View>
               <View><Button title="В корзину" icon="cart" onPress={() => onCardPress(item.id, 1)} /></View>
             </View>
           </View>

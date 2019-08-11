@@ -10,13 +10,13 @@ export const init = () => async (dispatch, getState) => {
   try {
     const { auth, main } = getState()
     console.log('auth', auth, main)
-    if (_.isEmpty(auth.cardUuid)) {
+    if (!auth.cardUuid) {
       dispatch({
         type: ACTION_SELECT_USER_CARD_UUID,
         payload: uuid.uuid()
       })
     }
-    if (_.isEmpty(auth.city)) {
+    if (!auth.city) {
       if (_.isArray(main.cities) && main.cities.length > 0) {        
         dispatch({
           type: ACTION_SELECT_USER_CITY,

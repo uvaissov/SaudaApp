@@ -82,8 +82,7 @@ class ChangePassword extends Component {
             <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
             <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Сменить пароль</Text></View>
             <View style={styles.bodyView}>
-              <View style={{padding: 10 }}>              
-                <Text style={styles.textInfo}>Введите ваш e-mail и Вам на почту придет временный пароль</Text>
+              <View style={{padding: 10 }}>
                 <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password_old} onChange={(text) => this.setState({password_old: text})} placeholder="Старый пароль" />
                 <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password} onChange={(text) => this.setState({password: text})} placeholder="Новый пароль" />
                 <TextField secureTextEntry wordStyle={{fontSize: normalize(16)}} value={password_confirmation} onChange={(text) => this.setState({password_confirmation: text})} placeholder="Подтвердите новый пароль" />

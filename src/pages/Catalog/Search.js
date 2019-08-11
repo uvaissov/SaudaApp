@@ -50,6 +50,7 @@ class Search extends Component {
     }
     return (
       <FlatList 
+        style={{marginTop: 20}}
         data={s_items}
         renderItem={this._renderItem}
         keyExtractor={(item) => item.id}
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     backgroundColor: '#F9F9F9',
-    padding: 25
+    paddingHorizontal: 20
   },
   bodyView: {
     flex: 1,

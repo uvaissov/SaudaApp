@@ -63,8 +63,9 @@ export const getProducts = (categoryId, page) => async (dispatch, getState) => {
         break
       }     
     }
-    console.log(filterPrice)
-    const response = await axios.get(`${hostName}/api/v1/products/${categoryId}?city=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}${sortLine}`)
+    const url = `${hostName}/api/v1/products/${categoryId}?city_id=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}${sortLine}`
+    console.log(url)
+    const response = await axios.get(url)
     const { current_page, data, last_page} = response.data
     const items = data.map((row) => transformProduct(row))
     dispatch({

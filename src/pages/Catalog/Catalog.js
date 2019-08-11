@@ -26,6 +26,17 @@ class Catalog extends Component {
     categoryListshow: false
   }
 
+  componentWillMount() {
+    const { navigation, categories } = this.props
+    const categoryId = navigation.getParam('categoryId') || navigation.dangerouslyGetParent().getParam('categoryId')
+    if (categoryId && categoryId > -1) {
+      navigation.setParams({categoryId})
+    } else {
+      const [first] = categories
+      navigation.setParams({categoryId: first.id})
+    }
+  }
+
   async componentDidMount() {
     this.props.getBrands()
     this._search()
@@ -33,7 +44,7 @@ class Catalog extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const categoryId = this.props.navigation.getParam('categoryId')
     const prevCategoryId = prevProps.navigation.getParam('categoryId')
-    if (prevCategoryId && categoryId && categoryId !== prevCategoryId) {
+    if (categoryId && categoryId !== prevCategoryId) {
       this.props.cleanFilters()
       this._search()
     }
@@ -57,7 +68,8 @@ class Catalog extends Component {
    }
 
    _search = () => {
-     const categoryId = this.props.navigation.getParam('categoryId')
+     const { navigation } = this.props
+     const categoryId = navigation.getParam('categoryId')
      this.props.getProducts(categoryId, 1)
    }
 
@@ -166,7 +178,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     backgroundColor: '#F9F9F9',
-    paddingHorizontal: 25
+    paddingHorizontal: 20
   },
   bodyView: {
     flex: 1,
