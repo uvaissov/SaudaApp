@@ -41,7 +41,7 @@ class Favotite extends Component {
     const { items } = this.props  
     return (
       <FlatList 
-        style={{marginTop: 5}}
+        style={{marginTop: 15}}
         data={items}
         renderItem={this._renderItem}
         keyExtractor={(item) => item.id}

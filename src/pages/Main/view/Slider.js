@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Text, TouchableOpacity } fr
 import FastImage from 'react-native-fast-image'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
-import { w, GREEN, normalize, BLACK, WHITE } from '../../../constants/global'
+import { w, GREEN, normalize, BLACK, WHITE, RED } from '../../../constants/global'
 
 const getComponentHeight = (weight) => {
   return weight * 0.5
@@ -26,7 +26,7 @@ const SliderApp = ({
                 source={require('../../../../resources/images/img/slider/mob-slider-1.png')}
                 resizeMode={FastImage.resizeMode.cover}
               >  
-                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta market</Text>
                 <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur.</Text>
                 <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur adipisicing.</Text>
                 <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur.</Text>                
@@ -40,7 +40,7 @@ const SliderApp = ({
                 source={require('../../../../resources/images/img/slider/mob-slider-2.png')}
                 resizeMode={FastImage.resizeMode.cover}
               > 
-                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={[styles.dostaText, {color: RED}]}>dosta market</Text>
                 <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Молочная продукция изготавливается исключительно из натурального высококачественного коровьего молока, без добавления консервантов и ГМО.</Text> 
                 <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
                   <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: WHITE}}>
@@ -57,7 +57,7 @@ const SliderApp = ({
                 source={require('../../../../resources/images/img/slider/mob-slider-3.png')}
                 resizeMode={FastImage.resizeMode.cover}
               > 
-                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta market</Text>
                 <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Установи приложение и получай кэшбэк до 20% в заведениях твоего города</Text>
               </FastImage>                           
             </View>
@@ -69,7 +69,7 @@ const SliderApp = ({
                 source={require('../../../../resources/images/img/slider/mob-slider-4.png')}
                 resizeMode={FastImage.resizeMode.cover}
               > 
-                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={[styles.dostaText, {color: '#542e13'}]}>dosta market</Text>
                 <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Соблюдение качества – это хороший знак. Мы усилили контроль качества.</Text> 
                 <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
                   <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e0a800'}}>
