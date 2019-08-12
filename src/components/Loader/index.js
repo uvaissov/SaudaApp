@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
+import { GREEN } from '../../constants/global'
 
-const Loader = ({ animating, color = 'black' }) => (
+const Loader = ({ animating, color = GREEN }) => (
   <View style={styles.container}>
     <ActivityIndicator size="large" color={color} animating={animating} />
   </View>

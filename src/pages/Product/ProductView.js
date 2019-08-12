@@ -94,7 +94,7 @@ class ProductView extends Component {
     const { isLoading, item, count, productAddShow } = this.state
     const { navigation } = this.props
     if (isLoading === true) {
-      return (<Loader animating={!isLoading} />)
+      return (<Loader />)
     }
     return (
       <View style={[styles.container]}>

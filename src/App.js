@@ -31,7 +31,7 @@ export default class App extends Component {
         </PersistGate>
       </Provider>
     ) : (
-      <Loader animating={!isReduxLoaded} color={'black'} />
+      <Loader />
     )
   }
 }

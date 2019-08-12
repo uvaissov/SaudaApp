@@ -1,19 +1,88 @@
 import React from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback, Text } from 'react-native'
+import { View, StyleSheet, TouchableWithoutFeedback, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
-import { w, GREEN, normalize } from '../../../constants/global'
+import { w, GREEN, normalize, BLACK, WHITE } from '../../../constants/global'
 
 const getComponentHeight = (weight) => {
-  return weight
+  return weight * 0.5
 }
 
 const SliderApp = ({
   data,
-  buttons
+  buttons,
+  navigation
 }) => {
   const { child, childBtn } = styles
+  this._renderSwiperStatic = () => {    
+    return (
+      <View style={{paddingHorizontal: 0}}>
+        <Swiper paginationStyle={{ marginHorizontal: 15}} key={data.length} height={getComponentHeight(w, 30) + 10} autoplay autoplayTimeout={3.5} activeDotColor="green" dotColor="black" >
+          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
+            <View key="slider1" style={[child, { width: w }]}>      
+              <FastImage  
+                style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
+                source={require('../../../../resources/images/img/slider/mob-slider-1.png')}
+                resizeMode={FastImage.resizeMode.cover}
+              >  
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur.</Text>
+                <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur adipisicing.</Text>
+                <Text style={{color: BLACK}}>Lorem ipsum dolor sit amet, consectetur.</Text>                
+              </FastImage>                           
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
+            <View key="slider1" style={[child, { width: w }]}>      
+              <FastImage  
+                style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
+                source={require('../../../../resources/images/img/slider/mob-slider-2.png')}
+                resizeMode={FastImage.resizeMode.cover}
+              > 
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Молочная продукция изготавливается исключительно из натурального высококачественного коровьего молока, без добавления консервантов и ГМО.</Text> 
+                <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
+                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: WHITE}}>
+                    <Text style={{color: '#37616e'}}>Смотреть продукты</Text>
+                  </View>
+                </TouchableOpacity>
+              </FastImage>                           
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
+            <View key="slider1" style={[child, { width: w }]}>      
+              <FastImage  
+                style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
+                source={require('../../../../resources/images/img/slider/mob-slider-3.png')}
+                resizeMode={FastImage.resizeMode.cover}
+              > 
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Установи приложение и получай кэшбэк до 20% в заведениях твоего города</Text>
+              </FastImage>                           
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
+            <View key="slider1" style={[child, { width: w }]}>      
+              <FastImage  
+                style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
+                source={require('../../../../resources/images/img/slider/mob-slider-4.png')}
+                resizeMode={FastImage.resizeMode.cover}
+              > 
+                <Text style={[styles.dostaText, {color: GREEN}]}>dosta marget</Text>
+                <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Соблюдение качества – это хороший знак. Мы усилили контроль качества.</Text> 
+                <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
+                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e0a800'}}>
+                    <Text style={{color: WHITE}}>Смотреть продукты</Text>
+                  </View>
+                </TouchableOpacity>
+              </FastImage>                           
+            </View>
+          </TouchableWithoutFeedback>
+        </Swiper>
+      </View>
+    )
+  }
   this._renderSwiper = () => (
     <View style={{paddingHorizontal: 0}}>
       <Swiper paginationStyle={{ marginHorizontal: 15}} key={data.length} height={getComponentHeight(w, 30) + 10} autoplay autoplayTimeout={3.5} activeDotColor="green" dotColor="black" >
@@ -75,7 +144,7 @@ const SliderApp = ({
     return this._renderSwiperBtn()
   }
 
-  return this._renderSwiper()
+  return this._renderSwiperStatic()
 }
 
 const styles = StyleSheet.create({
@@ -92,6 +161,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: w * 0.5,
     textAlign: 'center'
+  },
+  dostaText: {
+    fontFamily: 'ElowenCaps',
+    fontSize: normalize(30),
+    textAlign: 'center',
+    textTransform: 'uppercase'
   },
   container: {
     flex: 1,

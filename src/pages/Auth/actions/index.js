@@ -9,19 +9,32 @@ import { ACTION_SELECT_USER_CARD_UUID, ACTION_SELECT_USER_CITY, ACTION_SET_TOKEN
 export const init = () => async (dispatch, getState) => {  
   try {
     const { auth, main } = getState()
-    console.log('auth', auth, main)
-    if (!auth.cardUuid) {
+    if (!auth.cardUuid) { //Если нет идентификатора корхины надо содать новый
       dispatch({
         type: ACTION_SELECT_USER_CARD_UUID,
         payload: uuid.uuid()
       })
     }
-    if (!auth.city) {
+    if (!auth.city) { //Если нет города по поставим первый
       if (_.isArray(main.cities) && main.cities.length > 0) {        
         dispatch({
           type: ACTION_SELECT_USER_CITY,
           payload: main.cities[0].key
         })
+      }
+    }
+
+    if (auth.token) { //Если есть токен авторизации, надо его проверить на актуальность
+      try {
+        const { token } = auth
+        await axios.get(`${hostName}/api/v1/user?api_token=${token}`)
+      } catch (error) {
+        if (error.response.status === 401) { //Unauthenticated
+          dispatch({
+            type: ACTION_SET_TOKEN,
+            payload: undefined
+          })
+        }
       }
     }
   } catch (error) {

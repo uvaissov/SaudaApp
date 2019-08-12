@@ -46,7 +46,7 @@ class Search extends Component {
     const { s_items, s_isLoadingItems } = this.props
 
     if (s_isLoadingItems === true) {
-      return (<Loader animating={!s_isLoadingItems} />)
+      return (<Loader />)
     }
     return (
       <FlatList 

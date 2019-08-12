@@ -92,7 +92,7 @@ class Catalog extends Component {
 
     return (
       <View style={{marginTop: 15}}>
-        <OutlineOption style={{width: w - 50}} title={name || 'Категории'} onPress={() => this.setState({categoryListshow: true})} />
+        <OutlineOption style={{width: w - 40}} title={name || 'Категории'} onPress={() => this.setState({categoryListshow: true})} />
         <View style={styles.listHeaderView} >
           <OutlineOption style={{width: w / 2.5}} title="Фильтры" onPress={() => this.setState({filterShow: true})} />
           <OutlineOption style={{width: w / 2.5}} title="Сортировка" onPress={() => this.setState({sortShow: true})} />
@@ -110,7 +110,7 @@ class Catalog extends Component {
     const { items, isLoadingItems } = this.props
 
     if (isLoadingItems === true) {
-      return (<Loader animating={!isLoadingItems} />)
+      return (<Loader />)
     }
     return (
       <FlatList 

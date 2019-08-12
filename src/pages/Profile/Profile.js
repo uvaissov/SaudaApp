@@ -24,6 +24,7 @@ class Profile extends Component {
       this.setState(transformProfile(data))
       console.log(data)
     } catch (error) {
+      console.log(error.response)
       console.log(error)
     }
   }

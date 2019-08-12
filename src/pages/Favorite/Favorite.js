@@ -41,6 +41,7 @@ class Favotite extends Component {
     const { items } = this.props  
     return (
       <FlatList 
+        style={{marginTop: 5}}
         data={items}
         renderItem={this._renderItem}
         keyExtractor={(item) => item.id}
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: BG_COLOR
   },
   scrollView: {
-    paddingVertical: 25,
+    //paddingVertical: 25,
     paddingHorizontal: 20,
     flex: 1
   },

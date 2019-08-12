@@ -48,6 +48,7 @@ class Footer extends Component {
 
   profileClick = () => {
     const { token, navigation } = this.props
+    console.log(this.props)
     if (!token) {
       this.setState({loginShow: true})
     } else {

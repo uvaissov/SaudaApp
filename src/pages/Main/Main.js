@@ -29,7 +29,7 @@ class Main extends Component {
     const { navigation, categories, isLoading, sliders, brandSliders } = this.props
 
     if (isLoading === true) {
-      return <Loader animating={!isLoading} color={'black'} />
+      return <Loader />
     }
 
     return (
@@ -39,10 +39,10 @@ class Main extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.bodyView}>
             <CategorySlider data={categories} navigation={navigation} />
-            <SliderApp data={sliders} />
+            <SliderApp navigation={navigation} data={sliders} />
             <View style={styles.whyWeSectionView}>
               <Text style={styles.whyText}>Почему мы?</Text>
-              <Text style={styles.whyDecv}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, enim, provident. Maiores eligendi, nostrum earum asperiores aliquam, ad deserunt autem recusandae, quam alias nihil. Illo, eaque. Error amet sint doloribus quibusdam, laborum, est doloremque nisi ab animi nemo ullam maiores dolores soluta voluptatem non atque, debitis natus sit dolorem officia.</Text>
+              <Text style={styles.whyDecv}>{'Мы сделаем это быстро!\nСоберем и привезем!\nНаши цены ниже чем в магазине!'}</Text> 
             </View>
             <SliderApp buttons data={brandSliders} />
           </View>
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     color: RED
   },
   whyDecv: {
+    textAlign: 'center',
     fontFamily: FONT,
     margin: 15
   }

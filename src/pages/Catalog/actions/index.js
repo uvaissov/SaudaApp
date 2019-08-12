@@ -63,7 +63,7 @@ export const getProducts = (categoryId, page) => async (dispatch, getState) => {
         break
       }     
     }
-    const url = `${hostName}/api/v1/products/${categoryId}?city_id=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}${sortLine}`
+    const url = `${hostName}/api/v1/products/${categoryId}?city_id=${city}&per_page=8&page=${page}${filterBrand}${filterPrice}${sortLine}&timestamp=${new Date().getTime()}`
     console.log(url)
     const response = await axios.get(url)
     const { current_page, data, last_page} = response.data
@@ -105,7 +105,7 @@ export const searchQuery = (page) => async (dispatch, getState) => {
     })
     const { city } = getState().auth
     const { search } = getState().catalog     
-    const response = await axios.get(`${hostName}/api/v1/search/${search}?city=${city}&per_page=8&page=${page}`)
+    const response = await axios.get(`${hostName}/api/v1/search/${search}?city_id=${city}&per_page=8&page=${page}&timestamp=${new Date().getTime()}`)
     const { current_page, data, last_page} = response.data
     const items = data.map((row) => transformProduct(row))
     dispatch({
