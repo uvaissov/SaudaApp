@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { w, GREEN, normalize, BLACK, WHITE } from '../../../constants/global'
 
 const getComponentHeight = (weight) => {
-  return weight * 0.5
+  return weight * 0.8
 }
 
 const SliderApp = ({
