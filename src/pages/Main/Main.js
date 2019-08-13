@@ -47,7 +47,7 @@ class Main extends Component {
             </View>
             <FastImage  
               style={[{ flex: 1, height: 160, width: undefined, justifyContent: 'center', alignItems: 'flex-start' }]} 
-              source={require('../../../resources/images/img/whyWe.png')}
+              source={require('../../../resources/images/img/whyWeshort.png')}
               resizeMode={FastImage.resizeMode.contain}
             />
             <SliderApp buttons data={brandSliders} />
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
   },
   whyWeSectionView: {
     marginTop: 20,
-    padding: 15
+    padding: 15,
+    alignItems: 'center'
   },
   whyText: {
     fontFamily: 'ElowenCaps',
@@ -84,9 +85,8 @@ const styles = StyleSheet.create({
     color: RED
   },
   whyDecv: {
-    textAlign: 'left',    
-    fontFamily: FONT,
-    marginTop: 15
+    textAlign: 'center',    
+    fontFamily: FONT
   }
 })
 
