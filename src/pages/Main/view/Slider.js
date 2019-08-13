@@ -43,7 +43,7 @@ const SliderApp = ({
                 <Text style={[styles.dostaText, {color: RED}]}>dosta market</Text>
                 <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Молочная продукция изготавливается исключительно из натурального высококачественного коровьего молока, без добавления консервантов и ГМО.</Text> 
                 <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
-                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: WHITE}}>
+                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: WHITE, marginTop: 20}}>
                     <Text style={{color: '#37616e'}}>Смотреть продукты</Text>
                   </View>
                 </TouchableOpacity>
@@ -72,7 +72,7 @@ const SliderApp = ({
                 <Text style={[styles.dostaText, {color: '#542e13'}]}>dosta market</Text>
                 <Text style={{color: BLACK, textAlign: 'center', paddingHorizontal: 25}}>Соблюдение качества – это хороший знак. Мы усилили контроль качества.</Text> 
                 <TouchableOpacity onPress={() => navigation.navigate('Catalog')}>
-                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e0a800'}}>
+                  <View style={{width: 200, borderRadius: 25, height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e0a800', marginTop: 20}}>
                     <Text style={{color: WHITE}}>Смотреть продукты</Text>
                   </View>
                 </TouchableOpacity>
@@ -106,7 +106,7 @@ const SliderApp = ({
     </View>
   )
   this._renderSwiperBtn = () => (
-    <View style={{paddingHorizontal: 0}}>
+    <View style={{marginVertical: 20}}>
       <Swiper 
         showsButtons 
         showsPagination={false} 

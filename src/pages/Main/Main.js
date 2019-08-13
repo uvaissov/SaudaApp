@@ -41,14 +41,15 @@ class Main extends Component {
           <View style={styles.bodyView}>
             <CategorySlider data={categories} navigation={navigation} />
             <SliderApp navigation={navigation} data={sliders} />
-            <FastImage  
-              style={[styles.whyWeSectionView, { flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'flex-start' }]} 
-              source={require('../../../resources/images/img/whyWe.png')}
-              resizeMode={FastImage.resizeMode.cover}
-            > 
+            <View style={styles.whyWeSectionView}>
               <Text style={styles.whyText}>Почему мы?</Text>
               <Text style={styles.whyDecv}>{'Мы сделаем это быстро!\nСоберем и привезем!\nНаши цены ниже чем в магазине!'}</Text> 
-            </FastImage>
+            </View>
+            <FastImage  
+              style={[{ flex: 1, height: 160, width: undefined, justifyContent: 'center', alignItems: 'flex-start' }]} 
+              source={require('../../../resources/images/img/whyWe.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
             <SliderApp buttons data={brandSliders} />
           </View>
         </ScrollView>        
@@ -60,7 +61,8 @@ class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1    
+    flex: 1,
+    backgroundColor: WHITE    
   },
   scrollView: {
     flex: 1
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   whyWeSectionView: {
-    marginVertical: 20,
+    marginTop: 20,
     padding: 15
   },
   whyText: {
@@ -82,12 +84,9 @@ const styles = StyleSheet.create({
     color: RED
   },
   whyDecv: {
-    textAlign: 'left',
-    textShadowColor: WHITE,
-    textShadowOffset: { height: 1, width: 1},
-    textShadowRadius: 1,
+    textAlign: 'left',    
     fontFamily: FONT,
-    marginVertical: 15
+    marginTop: 15
   }
 })
 
