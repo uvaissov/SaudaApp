@@ -19,6 +19,10 @@ class Login extends Component {
     const { token, errors } = data
     if (!_.isEmpty(token)) {
       this.props.hide()
+      this.setState({
+        mail: '',
+        password: ''
+      })
     }
     if (!_.isEmpty(errors)) {
       const values = _.values(errors)

@@ -67,7 +67,12 @@ class ChangePassword extends Component {
             {text: 'OK', onPress: () => navigation.goBack()}
           ],
           {cancelable: false},
-        )  
+        )
+        this.setState({ 
+          password_old: '',
+          password: '',
+          password_confirmation: ''
+        })  
       }
     }
 

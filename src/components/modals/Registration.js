@@ -28,6 +28,12 @@ class Registration extends Component {
     const { token, errors } = data
     if (!_.isEmpty(token)) {
       this.props.hide()
+      this.setState({
+        mail: '',
+        password: '',
+        confirm: '',
+        name: ''
+      })
     }
     if (!_.isEmpty(errors)) {
       const values = _.values(errors)
