@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import FastImage from 'react-native-fast-image'
-import { w, normalize } from '../../../constants/global'
+import { w } from '../../../constants/global'
 import { CountCardControl } from './CountCardControl'
 
 class ItemCardView extends Component {
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
   },
   itemTitle: {    
     fontFamily: 'CenturyGothic',
-    fontSize: normalize(11),
+    fontSize: 14,
     color: 'black'
   },
   itemPriceText: {
     fontFamily: 'CenturyGothic',
-    fontSize: normalize(13),
+    fontSize: 14,
     color: '#FF798D'  
   },
   container: {

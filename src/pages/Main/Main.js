@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { StyleSheet, View, ScrollView, Text} from 'react-native'
 import { connect } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
+import FastImage from 'react-native-fast-image'
 import { getCategories, getCities, getSliders } from './actions'
 import { getCard } from '../Card/actions'
 import { init } from '../Auth/actions'
@@ -11,7 +12,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import SliderApp from './view/Slider'
 import CategorySlider from './view/CategorySlider'
 import Loader from '../../components/Loader'
-import { FONT, normalize, RED } from '../../constants/global'
+import { FONT, normalize, RED, WHITE } from '../../constants/global'
 
 class Main extends Component {
   async componentDidMount() {
@@ -40,10 +41,14 @@ class Main extends Component {
           <View style={styles.bodyView}>
             <CategorySlider data={categories} navigation={navigation} />
             <SliderApp navigation={navigation} data={sliders} />
-            <View style={styles.whyWeSectionView}>
+            <FastImage  
+              style={[styles.whyWeSectionView, { flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'flex-start' }]} 
+              source={require('../../../resources/images/img/whyWe.png')}
+              resizeMode={FastImage.resizeMode.cover}
+            > 
               <Text style={styles.whyText}>Почему мы?</Text>
               <Text style={styles.whyDecv}>{'Мы сделаем это быстро!\nСоберем и привезем!\nНаши цены ниже чем в магазине!'}</Text> 
-            </View>
+            </FastImage>
             <SliderApp buttons data={brandSliders} />
           </View>
         </ScrollView>        
@@ -65,20 +70,24 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   whyWeSectionView: {
-    marginVertical: 20
+    marginVertical: 20,
+    padding: 15
   },
   whyText: {
     fontFamily: 'ElowenCaps',
     fontSize: normalize(32),
-    textAlign: 'center',
+    textAlign: 'left',
     textTransform: 'uppercase',
     marginTop: 10,
     color: RED
   },
   whyDecv: {
-    textAlign: 'center',
+    textAlign: 'left',
+    textShadowColor: WHITE,
+    textShadowOffset: { height: 1, width: 1},
+    textShadowRadius: 1,
     fontFamily: FONT,
-    margin: 15
+    marginVertical: 15
   }
 })
 
