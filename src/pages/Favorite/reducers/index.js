@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import {
   ACTION_ADD_FAV_ITEM,
-  ACTION_REM_FAV_ITEM
+  ACTION_REM_FAV_ITEM,
+  ACTION_CLEAR_ALL_FAV_ITEMS
 } from '../types'
   
 const initialState = {
@@ -32,6 +33,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       items: _.reject(state.items, (current) => current.id === action.payload.id)
+    }
+  }
+  case ACTION_CLEAR_ALL_FAV_ITEMS: {
+    return {
+      ...state,
+      items: []
     }
   }
   default: {

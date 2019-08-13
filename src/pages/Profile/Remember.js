@@ -38,17 +38,15 @@ class Remember extends Component {
       const { status, errors } = data
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
+        console.log('values', values)
         let message = ''
         values.map((row) => {
-          row.map((inner) => {
-            message += `${inner}\n`
-            return message
-          })
+          message += `${row}\n`
           return message
         })
         Alert.alert(
           'Внимание',
-          'Мы отправили вам письмо ссылкой на сброс пароля',
+          message,
           [
             {text: 'OK', onPress: () => console.log('OK Pressed')}
           ],
@@ -59,7 +57,7 @@ class Remember extends Component {
         const { navigation } = this.props
         Alert.alert(
           'Статус',
-          status,
+          'Мы отправили вам письмо ссылкой на сброс пароля',
           [
             {text: 'OK', onPress: () => navigation.goBack()}
           ],

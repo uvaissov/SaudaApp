@@ -20,7 +20,7 @@ const SliderApp = ({
       <View style={{paddingHorizontal: 0}}>
         <Swiper paginationStyle={{ marginHorizontal: 15}} key={data.length} height={getComponentHeight(w, 30) + 10} autoplay autoplayTimeout={3.5} activeDotColor="green" dotColor="black" >
           <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
-            <View key="slider1" style={[child, { width: w }]}>      
+            <View style={[child, { width: w }]}>      
               <FastImage  
                 style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
                 source={require('../../../../resources/images/img/slider/mob-slider-1.png')}
@@ -33,8 +33,8 @@ const SliderApp = ({
               </FastImage>                           
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
-            <View key="slider1" style={[child, { width: w }]}>      
+          <TouchableWithoutFeedback key="slidert2" onPress={() => {}}>
+            <View style={[child, { width: w }]}>      
               <FastImage  
                 style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
                 source={require('../../../../resources/images/img/slider/mob-slider-2.png')}
@@ -50,8 +50,8 @@ const SliderApp = ({
               </FastImage>                           
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
-            <View key="slider1" style={[child, { width: w }]}>      
+          <TouchableWithoutFeedback key="slidert3" onPress={() => {}}>
+            <View style={[child, { width: w }]}>      
               <FastImage  
                 style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
                 source={require('../../../../resources/images/img/slider/mob-slider-3.png')}
@@ -62,8 +62,8 @@ const SliderApp = ({
               </FastImage>                           
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback key="slidert1" onPress={() => {}}>
-            <View key="slider1" style={[child, { width: w }]}>      
+          <TouchableWithoutFeedback key="slidert4" onPress={() => {}}>
+            <View style={[child, { width: w }]}>      
               <FastImage  
                 style={{ flex: 1, height: undefined, width: undefined, justifyContent: 'center', alignItems: 'center' }} 
                 source={require('../../../../resources/images/img/slider/mob-slider-4.png')}
@@ -112,27 +112,35 @@ const SliderApp = ({
         showsPagination={false} 
         key={data.length} 
         height={100} 
-        autoplay 
-        autoplayTimeout={3.5} 
+        //autoplay 
+        //autoplayTimeout={3.5} 
         nextButton={(<Text style={styles.buttonText}>›</Text>)}
         prevButton={(<Text style={styles.buttonText}>‹</Text>)}
       >
         {
-          data.map((item) => {
+          data.map((item) => {  
             return (
               <TouchableWithoutFeedback key={item.id} onPress={() => {}}>
                 <View key={item.id} style={[childBtn, { width: w }]}>      
                   <FastImage  
-                    style={{ height: 100, width: 150 }} 
-                    //width={150}
+                    style={{ height: 100, width: 140, marginHorizontal: 5 }}
                     source={item.img}
                     resizeMode={FastImage.resizeMode.contain}
-                  />                           
+                  />
+                  {
+                    item.img1 &&
+                    <FastImage  
+                      style={{ height: 100, width: 140, marginHorizontal: 5 }}
+                      source={item.img1}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  }                          
                 </View>
               </TouchableWithoutFeedback>
-            )
+            )  
           }
           )
+          
         }
       </Swiper>
     </View>
@@ -156,7 +164,8 @@ const styles = StyleSheet.create({
   childBtn: {
     height: 100,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   text: {
     fontSize: w * 0.5,

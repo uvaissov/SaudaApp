@@ -10,6 +10,8 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import { HeaderButtonContainer } from './view/HeaderButtonContainer'
 import { TextField } from './view/TextField'
 import { getProfileData } from './actions'
+import { exit } from '../Auth/actions'
+import { clearFavs } from '../Favorite/actions'
 import { FONT, BG_COLOR, normalize, hostName } from '../../constants/global'
 import { transformProfile } from '../../transform'
 
@@ -31,6 +33,19 @@ class Profile extends Component {
 
   showLogin = () => {
     this.child.profileClick()
+  }
+
+  exit = async () => {
+    this.props.exit()
+    this.props.clearFavs()
+    Alert.alert(
+      'Внимание',
+      'Вы успешно вышли из своего аккаунта',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.goBack()}
+      ],
+      {cancelable: false},
+    ) 
   }
 
   editData = async () => {
@@ -100,7 +115,10 @@ class Profile extends Component {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.editData()}>
                 <Text style={styles.text}>Редактировать данные</Text>
-              </TouchableOpacity>              
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.exit()}>
+                <Text style={styles.text}>Выход из аккаунта</Text>
+              </TouchableOpacity>           
             </View>
           </View>
         </ScrollView>
@@ -140,4 +158,4 @@ const mapStateToProps = state => {
     auth: state.auth
   }
 }
-export default connect(mapStateToProps, { getProfileData })(Profile)
+export default connect(mapStateToProps, { getProfileData, exit, clearFavs })(Profile)

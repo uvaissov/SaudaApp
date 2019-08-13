@@ -13,11 +13,9 @@ const initialState = {
   cities: [],
   sliders: [],
   brandSliders: [
-    { img: require('../../../../resources/images/img/brands/1.png')},
-    { img: require('../../../../resources/images/img/brands/2.png')},
-    { img: require('../../../../resources/images/img/brands/3.png')},
-    { img: require('../../../../resources/images/img/brands/4.png')},
-    { img: require('../../../../resources/images/img/brands/5.png')}
+    { img: require('../../../../resources/images/img/brands/1.png'), img1: require('../../../../resources/images/img/brands/2.png')},
+    { img: require('../../../../resources/images/img/brands/5.png'), img1: require('../../../../resources/images/img/brands/4.png')},
+    { img: require('../../../../resources/images/img/brands/3.png')}
   ]
 }
   
