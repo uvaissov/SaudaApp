@@ -16,7 +16,7 @@ import { } from '../../transform'
 
 class Card extends Component {
   async componentDidMount() {
-    console.log('Card dm')
+    console.log(this.props.profile)
   }
   addWaiting = {}
   _addToCard = async (id, q) => {    
@@ -42,10 +42,22 @@ class Card extends Component {
   }
 
   _makeOrder = async () => {
-    const { total_price, token } = this.props
+    const { total_price, token, profile, navigation } = this.props
 
     if (!token) {
       this.showLogin()
+      return
+    }
+    console.log(profile)
+    if (!profile.address || profile.address.length < 2) {
+      Alert.alert(
+        'Не верные данные',
+        'Сначало необходимо указать адрес доставки',
+        [
+          {text: 'OK', onPress: () => navigation.navigate('Profile')}
+        ],
+        {cancelable: false},
+      )
       return
     }
 
@@ -181,7 +193,8 @@ const mapStateToProps = state => {
     isLoadingItems: state.card.isLoadingItems,
     count: state.card.count,
     total_price: state.card.total_price,
-    token: state.auth.token
+    token: state.auth.token,
+    profile: state.profile
   }
 }
 export default connect(mapStateToProps, { addToCard, getCard, removeFromCard, makeOrder, getMyOrders })(Card)

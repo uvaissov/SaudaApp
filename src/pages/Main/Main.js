@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image'
 import { getCategories, getCities, getSliders } from './actions'
 import { getCard } from '../Card/actions'
 import { init } from '../Auth/actions'
+import { getProfileData, setProfile } from '../Profile/actions'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -17,11 +18,15 @@ import { FONT, normalize, RED, WHITE } from '../../constants/global'
 class Main extends Component {
   async componentDidMount() {
     this.props.getCategories()
-    this.props.getSliders()
+    //this.props.getSliders()
     await this.props.getCities()
     //init call after city putted to reduce
     await this.props.init()
     this.props.getCard()
+    if (this.props.token) {
+      const data = await this.props.getProfileData()
+      this.props.setProfile(data)
+    }
     setTimeout(() => {
       SplashScreen.hide()
     }, 500)
@@ -95,7 +100,8 @@ const mapStateToProps = state => {
     categories: state.main.categories,
     isLoading: state.main.isLoading,
     sliders: state.main.sliders,
-    brandSliders: state.main.brandSliders
+    brandSliders: state.main.brandSliders,
+    token: state.auth.token
   }
 }
-export default connect(mapStateToProps, { init, getCategories, getCities, getCard, getSliders })(Main)
+export default connect(mapStateToProps, { init, getCategories, getCities, getCard, getSliders, getProfileData, setProfile })(Main)

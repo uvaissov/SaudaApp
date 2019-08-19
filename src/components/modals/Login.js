@@ -4,6 +4,7 @@ import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert } from 'reac
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import { login } from '../../pages/Auth/actions'
+import { getProfileData, setProfile } from '../../pages/Profile/actions'
 import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
 import { w, GREEN, BLACK, RED } from '../../constants/global'
@@ -17,8 +18,10 @@ class Login extends Component {
   login = async () => {
     const data = await this.props.login(this.state.mail, this.state.password)
     const { token, errors } = data
-    if (!_.isEmpty(token)) {
+    if (!_.isEmpty(token)) {      
       this.props.hide()
+      const dataCall = await this.props.getProfileData()
+      this.props.setProfile(dataCall)
       this.setState({
         mail: '',
         password: ''
@@ -106,4 +109,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = () => {
   return {}
 }
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, getProfileData, setProfile })(Login)

@@ -4,31 +4,27 @@ import axios from 'axios'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native'
 //import axios from 'axios'
 import { connect } from 'react-redux'
+import { NavigationEvents } from 'react-navigation'
 import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import { HeaderButtonContainer } from './view/HeaderButtonContainer'
 import { TextField } from './view/TextField'
-import { getProfileData } from './actions'
+import { setProfile, getProfileData } from './actions'
 import { exit } from '../Auth/actions'
 import { clearFavs } from '../Favorite/actions'
 import { FONT, BG_COLOR, normalize, hostName } from '../../constants/global'
 import { transformProfile } from '../../transform'
 
 class Profile extends Component {
-  state ={
+  state = {
     name: '', email: '', phone: '', address: '', additional_address: ''
   }
-  async componentDidMount() {
-    try {
-      const { token } = this.props.auth
-      const { data } = await axios.get(`${hostName}/api/v1/user?api_token=${token}`)
-      this.setState(transformProfile(data))
-      console.log(data)
-    } catch (error) {
-      console.log(error.response)
-      console.log(error)
-    }
+
+  loadData = async () => {
+    const data = await this.props.getProfileData()
+    this.props.setProfile(data)
+    this.setState(data)
   }
 
   showLogin = () => {
@@ -38,11 +34,16 @@ class Profile extends Component {
   exit = async () => {
     this.props.exit()
     this.props.clearFavs()
+    this.props.setProfile(transformProfile({}))
+    this.setState(transformProfile({}))
     Alert.alert(
       'Внимание',
       'Вы успешно вышли из своего аккаунта',
       [
-        {text: 'OK', onPress: () => this.props.navigation.goBack()}
+        {text: 'OK', 
+          onPress: () => {
+            this.props.navigation.goBack()        
+          }}
       ],
       {cancelable: false},
     ) 
@@ -90,7 +91,9 @@ class Profile extends Component {
           {text: 'OK', onPress: () => console.log('OK Pressed')}
         ],
         {cancelable: false},
-      )  
+      )
+      const dataCallBack = await this.props.getProfileData()
+      this.props.setProfile(dataCallBack)
     }
   }
   
@@ -100,6 +103,9 @@ class Profile extends Component {
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <NavigationEvents
+          onDidFocus={() => this.loadData()}
+        />
         <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
         <HeaderButtonContainer showLogin={this.showLogin} selected="profile" navigation={navigation} token={auth.token} />
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
@@ -155,7 +161,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    ...state.profile
   }
 }
-export default connect(mapStateToProps, { getProfileData, exit, clearFavs })(Profile)
+export default connect(mapStateToProps, { getProfileData, setProfile, exit, clearFavs })(Profile)
