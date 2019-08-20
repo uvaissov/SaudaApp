@@ -52,7 +52,7 @@ class Login extends Component {
     const { visibility, hide, reg, remember } = this.props
     const { mail, password } = this.state
     return (
-      <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
+      <Modal avoidKeyboard useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
         <Window style={styles.view} title="Вход">
           <View style={{padding: 15}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

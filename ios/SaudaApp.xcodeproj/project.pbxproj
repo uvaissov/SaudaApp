@@ -43,7 +43,7 @@
 		31E21301A9F648698F2EEC18 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9DA5FEBCC941D892E09453 /* libRNGestureHandler.a */; };
 		459A8700EBD842529427D013 /* CenturyGothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6F77C2F854E4EBFA9619D27 /* CenturyGothic.ttf */; };
 		4B316EF422EC0C9C00E1FE8A /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B316EEF22EC0C5400E1FE8A /* libRNSVG.a */; };
-		4B5B628A22FE332000241AAA /* splash.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B625B22FE332000241AAA /* splash.jpeg */; };
+		4BD2CE9D230C2776009F516E /* splash.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4BD2CE9C230C2776009F516E /* splash.jpeg */; };
 		4EE3A5C1F53A48E6BF9E10BF /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 637268B9F4A04088B73E7BEF /* AntDesign.ttf */; };
 		51794C517E514AEAB2353D1D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76391E6F751248619E54215D /* Ionicons.ttf */; };
 		52B1FD5A0D8441E69C53BB0F /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8638F2337AEA49B3AE5FA2B3 /* MaterialIcons.ttf */; };
@@ -438,7 +438,7 @@
 		4167CC4B5B9C41F1941B1B67 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		47E4E72E292F371C5562DF49 /* Pods-SaudaApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaudaApp.release.xcconfig"; path = "Target Support Files/Pods-SaudaApp/Pods-SaudaApp.release.xcconfig"; sourceTree = "<group>"; };
 		4B316EBF22EC0C5400E1FE8A /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
-		4B5B625B22FE332000241AAA /* splash.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splash.jpeg; sourceTree = "<group>"; };
+		4BD2CE9C230C2776009F516E /* splash.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = splash.jpeg; path = "../../Экраны/splash.jpeg"; sourceTree = "<group>"; };
 		50A3A0E6F266C4AAB0DDDD17 /* libPods-SaudaApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SaudaApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B90B2E6C90405BA9EF215D /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -618,7 +618,7 @@
 		13B07FAE1A68108700A75B9A /* SaudaApp */ = {
 			isa = PBXGroup;
 			children = (
-				4B5B625B22FE332000241AAA /* splash.jpeg */,
+				4BD2CE9C230C2776009F516E /* splash.jpeg */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1377,7 +1377,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B5B628A22FE332000241AAA /* splash.jpeg in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				4EE3A5C1F53A48E6BF9E10BF /* AntDesign.ttf in Resources */,
@@ -1393,6 +1392,7 @@
 				5957E9EB19B24D30A0F7A075 /* MaterialCommunityIcons.ttf in Resources */,
 				52B1FD5A0D8441E69C53BB0F /* MaterialIcons.ttf in Resources */,
 				09415DA09D1142BDAA8C30F2 /* Octicons.ttf in Resources */,
+				4BD2CE9D230C2776009F516E /* splash.jpeg in Resources */,
 				6E68DB51D4014019B17F965B /* SimpleLineIcons.ttf in Resources */,
 				71D36F73C3834B62937F748A /* Zocial.ttf in Resources */,
 				459A8700EBD842529427D013 /* CenturyGothic.ttf in Resources */,

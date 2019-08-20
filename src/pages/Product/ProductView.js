@@ -10,7 +10,7 @@ import Header from '../../components/main/Header'
 import Footer from '../../components/main/Footer'
 import ItemRowView from '../Catalog/view/ItemRowView'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { w, hostName, GREEN, WHITE, BG_COLOR } from '../../constants/global'
+import { w, hostName, GREEN, WHITE, BG_COLOR, normalize, FONT } from '../../constants/global'
 import { Button } from '../Catalog/view/Button'
 import { CountControl } from '../Catalog/view/CountControl'
 import Loader from '../../components/Loader'
@@ -49,13 +49,21 @@ class ProductView extends Component {
     return (<ItemRowView item={item} onCardPress={() => this.setState({productAddShow: true})} onPress={() => navigation.push('ProductView', { product: item })} />)
   }
 
+  _renderHeaderOftenBy = () => (
+    <View style={styles.cardTitleView}>
+      <Text style={styles.cardTitleText} >Часто покупают</Text>
+    </View>
+  )
+
   _renderOftenBy = () => {
     const { oftenBuy } = this.state
     return (
       <FlatList 
+        //style={{justifyContent: 'center'}}
         data={oftenBuy}
         renderItem={this._renderItem}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={this._renderHeaderOftenBy}
       />
     )
   }
@@ -140,8 +148,20 @@ const styles = StyleSheet.create({
   imgView: {
     marginBottom: 25
   },
+  cardTitleView: {
+    //backgroundColor: WHITE,
+    marginBottom: 5,
+    marginTop: 10,
+    paddingLeft: 5,
+    paddingVertical: 5
+  },
+  cardTitleText: {
+    textTransform: 'uppercase',
+    fontSize: normalize(17),
+    fontFamily: FONT
+  },
   bodyView: {
-    marginHorizontal: 25,
+    marginHorizontal: 5,
     paddingHorizontal: 20,
     paddingTop: 20,
     backgroundColor: WHITE,
@@ -183,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: BG_COLOR
   },
   scrollView: {
-    //margin: 25,
+    paddingHorizontal: 20,
     flex: 1
   },
   shadow: {

@@ -60,9 +60,9 @@ class Registration extends Component {
     const { visibility, hide } = this.props
     const { mail, password, confirm, name } = this.state
     return (
-      <Modal useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
+      <Modal avoidKeyboard useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
         <Window style={styles.view} title="Регистрация">
-          <View style={{padding: 15}}>
+          <View style={{padding: 15}}>            
             <View style={styles.textView}>
               <TextInput style={styles.textInput} placeholder="Ваш E-mail" value={mail} onChangeText={(text) => this.setState({mail: text})} />
             </View>
@@ -80,7 +80,7 @@ class Registration extends Component {
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
               <Button title="Зарегистрироваться" onPress={() => this.register()} style={{backgroundColor: GREEN, width: 200 }} />              
-            </View>
+            </View>           
           </View>
         </Window>
       </Modal>

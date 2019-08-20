@@ -42,7 +42,7 @@ class Profile extends Component {
       [
         {text: 'OK', 
           onPress: () => {
-            this.props.navigation.goBack()        
+            this.props.navigation.navigate('Main')        
           }}
       ],
       {cancelable: false},
