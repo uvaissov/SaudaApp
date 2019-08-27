@@ -11,10 +11,13 @@ import { Button } from '../Catalog/view/Button'
 import { addToCard, getCard, removeFromCard, makeOrder } from './actions'
 import { getMyOrders } from '../MyOrders/actions'
 import { WHITE, RED, BLACK, FONT, BG_COLOR, normalize } from '../../constants/global'
-//import Loader from '../../components/Loader'
+import MakeOrder from './view/MakeOrder'
 import { } from '../../transform'
 
 class Card extends Component {
+  state= {
+    showMake: false
+  }
   async componentDidMount() {
     console.log(this.props.profile)
   }
@@ -41,26 +44,8 @@ class Card extends Component {
     this.props.getCard()
   }
 
-  _makeOrder = async () => {
-    const { total_price, token, profile, navigation } = this.props
-
-    if (!token) {
-      this.showLogin()
-      return
-    }
-    console.log(profile)
-    if (!profile.address || profile.address.length < 2) {
-      Alert.alert(
-        'Не верные данные',
-        'Сначало необходимо указать адрес доставки',
-        [
-          {text: 'OK', onPress: () => navigation.navigate('Profile')}
-        ],
-        {cancelable: false},
-      )
-      return
-    }
-
+  showDialog = () => {
+    const { total_price } = this.props
     if (total_price <= 0) {
       Alert.alert(
         'Корзина пустая',
@@ -72,19 +57,25 @@ class Card extends Component {
       )
       return 
     }
-    const data = await this.props.makeOrder()
+    this.setState({showMake: true})
+  }
+
+  _makeOrder = async (name, phone, address) => {
+    const data = await this.props.makeOrder(name, phone, address)
     const { order_id } = data
     if (_.isNumber(order_id)) {
       Alert.alert(
-        'Спасибо',
-        'Ваш заказ принят в обработку',
+        'Ваш заказ принят!',
+        'Наш менеджер скоро свяжется с вами',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')}
         ],
         {cancelable: false},
       )
       this.props.getCard()
-      this.props.getMyOrders()
+      if (this.props.token) {
+        this.props.getMyOrders()
+      }      
     }
   }
 
@@ -108,10 +99,12 @@ class Card extends Component {
 
   render() {
     const { navigation, total_price } = this.props    
+    const { showMake } = this.state
     return (
       <View style={[styles.container]}>
         <CustomStatusBar backgroundColor="#fff" barStyle="dark-content" />
         <Header onPress={() => navigation.openDrawer()} navigation={navigation} />
+        <MakeOrder visibility={showMake} action={this._makeOrder} hide={() => this.setState({showMake: false})} />
         <View style={styles.cardTitleView}><Text style={styles.cardTitleText} >Корзина товаров</Text></View>                  
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>          
           {this._renderFlat()}
@@ -120,7 +113,7 @@ class Card extends Component {
             <View style={styles.totalBoxView}><Text style={styles.totalBoxText}>{total_price} тг</Text></View>
           </View>
           <View style={styles.buttonView}>
-            <Button title="Оформить заказ" style={{paddingHorizontal: 50}} onPress={() => this._makeOrder()} />
+            <Button title="Оформить заказ" style={{paddingHorizontal: 50}} onPress={() => this.showDialog()} />
           </View>       
         </ScrollView>
         <Footer onRef={ref => (this.child = ref)} navigation={navigation} />

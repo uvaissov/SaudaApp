@@ -18,6 +18,7 @@ class Login extends Component {
   login = async () => {
     const data = await this.props.login(this.state.mail, this.state.password)
     const { token, errors } = data
+    console.log(data)
     if (!_.isEmpty(token)) {      
       this.props.hide()
       const dataCall = await this.props.getProfileData()

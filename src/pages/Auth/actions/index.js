@@ -56,9 +56,9 @@ export const exit = () => {
   }
 }
 
-export const register = (mail, name, password, confirm) => async (dispatch) => {  
+export const register = (mail, name, password, confirm, phone) => async (dispatch) => {  
   try {
-    const { data } = await axios.post(`${hostName}/api/v1/register?email=${mail}&name=${name}&password=${password}&password_confirmation=${confirm}&address=Test`)
+    const { data } = await axios.post(`${hostName}/api/v1/register?email=${mail}&name=${name}&password=${password}&password_confirmation=${confirm}&phone=${phone}`)
     dispatch({
       type: ACTION_SET_TOKEN,
       payload: data.token
@@ -72,6 +72,7 @@ export const register = (mail, name, password, confirm) => async (dispatch) => {
 
 export const login = (mail, password) => async (dispatch) => {  
   try {
+    console.log(mail, password)
     const { data } = await axios.post(`${hostName}/api/v1/login?email=${mail}&password=${password}`)
     dispatch({
       type: ACTION_SET_TOKEN,

@@ -4,6 +4,7 @@ import { Text, StyleSheet, View, TextInput, Alert } from 'react-native'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import { register } from '../../pages/Auth/actions'
+import { getProfileData, setProfile } from '../../pages/Profile/actions'
 import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
 import { w, GREEN, BLACK } from '../../constants/global'
@@ -13,26 +14,30 @@ class Registration extends Component {
     mail: '',
     password: '',
     confirm: '',
-    name: ''
+    name: '',
+    phone: ''
   }
 
   register = async () => {
-    const { mail, password, confirm, name } = this.state
+    const { mail, password, confirm, name, phone } = this.state
 
     if (!mail || !password || !confirm || !name) {
       //alert('Необходимо заполнить обязательные поля')
       //return {}
     }
 
-    const data = await this.props.register(mail, name, password, confirm)
+    const data = await this.props.register(mail, name, password, confirm, phone)
     const { token, errors } = data
     if (!_.isEmpty(token)) {
       this.props.hide()
+      const dataCall = await this.props.getProfileData()
+      this.props.setProfile(dataCall)
       this.setState({
         mail: '',
         password: '',
         confirm: '',
-        name: ''
+        name: '',
+        phone: ''
       })
     }
     if (!_.isEmpty(errors)) {
@@ -58,7 +63,7 @@ class Registration extends Component {
 
   render() {
     const { visibility, hide } = this.props
-    const { mail, password, confirm, name } = this.state
+    const { mail, password, confirm, name, phone } = this.state
     return (
       <Modal avoidKeyboard useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
         <Window style={styles.view} title="Регистрация">
@@ -77,6 +82,9 @@ class Registration extends Component {
             </View>
             <View style={styles.textView}>
               <TextInput style={styles.textInput} placeholder="Ваше имя" value={name} onChangeText={(text) => this.setState({name: text})} />
+            </View>
+            <View style={styles.textView}>
+              <TextInput style={styles.textInput} placeholder="Номер телефона" value={phone} onChangeText={(text) => this.setState({phone: text})} keyboardType="phone-pad" />
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
               <Button title="Зарегистрироваться" onPress={() => this.register()} style={{backgroundColor: GREEN, width: 200 }} />              
@@ -119,5 +127,5 @@ const styles = StyleSheet.create({
 const mapStateToProps = () => {
   return {}
 }
-export default connect(mapStateToProps, { register })(Registration)
+export default connect(mapStateToProps, { register, getProfileData, setProfile })(Registration)
 //export default Registration
