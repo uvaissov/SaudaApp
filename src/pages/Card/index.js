@@ -68,7 +68,7 @@ class Card extends Component {
         'Ваш заказ принят!',
         'Наш менеджер скоро свяжется с вами',
         [
-          {text: 'OK', onPress: () => console.log('OK Pressed')}
+          {text: 'OK', onPress: () => this.setState({showMake: false})}
         ],
         {cancelable: false},
       )
