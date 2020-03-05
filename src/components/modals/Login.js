@@ -7,7 +7,7 @@ import { login } from '../../pages/Auth/actions'
 import { getProfileData, setProfile } from '../../pages/Profile/actions'
 import { Window } from '../ui/Window'
 import { Button } from '../../pages/Catalog/view/Button'
-import { w, GREEN, BLACK, RED } from '../../constants/global'
+import { w, GREEN, BLACK, RED, h } from '../../constants/global'
 
 class Login extends Component {
   state = {
@@ -53,7 +53,7 @@ class Login extends Component {
     const { visibility, hide, reg, remember } = this.props
     const { mail, password } = this.state
     return (
-      <Modal avoidKeyboard useNativeDriver style={{margin: 0}} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
+      <Modal avoidKeyboard useNativeDriver style={{margin: 0}} deviceHeight={h} deviceWidth={w} isVisible={visibility} onRequestClose={() => hide()} onBackdropPress={() => hide()} backdropOpacity={0.3} backdropColor="#000" >
         <Window style={styles.view} title="Вход">
           <View style={{padding: 15}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

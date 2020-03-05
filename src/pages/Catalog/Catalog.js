@@ -32,7 +32,7 @@ class Catalog extends Component {
     if (categoryId && categoryId > -1) {
       navigation.setParams({categoryId})
     } else {
-      const [first] = categories
+      const [first = {}] = categories
       navigation.setParams({categoryId: first.id})
     }
   }
@@ -129,7 +129,7 @@ class Catalog extends Component {
     const { filterShow, productAddShow, sortShow, categoryListshow } = this.state
     const [category = {}] = _.filter(categories, (item) => {
       const { children } = item
-      const [first] = _.filter(children, (e) => e.id === categoryId)
+      const [first = {}] = _.filter(children, (e) => e.id === categoryId)
       if (!_.isEmpty(first)) {
         return true
       }
