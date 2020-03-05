@@ -22,6 +22,10 @@ class Remember extends Component {
       console.log('dm')
     }
 
+    showLogin = () => {
+      this.child.profileClick()
+    }
+
     resetPassword = async () => {    
       let data = {}  
       try {
