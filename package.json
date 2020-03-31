@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "ios": "react-native run-ios --simulator='iPhone 8 Plus'",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "dev-win": "c: && cd %ANDROID_HOME%\\tools && emulator -avd Pixel_2_API_29",
     "test": "jest"

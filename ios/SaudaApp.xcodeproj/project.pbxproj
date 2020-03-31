@@ -1630,7 +1630,7 @@
 			baseConfigurationReference = AD7AB9139D031835BAEAA9E1 /* Pods-SaudaApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				HEADER_SEARCH_PATHS = (
@@ -1658,7 +1658,7 @@
 			baseConfigurationReference = 47E4E72E292F371C5562DF49 /* Pods-SaudaApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
